@@ -21,49 +21,49 @@ const projects: Project[] = [
   {
     title: 'feedbackPro',
     description: 'feedbackPro',
-    technologies: ['React', 'Redux', 'Express', 'MongoDB'],
+    technologies: ['Python Flask', 'Bootstrap', 'MySQL'],
     detailedDescription: 'feedbackPro'
   },
   {
     title: 'memberGetMember',
     description: 'memberGetMember',
-    technologies: ['React', 'Node.js', 'PostgreSQL'],
+    technologies: ['Python Flask', 'Bootstrap', 'MySQL'],
     detailedDescription: 'memberGetMember'
   },
   {
     title: 'bloolaCM',
     description: 'bloolaCM',
-    technologies: ['React', 'TypeScript', 'Microsoft Teams API'],
+    technologies: ['React', 'TypeScript', 'Microsoft Teams API', 'SharePoint', 'Material UI', 'Styled Components'],
     detailedDescription: 'bloolaCM'
   },
   {
     title: 'bloolaFactory',
     description: 'bloolaFactory',
-    technologies: ['React', 'Redux', 'Node.js'],
+    technologies: ['React', 'Redux', 'SharePoint', 'Material UI', 'Styled Components',],
     detailedDescription: 'bloolaFactory'
   },
   {
     title: 'projectPlanner',
     description: 'projectPlanner',
-    technologies: ['React', 'GraphQL', 'PostgreSQL'],
+    technologies: ['React', 'SharePoint', 'Material UI', 'Custom Components'],
     detailedDescription: 'projectPlanner'
   },
   {
     title: 'travelApp',
     description: 'travelApp',
-    technologies: ['React Native', 'Google Maps API', 'Firebase'],
+    technologies: ['React', 'Zustand'],
     detailedDescription: 'travelApp'
   },
   {
     title: 'bmwLearningFinder',
     description: 'bmwLearningFinder',
-    technologies: ['React', 'SharePoint', 'REST API'],
+    technologies: ['React', 'SharePoint', 'Redux Toolkit'],
     detailedDescription: 'bmwLearningFinder'
   },
   {
     title: 'bdmNetwork',
     description: 'bdmNetwork',
-    technologies: ['React', 'Node.js', 'MongoDB'],
+    technologies: ['MongoDB', 'Express', 'React', 'Node.js'],
     detailedDescription: 'bdmNetwork'
   }
 ];

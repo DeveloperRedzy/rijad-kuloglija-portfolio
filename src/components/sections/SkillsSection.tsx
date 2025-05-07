@@ -14,7 +14,7 @@ const skillCategories: SkillCategory[] = [
     skills: ['JavaScript', 'TypeScript (ES6+)']
   },
   {
-    name: 'Frontend Frameworks & Libraries',
+    name: 'Frameworks & Libraries',
     skills: ['React', 'React Native', 'Next.js', 'Vue 3', 'MUI', 'Styled Components', 'ChakraUI', 'Tailwind CSS', 'shadcn/ui', 'Vuetify']
   },
   {

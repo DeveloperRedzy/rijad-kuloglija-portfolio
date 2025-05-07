@@ -96,7 +96,7 @@ const ExperienceSection: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 -top-1.5 w-4 h-4 rounded-full bg-primary-500 border-2 border-white dark:border-dark-200 z-10"></div>
+                <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 -top-1.5 w-4 h-4 rounded-full bg-primary-500 border-2 border-white dark:border-dark-200 z-10 max-md:ml-[-7px]"></div>
                 
                 {/* Date and Type */}
                 <div className={`md:w-1/2 pb-8 md:pb-0 pl-16 md:pl-0 ${

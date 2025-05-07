@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import SectionHeading from '../shared/SectionHeading';
@@ -6,6 +6,20 @@ import { useTranslation } from 'react-i18next';
 
 const ContactSection: React.FC = () => {
   const { t } = useTranslation();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Kreiraj mailto link sa popunjenim podacima iz forme
+    const mailtoLink = `mailto:rkuloglija@gmail.com?subject=Contact from ${name}&body=Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
+    
+    // Otvori mailto link
+    window.location.href = mailtoLink;
+  };
 
   return (
     <section id="contact" className="py-20 bg-slate-50 dark:bg-dark-100">
@@ -105,7 +119,7 @@ const ContactSection: React.FC = () => {
               {t('contact.sendMessage')}
             </h3>
             
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                   {t('contact.form.name')}
@@ -113,6 +127,8 @@ const ContactSection: React.FC = () => {
                 <input
                   type="text"
                   id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-dark-100 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder={t('contact.form.namePlaceholder')}
                 />
@@ -125,6 +141,8 @@ const ContactSection: React.FC = () => {
                 <input
                   type="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-dark-100 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder={t('contact.form.emailPlaceholder')}
                 />
@@ -137,6 +155,8 @@ const ContactSection: React.FC = () => {
                 <textarea
                   id="message"
                   rows={5}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-dark-100 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                   placeholder={t('contact.form.messagePlaceholder')}
                 ></textarea>

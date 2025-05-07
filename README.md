@@ -26,7 +26,7 @@
 
 ```
 src/
-├── components/     # React komponente
+├── components/    # React komponente
 ├── locales/       # i18n prijevodi
 ├── styles/        # Globalni stilovi
 ├── types/         # TypeScript tipovi
@@ -37,7 +37,7 @@ src/
 
 1. **Clone Repository**
    ```bash
-   git clone https://github.com/yourusername/portfolio.git
+   git clone https://github.com/DeveloperRedzy/rijad-kuloglija-portfolio.git
    ```
 
 2. **Install Dependencies**

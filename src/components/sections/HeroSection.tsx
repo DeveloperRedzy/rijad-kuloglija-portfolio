@@ -30,7 +30,7 @@ const HeroSection: React.FC = () => {
             <div className="flex flex-wrap items-center gap-4">
               <a 
                 href="/Rijad-Kuloglija-CV.pdf" 
-                target="_blank"
+                download
                 rel="noopener noreferrer"
                 className="btn-primary"
               >
@@ -87,7 +87,7 @@ const HeroSection: React.FC = () => {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="bg-white dark:bg-dark-100 p-2 rounded-full w-48 h-48 lg:w-56 lg:h-56 overflow-hidden shadow-lg">
                   <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-4xl">
-                    Redzy.dev
+                    Redzy
                   </div>
                 </div>
               </div>
