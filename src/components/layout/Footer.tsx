@@ -1,13 +1,13 @@
-import React from 'react';
-import { Github, Linkedin, Mail } from 'lucide-react';
-import { Link } from 'react-scroll';
-import Logo from '../shared/Logo';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { Link } from "react-scroll";
+import Logo from "../shared/Logo";
+import { useTranslation } from "react-i18next";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
-  
+
   return (
     <footer className="py-12 bg-slate-900 text-white">
       <div className="container-custom">
@@ -15,12 +15,12 @@ const Footer: React.FC = () => {
           <div className="md:col-span-2">
             <Logo />
             <p className="mt-4 text-slate-400 max-w-md">
-              {t('footer.description')}
+              {t("footer.description")}
             </p>
-            
+
             <div className="flex items-center space-x-4 mt-6">
-              <a 
-                href="https://github.com/DeveloperRedzy" 
+              <a
+                href="https://github.com/DeveloperRedzy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-primary-400 transition-colors duration-200"
@@ -28,8 +28,8 @@ const Footer: React.FC = () => {
               >
                 <Github size={20} />
               </a>
-              <a 
-                href="https://linkedin.com/in/rijad-kuloglija" 
+              <a
+                href="https://linkedin.com/in/rijad-kuloglija"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-primary-400 transition-colors duration-200"
@@ -37,8 +37,8 @@ const Footer: React.FC = () => {
               >
                 <Linkedin size={20} />
               </a>
-              <a 
-                href="mailto:rkuloglija@gmail.com" 
+              <a
+                href="mailto:rkuloglija@gmail.com"
                 className="text-slate-400 hover:text-primary-400 transition-colors duration-200"
                 aria-label="Email"
               >
@@ -46,9 +46,11 @@ const Footer: React.FC = () => {
               </a>
             </div>
           </div>
-          
+
           <div>
-            <h3 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h3>
+            <h3 className="text-lg font-semibold mb-4">
+              {t("footer.quickLinks")}
+            </h3>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -59,7 +61,7 @@ const Footer: React.FC = () => {
                   duration={500}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
-                  {t('nav.about')}
+                  {t("nav.about")}
                 </Link>
               </li>
               <li>
@@ -71,7 +73,7 @@ const Footer: React.FC = () => {
                   duration={500}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
-                  {t('nav.experience')}
+                  {t("nav.experience")}
                 </Link>
               </li>
               <li>
@@ -83,7 +85,7 @@ const Footer: React.FC = () => {
                   duration={500}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
-                  {t('nav.skills')}
+                  {t("nav.skills")}
                 </Link>
               </li>
               <li>
@@ -95,7 +97,7 @@ const Footer: React.FC = () => {
                   duration={500}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
-                  {t('nav.projects')}
+                  {t("nav.projects")}
                 </Link>
               </li>
               <li>
@@ -107,29 +109,29 @@ const Footer: React.FC = () => {
                   duration={500}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
-                  {t('nav.contact')}
+                  {t("nav.contact")}
                 </Link>
               </li>
             </ul>
           </div>
-          
+
           <div>
-            <h3 className="text-lg font-semibold mb-4">{t('footer.contactInfo')}</h3>
+            <h3 className="text-lg font-semibold mb-4">
+              {t("footer.contactInfo")}
+            </h3>
             <ul className="space-y-2">
-              <li className="text-slate-400">
-                {t('about.locationValue')}
-              </li>
+              <li className="text-slate-400">{t("about.locationValue")}</li>
               <li>
-                <a 
-                  href="mailto:rkuloglija@gmail.com" 
+                <a
+                  href="mailto:rkuloglija@gmail.com"
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200"
                 >
-                  {t('about.emailValue')}
+                  {t("about.emailValue")}
                 </a>
               </li>
               <li>
-                <a 
-                  href="https://linkedin.com/in/rijad-kuloglija" 
+                <a
+                  href="https://linkedin.com/in/rijad-kuloglija"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200"
@@ -140,10 +142,10 @@ const Footer: React.FC = () => {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-slate-800 mt-10 pt-6 text-center">
           <p className="text-slate-500">
-            &copy; {currentYear} Rijad Kuloglija. {t('footer.copyright')}
+            &copy; {currentYear} Rijad Kuloglija. {t("footer.copyright")}
           </p>
         </div>
       </div>

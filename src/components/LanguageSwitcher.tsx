@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next';
-import { Globe } from 'lucide-react';
+import { useTranslation } from "react-i18next";
+import { Globe } from "lucide-react";
 
 const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation();
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'bs' : 'en';
+    const newLang = i18n.language === "en" ? "bs" : "en";
     i18n.changeLanguage(newLang);
   };
 
@@ -20,4 +20,4 @@ const LanguageSwitcher = () => {
   );
 };
 
-export default LanguageSwitcher; 
+export default LanguageSwitcher;

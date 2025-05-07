@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { cn } from '../../utils/cn';
+import React from "react";
+import { motion } from "framer-motion";
+import { cn } from "../../utils/cn";
 
 interface SectionHeadingProps {
   title: string;
@@ -8,14 +8,14 @@ interface SectionHeadingProps {
   className?: string;
 }
 
-const SectionHeading: React.FC<SectionHeadingProps> = ({ 
-  title, 
-  subtitle, 
-  className 
+const SectionHeading: React.FC<SectionHeadingProps> = ({
+  title,
+  subtitle,
+  className,
 }) => {
   return (
-    <motion.div 
-      className={cn('mb-12 text-center', className)}
+    <motion.div
+      className={cn("mb-12 text-center", className)}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

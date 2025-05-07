@@ -36,16 +36,19 @@ src/
 ## 🚀 Getting Started
 
 1. **Clone Repository**
+
    ```bash
    git clone https://github.com/DeveloperRedzy/rijad-kuloglija-portfolio.git
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Run Development Server**
+
    ```bash
    npm run dev
    ```
@@ -63,4 +66,4 @@ MIT License - feel free to use this project as a template for your own portfolio
 
 **Rijad Kuloglija**
 
-- LinkedIn: [@rijad-kuloglija](https://www.linkedin.com/in/rijad-kuloglija/) 
+- LinkedIn: [@rijad-kuloglija](https://www.linkedin.com/in/rijad-kuloglija/)

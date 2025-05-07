@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
-import { Moon, Sun, Menu, X, Github, Linkedin, Mail } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
-import { cn } from '../../utils/cn';
-import Logo from '../shared/Logo';
-import LanguageSwitcher from '../LanguageSwitcher';
-import { useTranslation } from 'react-i18next';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-scroll";
+import { Moon, Sun, Menu, X, Github, Linkedin, Mail } from "lucide-react";
+import { useTheme } from "../../context/ThemeContext";
+import { cn } from "../../utils/cn";
+import Logo from "../shared/Logo";
+import LanguageSwitcher from "../LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -14,11 +14,11 @@ const Navbar: React.FC = () => {
   const { t } = useTranslation();
 
   const navLinks = [
-    { name: t('nav.about'), to: 'about' },
-    { name: t('nav.experience'), to: 'experience' },
-    { name: t('nav.skills'), to: 'skills' },
-    { name: t('nav.projects'), to: 'projects' },
-    { name: t('nav.contact'), to: 'contact' },
+    { name: t("nav.about"), to: "about" },
+    { name: t("nav.experience"), to: "experience" },
+    { name: t("nav.skills"), to: "skills" },
+    { name: t("nav.projects"), to: "projects" },
+    { name: t("nav.contact"), to: "contact" },
   ];
 
   useEffect(() => {
@@ -29,17 +29,17 @@ const Navbar: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
 
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4',
-        scrolled 
-          ? 'bg-white/90 dark:bg-dark-200/90 backdrop-blur-sm shadow-sm' 
-          : 'bg-transparent'
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4",
+        scrolled
+          ? "bg-white/90 dark:bg-dark-200/90 backdrop-blur-sm shadow-sm"
+          : "bg-transparent",
       )}
     >
       <div className="container-custom flex items-center justify-between">
@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-dark-100"
           >
-            {theme === 'dark' ? (
+            {theme === "dark" ? (
               <Sun size={20} className="text-yellow-400" />
             ) : (
               <Moon size={20} className="text-slate-700" />
@@ -112,15 +112,15 @@ const Navbar: React.FC = () => {
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-dark-100"
           >
-            {theme === 'dark' ? (
+            {theme === "dark" ? (
               <Sun size={20} className="text-yellow-400" />
             ) : (
               <Moon size={20} className="text-slate-700" />
             )}
           </button>
-          
+
           <LanguageSwitcher />
-          
+
           <button
             aria-label="Toggle menu"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -152,7 +152,7 @@ const Navbar: React.FC = () => {
                 {link.name}
               </Link>
             ))}
-            
+
             <div className="flex items-center space-x-4 pt-2 border-t border-slate-200 dark:border-slate-700">
               <a
                 href="https://github.com/DeveloperRedzy"

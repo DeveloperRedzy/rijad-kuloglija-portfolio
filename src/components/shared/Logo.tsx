@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-scroll';
+import React from "react";
+import { Link } from "react-scroll";
 
 const Logo: React.FC = () => {
   return (
@@ -11,7 +11,8 @@ const Logo: React.FC = () => {
     >
       <img src="/logo.svg" alt="Redzy Logo" className="w-8 h-8" />
       <span className="font-bold text-lg text-slate-800 dark:text-white">
-        Redzy<span className="text-primary-600 dark:text-primary-400">.dev</span>
+        Redzy
+        <span className="text-primary-600 dark:text-primary-400">.dev</span>
       </span>
     </Link>
   );
