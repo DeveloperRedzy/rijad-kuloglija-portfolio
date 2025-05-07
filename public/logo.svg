@@ -1,0 +1,7 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M200 50 L350 150 L350 350 L50 350 L50 150 Z" fill="#000066" stroke="none"/>
+  <path d="M175 150 L225 150 L225 175 L175 175 Z" fill="#990000" stroke="none"/>
+  <path d="M175 200 L225 200 L225 225 L175 225 Z" fill="#990000" stroke="none"/>
+  <path d="M175 250 L225 250 L225 275 L175 275 Z" fill="#990000" stroke="none"/>
+  <path d="M150 75 L250 75 L200 25 Z" fill="#000066" stroke="none"/>
+</svg>

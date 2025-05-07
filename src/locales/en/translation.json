@@ -1,0 +1,205 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "language": {
+    "en": "English",
+    "bs": "Bosnian"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "title": "React Developer with",
+    "years": "years",
+    "experience": "of experience",
+    "description": "I specialize in crafting user-friendly web applications that seamlessly merge technology with design. My expertise lies in creating responsive interfaces and optimizing code for exceptional performance.",
+    "downloadCV": "Download CV",
+    "contactMe": "Contact Me",
+    "scrollDown": "Scroll Down"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "I'm a passionate developer with experience in creating web applications that merge technology with design.",
+    "whoIAm": "Who I Am",
+    "whoIAmText1": "I'm a 26-year-old developer with over five years of experience in building numerous web applications. Throughout my career, I've had the privilege of working on projects for renowned clients such as BMW, Deutsche Bundesbank, ProCredit Bank, Superlex Switzerland, and Porsche.",
+    "whoIAmText2": "These experiences have allowed me to develop and lead both frontend and full-stack solutions, particularly excelling in technologies like React and Vue.js.",
+    "whoIAmText3": "My passion for development is deeply ingrained—I thoroughly enjoy problem-solving and thrive in both individual and collaborative settings. I have extensive experience leading teams, managing entire projects, and directly interacting with clients to ensure their vision is realized.",
+    "whoIAmText4": "My skillset spans from crafting seamless user experiences to architecting scalable and efficient systems, making me a versatile and ambitious professional ready to grow.",
+    "personalInfo": "Personal Information",
+    "location": "Location",
+    "locationValue": "Sarajevo, Bosnia and Herzegovina",
+    "email": "Email",
+    "emailValue": "rkuloglija@gmail.com",
+    "currentPosition": "Current Position",
+    "currentPositionValue": "Full-Stack Developer at ProCredit Bank",
+    "education": "Education",
+    "educationValue": "B.Sc. Computer Science, International Burch University",
+    "languages": "Languages",
+    "languagesValue": "English (Professional), German (Intermediate), Bosnian (Native)"
+  },
+  "footer": {
+    "description": "React developer with 5 years of experience, specializing in crafting user-friendly web applications that seamlessly merge technology with design.",
+    "quickLinks": "Quick Links",
+    "contactInfo": "Contact Info",
+    "copyright": "All rights reserved."
+  },
+  "contact": {
+    "title": "Contact Me",
+    "subtitle": "Feel free to reach out if you have any questions or project inquiries.",
+    "letsGetInTouch": "Let's get in touch!",
+    "description": "I'm currently looking for new opportunities where I can utilize my skills to their fullest potential. Whether you have a question or just want to say hi, I'll try my best to get back to you!",
+    "sendMessage": "Send me a message",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "Your email",
+      "message": "Message",
+      "messagePlaceholder": "Your message",
+      "sendButton": "Send Message"
+    }
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "A selection of my professional work and achievements.",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "viewMore": "View More on GitHub",
+    "description": "These are just some highlights of the projects I've worked on throughout my career. Interested in more detailed information or discussing specific projects?",
+    "items": {
+      "ultimateDashboard": {
+        "title": "Ultimate Dashboard",
+        "description": "Comprehensive HR dashboard application for employee management",
+        "detailedDescription": "Ultimate HR Dashboard is a comprehensive human resources management application developed using Vue 3 Composition API, Vuex, and Vuetify, with a backend powered by Laravel and MySQL. The application is designed to streamline HR processes, offering features such as vacation booking, a vacation calendar, vehicle reservation, and IT equipment management. My role involved contributing to the development of a user-friendly interface that integrates these functionalities, ensuring seamless data flow and user experience across the platform. The solution has been instrumental in improving HR operational efficiency for our employees."
+      },
+      "feedbackPro": {
+        "title": "FeedBack PRO",
+        "description": "Application for enhancing user experience with ATMs",
+        "detailedDescription": "FeedbackPro is an advanced application designed to enhance user experience and efficiently address issues related to ATMs. It provides users with a simple and intuitive way to give feedback, report problems, and suggest improvements. The aim of the application is to enable faster bank responses to ATM issues, improve customer support, and ensure a better experience for all users."
+      },
+      "memberGetMember": {
+        "title": "MemberGetMember",
+        "description": "Customer referral program for banks",
+        "detailedDescription": "MemberGetMember is a revolutionary solution that redefines how banks manage new customers. With a simple yet effective process, it allows banks to easily track and reward users, leading to enhanced service and an increased customer base. Through this program, banks can build stronger relationships with existing customers and encourage them to become brand ambassadors, ensuring continuous growth and customer satisfaction."
+      },
+      "bloolaCM": {
+        "title": "Bloola CM",
+        "description": "Contract management application with Microsoft Teams integration",
+        "detailedDescription": "Bloola Contract Management was an application designed to offer user-friendly contract creation, tracking, and analysis. It was also designed as a Microsoft Teams application and integrated into Teams. It was meant to be used to enhance compliance and operational efficiency for informed decision-making. Together with the team, I helped the client to deliver the app from design to working and functional product."
+      },
+      "bloolaFactory": {
+        "title": "Bloola Factory",
+        "description": "Drag-and-drop web application builder",
+        "detailedDescription": "Bloola Factory was a drag-and-drop solution for creating small web applications without needing prior coding knowledge. As part of the team worked on the frontend part of the Factory app, enabling the client to deliver a stable working solution."
+      },
+      "projectPlanner": {
+        "title": "Project Planner",
+        "description": "Project management tool for tracking progress and deliveries",
+        "detailedDescription": "Project planner is an application that shows an aggregation of all progress/deliveries for ongoing projects, identifies problems, and initiates actions to solve those problems. Clients using the app saw an increase in productivity and decrease in project downtimes."
+      },
+      "travelApp": {
+        "title": "Travel App",
+        "description": "Travel planning application with cost calculation",
+        "detailedDescription": "Travel app was a travel planning app, that gave the starting point and destination calculated and presented to the end user all costs of travel, including tolls and other expenses based on the selected method of travel. It also featured cost-splitting functionality."
+      },
+      "bmwLearningFinder": {
+        "title": "BMW My Learning Finder",
+        "description": "Course discovery platform for BMW Learning Center",
+        "detailedDescription": "An application for BMW Learning Center, where users could search courses available on the learning platform, get information about a course, and watch it. Together with the team implemented React frontend solution connected to Sharepoint database."
+      },
+      "bdmNetwork": {
+        "title": "BDM Network",
+        "description": "Dashboard application for music producers",
+        "detailedDescription": "BDM Network was a web-based dashboard application that featured adaptable variations based on user needs to deliver a personalized user experience. It was tailored to the needs of the music industry, mainly music producers. Working closely within a small team and with the product owner, we helped the client deliver the app from the design and planning phase to working and stable MVP in under three months."
+      }
+    }
+  },
+  "skills": {
+    "title": "Skills & Technologies",
+    "subtitle": "A comprehensive overview of my technical skills and proficiencies.",
+    "languages": "Languages",
+    "professional": "Professional",
+    "intermediate": "Intermediate",
+    "native": "Native"
+  },
+  "experience": {
+    "title": "Work Experience",
+    "subtitle": "My professional journey working with various companies and technologies.",
+    "types": {
+      "full-time": "Full-time",
+      "part-time": "Part-time",
+      "contractor": "Contractor"
+    },
+    "items": {
+      "procredit": {
+        "title": "Full-Stack Developer",
+        "company": "ProCredit Bank",
+        "location": "Sarajevo, Bosnia and Herzegovina",
+        "period": "Mar 2024 – Present",
+        "description": [
+          "Worked in a team on projects like FeedBackApp, ProClients, MemberGetMember and Ultimate HR Dashboard",
+          "Agile development with daily syncs and sprint planning",
+          "Frontend (Bootstrap, Material and Vuetify) + Backend (Python Flask, SQLite, PHP Laravel and MySQL)",
+          "I have taken the lead in the comprehensive development of projects, encompassing design, creation, implementation, testing, and deployment"
+        ]
+      },
+      "arkona": {
+        "title": "Senior Frontend Developer",
+        "company": "Arkona Technology",
+        "location": "Belgrade, Serbia",
+        "period": "Oct 2024 – Mar 2025",
+        "description": [
+          "Led the end-to-end development of Arkona Technology's website, transforming designs into a responsive, high-performance user experience",
+          "Enhanced user engagement by 20% through improved UI/UX design"
+        ]
+      },
+      "superlex": {
+        "title": "React + AI Engineer",
+        "company": "Superlex",
+        "location": "Switzerland",
+        "period": "Feb 2024 – May 2024",
+        "description": [
+          "Key features include: Login and Registration, Email and Phone Verification, Dashboard, ChatGPT Integration, File Upload",
+          "Superlex delivers reliable and efficient legal advice, leveraging the latest AI technology to ensure high security and user satisfaction",
+          "Enhanced satisfaction via a user-friendly dashboard interface"
+        ]
+      },
+      "bloola": {
+        "title": "React Developer",
+        "company": "Bloola GmbH & Co. KG",
+        "location": "Gevelsberg, Germany",
+        "period": "Sep 2021 – Nov 2023",
+        "description": [
+          "Worked in a team of dedicated developers on projects like BMW and Deutsche Bundesbank",
+          "Agile development with daily syncs and sprint planning",
+          "Frontend design with Custom and MUI components for great-looking UX/UI"
+        ]
+      },
+      "acke": {
+        "title": "React Developer",
+        "company": "ACKE Creative Studio",
+        "location": "Ilijas, Bosnia and Herzegovina",
+        "period": "May 2023 – July 2023",
+        "description": [
+          "Was completely involved in the process of planning and developing a web-based dashboard app",
+          "Frontend made with Material UI, Style, and Custom components"
+        ]
+      },
+      "solution404": {
+        "title": "Software Developer Intern",
+        "company": "Solution404",
+        "location": "Sarajevo, Bosnia and Herzegovina",
+        "period": "Jan 2021 – Sep 2021",
+        "description": [
+          "Learned about React development ecosystem",
+          "Worked full-stack on the MyLawyer app and designed the Mine Tracking app from top to bottom",
+          "I increased the conversion rate of our e-commerce app by 11%, according to my suggestions"
+        ]
+      }
+    }
+  }
+} 

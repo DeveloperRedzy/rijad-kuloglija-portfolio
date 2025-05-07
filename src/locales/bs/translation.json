@@ -1,0 +1,205 @@
+{
+  "nav": {
+    "home": "Početna",
+    "about": "O meni",
+    "experience": "Iskustvo",
+    "skills": "Vještine",
+    "projects": "Projekti",
+    "contact": "Kontakt"
+  },
+  "language": {
+    "en": "Engleski",
+    "bs": "Bosanski"
+  },
+  "hero": {
+    "greeting": "Zdravo, ja sam",
+    "title": "React Developer sa",
+    "years": "godina",
+    "experience": "iskustva",
+    "description": "Specijaliziran sam za izradu korisnički prijateljskih web aplikacija koje besprijekorno spajaju tehnologiju i dizajn. Moja ekspertiza leži u kreiranju responzivnih interfejsa i optimizaciji koda za izuzetne performanse.",
+    "downloadCV": "Preuzmi CV",
+    "contactMe": "Kontaktiraj me",
+    "scrollDown": "Skroluj dole"
+  },
+  "about": {
+    "title": "O meni",
+    "subtitle": "Strastveni sam developer sa iskustvom u kreiranju web aplikacija koje spajaju tehnologiju i dizajn.",
+    "whoIAm": "Ko sam ja",
+    "whoIAmText1": "Ja sam 26-godišnji developer sa više od pet godina iskustva u izradi brojnih web aplikacija. Tokom svoje karijere, imao sam privilegiju raditi na projektima za poznate klijente kao što su BMW, Deutsche Bundesbank, ProCredit Bank, Superlex Switzerland i Porsche.",
+    "whoIAmText2": "Ova iskustva su mi omogućila da razvijem i vodim i frontend i full-stack rješenja, posebno se ističući u tehnologijama poput React-a i Vue.js-a.",
+    "whoIAmText3": "Moja strast za razvojem je duboko ukorijenjena - uistinu uživam u rješavanju problema i napredujem i u individualnim i u kolaborativnim okruženjima. Imam opsežno iskustvo u vođenju timova, upravljanju cijelim projektima i direktnoj interakciji sa klijentima kako bih osigurao da se njihova vizija ostvari.",
+    "whoIAmText4": "Moje vještine sežu od kreiranja besprijekornih korisničkih iskustava do arhitekture skalabilnih i efikasnih sistema, što me čini svestranim i ambicioznim profesionalcem spremanim za rast.",
+    "personalInfo": "Lične informacije",
+    "location": "Lokacija",
+    "locationValue": "Sarajevo, Bosna i Hercegovina",
+    "email": "Email",
+    "emailValue": "rkuloglija@gmail.com",
+    "currentPosition": "Trenutna pozicija",
+    "currentPositionValue": "Full-Stack Developer u ProCredit Bank",
+    "education": "Obrazovanje",
+    "educationValue": "B.Sc. Računarske nauke, International Burch University",
+    "languages": "Jezici",
+    "languagesValue": "Engleski (Profesionalni), Njemački (Srednji), Bosanski (Maternji)"
+  },
+  "footer": {
+    "description": "React developer sa 5 godina iskustva, specijaliziran za izradu korisnički prijateljskih web aplikacija koje besprijekorno spajaju tehnologiju i dizajn.",
+    "quickLinks": "Brzi linkovi",
+    "contactInfo": "Kontakt informacije",
+    "copyright": "Sva prava zadržana."
+  },
+  "contact": {
+    "title": "Kontaktiraj me",
+    "subtitle": "Slobodno se javite ako imate bilo kakva pitanja ili upite o projektima.",
+    "letsGetInTouch": "Hajde da se čujemo!",
+    "description": "Trenutno tražim nove prilike gdje mogu iskoristiti svoje vještine do maksimuma. Bilo da imate pitanje ili samo želite pozdraviti, potrudiću se da vam odgovorim!",
+    "sendMessage": "Pošalji mi poruku",
+    "form": {
+      "name": "Ime",
+      "namePlaceholder": "Vaše ime",
+      "email": "Email",
+      "emailPlaceholder": "Vaš email",
+      "message": "Poruka",
+      "messagePlaceholder": "Vaša poruka",
+      "sendButton": "Pošalji poruku"
+    }
+  },
+  "projects": {
+    "title": "Izdvojeni projekti",
+    "subtitle": "Selekcija mojih profesionalnih radova i dostignuća.",
+    "showMore": "Prikaži više",
+    "showLess": "Prikaži manje",
+    "viewMore": "Pogledaj više na GitHub-u",
+    "description": "Ovo su samo neki od projekata na kojima sam radio tokom svoje karijere. Interesirani ste za detaljnije informacije ili razgovor o specifičnim projektima?",
+    "items": {
+      "ultimateDashboard": {
+        "title": "Ultimate Dashboard",
+        "description": "Sveobuhvatna HR dashboard aplikacija za upravljanje zaposlenicima",
+        "detailedDescription": "Ultimate HR Dashboard je sveobuhvatna aplikacija za upravljanje ljudskim resursima razvijena koristeći Vue 3 Composition API, Vuex i Vuetify, sa backend-om na Laravel-u i MySQL-u. Aplikacija je dizajnirana da pojednostavi HR procese, nudeći funkcionalnosti kao što su rezervacija odmora, kalendar odmora, rezervacija vozila i upravljanje IT opremom. Moja uloga je uključivala doprinos razvoju korisnički prijateljskog interfejsa koji integriše ove funkcionalnosti, osiguravajući besprijekoran protok podataka i korisničko iskustvo kroz platformu. Rješenje je bilo ključno u poboljšanju operativne efikasnosti HR-a za naše zaposlenike."
+      },
+      "feedbackPro": {
+        "title": "FeedBack PRO",
+        "description": "Aplikacija za poboljšanje korisničkog iskustva sa bankomatima",
+        "detailedDescription": "FeedbackPro je napredna aplikacija dizajnirana da poboljša korisničko iskustvo i efikasno rješava probleme vezane za bankomate. Pruža korisnicima jednostavan i intuitivan način davanja povratnih informacija, prijavljivanja problema i predlaganja poboljšanja. Cilj aplikacije je omogućiti brže banke odgovore na probleme sa bankomatima, poboljšati korisničku podršku i osigurati bolje iskustvo za sve korisnike."
+      },
+      "memberGetMember": {
+        "title": "MemberGetMember",
+        "description": "Program preporuke klijenata za banke",
+        "detailedDescription": "MemberGetMember je revolucionarno rješenje koje redefiniše način na koji banke upravljaju novim klijentima. Sa jednostavnim ali efektivnim procesom, omogućava bankama da lako prate i nagrađuju korisnike, što dovodi do poboljšane usluge i povećane baze klijenata. Kroz ovaj program, banke mogu izgraditi jače odnose sa postojećim klijentima i ohrabriti ih da postanu ambasadori brenda, osiguravajući kontinuirani rast i zadovoljstvo klijenata."
+      },
+      "bloolaCM": {
+        "title": "Bloola CM",
+        "description": "Aplikacija za upravljanje ugovorima sa Microsoft Teams integracijom",
+        "detailedDescription": "Bloola Contract Management je bila aplikacija dizajnirana da nudi korisnički prijateljsko kreiranje, praćenje i analizu ugovora. Također je dizajnirana kao Microsoft Teams aplikacija i integrirana u Teams. Trebala je biti korištena za poboljšanje usklađenosti i operativne efikasnosti za informirano donošenje odluka. Zajedno sa timom, pomogao sam klijentu da isporuči aplikaciju od dizajna do radnog i funkcionalnog proizvoda."
+      },
+      "bloolaFactory": {
+        "title": "Bloola Factory",
+        "description": "Graditelj web aplikacija metodom drag-and-drop",
+        "detailedDescription": "Bloola Factory je bilo drag-and-drop rješenje za kreiranje malih web aplikacija bez potrebe za prethodnim znanjem programiranja. Kao dio tima radio sam na frontend dijelu Factory aplikacije, omogućavajući klijentu da isporuči stabilno radno rješenje."
+      },
+      "projectPlanner": {
+        "title": "Project Planner",
+        "description": "Alat za upravljanje projektima za praćenje napretka i isporuka",
+        "detailedDescription": "Project planner je aplikacija koja prikazuje agregaciju svih napretaka/isporuka za tekuće projekte, identificira probleme i pokreće akcije za rješavanje tih problema. Klijenti koji koriste aplikaciju vidjeli su povećanje produktivnosti i smanjenje zastoja projekata."
+      },
+      "travelApp": {
+        "title": "Travel App",
+        "description": "Aplikacija za planiranje putovanja sa kalkulacijom troškova",
+        "detailedDescription": "Travel app je bila aplikacija za planiranje putovanja koja je na osnovu početne tačke i destinacije računala i prikazivala krajnjem korisniku sve troškove putovanja, uključujući cestarine i druge troškove na osnovu odabranog načina putovanja. Također je imala funkcionalnost podjele troškova."
+      },
+      "bmwLearningFinder": {
+        "title": "BMW My Learning Finder",
+        "description": "Platforma za otkrivanje kurseva za BMW Learning Center",
+        "detailedDescription": "Aplikacija za BMW Learning Center, gdje su korisnici mogli pretraživati kurseve dostupne na platformi za učenje, dobiti informacije o kursu i gledati ga. Zajedno sa timom implementirao sam React frontend rješenje povezano sa Sharepoint bazom podataka."
+      },
+      "bdmNetwork": {
+        "title": "BDM Network",
+        "description": "Dashboard aplikacija za muzičke producente",
+        "detailedDescription": "BDM Network je bila web-based dashboard aplikacija koja je sadržavala prilagodljive varijacije bazirane na potrebama korisnika za pružanje personaliziranog korisničkog iskustva. Prilagođena je potrebama muzičke industrije, uglavnom muzičkim producentima. Radeći blisko unutar malog tima i sa vlasnikom proizvoda, pomogli smo klijentu da isporuči aplikaciju od faze dizajna i planiranja do radnog i stabilnog MVP-a za manje od tri mjeseca."
+      }
+    }
+  },
+  "skills": {
+    "title": "Vještine & Tehnologije",
+    "subtitle": "Sveobuhvatan pregled mojih tehničkih vještina i znanja.",
+    "languages": "Jezici",
+    "professional": "Profesionalni",
+    "intermediate": "Srednji",
+    "native": "Maternji"
+  },
+  "experience": {
+    "title": "Radno Iskustvo",
+    "subtitle": "Moje profesionalno putovanje kroz rad sa različitim kompanijama i tehnologijama.",
+    "types": {
+      "full-time": "Puno radno vrijeme",
+      "part-time": "Djelomično radno vrijeme",
+      "contractor": "Ugovor"
+    },
+    "items": {
+      "procredit": {
+        "title": "Full-Stack Developer",
+        "company": "ProCredit Bank",
+        "location": "Sarajevo, Bosna i Hercegovina",
+        "period": "Mar 2024 – Sadašnjost",
+        "description": [
+          "Radio sam u timu na projektima kao što su FeedBackApp, ProClients, MemberGetMember i Ultimate HR Dashboard",
+          "Agilni razvoj sa dnevnim sastancima i planiranjem sprinta",
+          "Frontend (Bootstrap, Material i Vuetify) + Backend (Python Flask, SQLite, PHP Laravel i MySQL)",
+          "Preuzeo sam vodstvo u sveobuhvatnom razvoju projekata, uključujući dizajn, kreiranje, implementaciju, testiranje i deployment"
+        ]
+      },
+      "arkona": {
+        "title": "Senior Frontend Developer",
+        "company": "Arkona Technology",
+        "location": "Beograd, Srbija",
+        "period": "Okt 2024 – Mar 2025",
+        "description": [
+          "Vodio sam kompletan razvoj web stranice Arkona Technology, transformirajući dizajn u responzivno, visokoperformansno korisničko iskustvo",
+          "Povećao sam angažman korisnika za 20% kroz poboljšani UI/UX dizajn"
+        ]
+      },
+      "superlex": {
+        "title": "React + AI Inženjer",
+        "company": "Superlex",
+        "location": "Švicarska",
+        "period": "Feb 2024 – Maj 2024",
+        "description": [
+          "Ključne funkcionalnosti uključuju: Prijavu i Registraciju, Verifikaciju Email-a i Telefona, Dashboard, ChatGPT Integraciju, Upload Fajlova",
+          "Superlex pruža pouzdane i efikasne pravne savjete, koristeći najnoviju AI tehnologiju za osiguravanje visoke sigurnosti i zadovoljstva korisnika",
+          "Poboljšano zadovoljstvo kroz korisnički prijateljski dashboard interfejs"
+        ]
+      },
+      "bloola": {
+        "title": "React Developer",
+        "company": "Bloola GmbH & Co. KG",
+        "location": "Gevelsberg, Njemačka",
+        "period": "Sep 2021 – Nov 2023",
+        "description": [
+          "Radio sam u timu posvećenih developera na projektima kao što su BMW i Deutsche Bundesbank",
+          "Agilni razvoj sa dnevnim sastancima i planiranjem sprinta",
+          "Frontend dizajn sa Custom i MUI komponentama za odličan UX/UI"
+        ]
+      },
+      "acke": {
+        "title": "React Developer",
+        "company": "ACKE Creative Studio",
+        "location": "Ilijaš, Bosna i Hercegovina",
+        "period": "Maj 2023 – Jul 2023",
+        "description": [
+          "Bio sam potpuno uključen u proces planiranja i razvoja web-based dashboard aplikacije",
+          "Frontend napravljen sa Material UI, Style i Custom komponentama"
+        ]
+      },
+      "solution404": {
+        "title": "Software Developer Intern",
+        "company": "Solution404",
+        "location": "Sarajevo, Bosna i Hercegovina",
+        "period": "Jan 2021 – Sep 2021",
+        "description": [
+          "Učio sam o React development ekosistemu",
+          "Radio sam full-stack na MyLawyer aplikaciji i dizajnirao Mine Tracking aplikaciju od početka do kraja",
+          "Povećao sam konverziju naše e-commerce aplikacije za 11%, prema mojim prijedlozima"
+        ]
+      }
+    }
+  }
+} 
