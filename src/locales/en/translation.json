@@ -120,11 +120,7 @@
   },
   "skills": {
     "title": "Skills & Technologies",
-    "subtitle": "A comprehensive overview of my technical skills and proficiencies.",
-    "languages": "Languages",
-    "professional": "Professional",
-    "intermediate": "Intermediate",
-    "native": "Native"
+    "subtitle": "A comprehensive overview of my technical skills and proficiencies."
   },
   "experience": {
     "title": "Work Experience",

@@ -57,10 +57,11 @@ const AboutSection: React.FC = () => {
             </h3>
 
             <div className="space-y-4">
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
+              {/* Location */}
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-primary-100 dark:bg-primary-900">
                   <MapPin
-                    className="text-primary-600 dark:text-primary-400"
+                    className="text-primary-600 dark:text-primary-400 m-[10px]"
                     size={20}
                   />
                 </div>
@@ -74,10 +75,11 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
+              {/* Email */}
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-primary-100 dark:bg-primary-900">
                   <Mail
-                    className="text-primary-600 dark:text-primary-400"
+                    className="text-primary-600 dark:text-primary-400 m-[10px]"
                     size={20}
                   />
                 </div>
@@ -91,10 +93,11 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
+              {/* Current Position */}
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-primary-100 dark:bg-primary-900">
                   <Briefcase
-                    className="text-primary-600 dark:text-primary-400"
+                    className="text-primary-600 dark:text-primary-400 m-[10px]"
                     size={20}
                   />
                 </div>
@@ -108,10 +111,11 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
+              {/* Education */}
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-primary-100 dark:bg-primary-900">
                   <GraduationCap
-                    className="text-primary-600 dark:text-primary-400"
+                    className="text-primary-600 dark:text-primary-400 m-[10px]"
                     size={20}
                   />
                 </div>
@@ -125,10 +129,11 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
+              {/* Languages */}
+              <div className="flex items-start gap-4">
+                <div className="rounded-full bg-primary-100 dark:bg-primary-900">
                   <Languages
-                    className="text-primary-600 dark:text-primary-400"
+                    className="text-primary-600 dark:text-primary-400 m-[10px]"
                     size={20}
                   />
                 </div>

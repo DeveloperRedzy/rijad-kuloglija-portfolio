@@ -120,11 +120,7 @@
   },
   "skills": {
     "title": "Vještine & Tehnologije",
-    "subtitle": "Sveobuhvatan pregled mojih tehničkih vještina i znanja.",
-    "languages": "Jezici",
-    "professional": "Profesionalni",
-    "intermediate": "Srednji",
-    "native": "Maternji"
+    "subtitle": "Sveobuhvatan pregled mojih tehničkih vještina i znanja."
   },
   "experience": {
     "title": "Radno Iskustvo",
