@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-scroll";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../context/ThemeContext";
 
 const HeroSection: React.FC = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <section id="hero" className="min-h-screen flex items-center pt-20">
@@ -95,7 +97,13 @@ const HeroSection: React.FC = () => {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="bg-white dark:bg-dark-100 p-2 rounded-full w-48 h-48 lg:w-56 lg:h-56 overflow-hidden shadow-lg">
                   <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-4xl">
-                    Redzy
+                    <img
+                      src={
+                        theme === "dark" ? "/logo_light.png" : "/logo_dark.png"
+                      }
+                      alt="Redzy Logo"
+                      className="w-40 h-40"
+                    />
                   </div>
                 </div>
               </div>

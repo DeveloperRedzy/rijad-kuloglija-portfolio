@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <Logo />
+            <Logo force="light" forceLightStyle={true} />
             <p className="mt-4 text-slate-400 max-w-md">
               {t("footer.description")}
             </p>
