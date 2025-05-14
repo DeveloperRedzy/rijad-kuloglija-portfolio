@@ -13,10 +13,10 @@
   },
   "hero": {
     "greeting": "Zdravo, ja sam",
-    "title": "React Developer sa",
+    "title": "Software Developer sa",
     "years": "godina",
     "experience": "iskustva",
-    "description": "Specijaliziran sam za izradu korisnički prijateljskih web aplikacija koje besprijekorno spajaju tehnologiju i dizajn. Moja ekspertiza leži u kreiranju responzivnih interfejsa i optimizaciji koda za izuzetne performanse.",
+    "description": "Rezultatski orijentisan developer s iskustvom u izradi visokokvalitetnih i vizuelno privlačnih aplikacija zasnovanih na savremenim JavaScript tehnologijama u full-stack okruženju. Vješt u optimizaciji koda radi poboljšanja performansi i besprijekornog korisničkog iskustva, uz dosljedno poštivanje rokova i budžetskih ograničenja. Dokazano liderstvo u razvojnim timovima osigurava pravovremenu isporuku projekata.",
     "downloadCV": "Preuzmi CV",
     "contactMe": "Kontaktiraj me",
     "scrollDown": "Skroluj dole"
@@ -42,7 +42,7 @@
     "languagesValue": "Engleski (Profesionalni), Njemački (Srednji), Bosanski (Maternji)"
   },
   "footer": {
-    "description": "React developer sa 5 godina iskustva, specijaliziran za izradu korisnički prijateljskih web aplikacija koje besprijekorno spajaju tehnologiju i dizajn.",
+    "description": "Software developer sa 5 godina iskustva, specijaliziran za izradu korisnički prijateljskih aplikacija koje besprijekorno spajaju tehnologiju i dizajn.",
     "quickLinks": "Brzi linkovi",
     "contactInfo": "Kontakt informacije",
     "copyright": "Sva prava zadržana."
@@ -139,65 +139,63 @@
         "title": "Full-Stack Developer",
         "company": "ProCredit Bank",
         "location": "Sarajevo, Bosna i Hercegovina",
-        "period": "Mar 2024 – Sadašnjost",
+        "period": "Mart 2024 – Sada",
         "description": [
-          "Radio sam u timu na projektima kao što su FeedBackApp, ProClients, MemberGetMember i Ultimate HR Dashboard",
-          "Agilni razvoj sa dnevnim sastancima i planiranjem sprinta",
-          "Frontend (Bootstrap, Material i Vuetify) + Backend (Python Flask, SQLite, PHP Laravel i MySQL)",
-          "Preuzeo sam vodstvo u sveobuhvatnom razvoju projekata, uključujući dizajn, kreiranje, implementaciju, testiranje i deployment"
+          "Vodio full-stack razvoj kroz cijeli životni ciklus (od dizajna do implementacije) koristeći Agile metodologije, poboljšavajući efikasnost tima kroz planiranje sprintova i dnevne sastanke.",
+          "Uspješno isporučio projekte velikog uticaja, uključujući FeedBackApp, ProClients, MemberGetMember i Ultimate HR Dashboard.",
+          "Iskusan u radu sa Vue, React, Python (Flask), PHP (Laravel), MySQL, SQLite, Bootstrap, Material UI i Vuetify."
         ]
       },
       "arkona": {
         "title": "Senior Frontend Developer",
         "company": "Arkona Technology",
         "location": "Beograd, Srbija",
-        "period": "Okt 2024 – Mar 2025",
+        "period": "Oktobar 2024 – Mart 2025",
         "description": [
-          "Vodio sam kompletan razvoj web stranice Arkona Technology, transformirajući dizajn u responzivno, visokoperformansno korisničko iskustvo",
-          "Povećao sam angažman korisnika za 20% kroz poboljšani UI/UX dizajn"
+          "Vodio razvoj responsivne i visokoperformansne web stranice za Arkona Technology, pružajući izuzetno korisničko iskustvo.",
+          "Razvio GumaMax aplikaciju za naručivanje guma putem weba, omogućivši prodaju i upravljanje proizvodima od više dobavljača."
         ]
       },
       "superlex": {
         "title": "React + AI Inženjer",
         "company": "Superlex",
         "location": "Švicarska",
-        "period": "Feb 2024 – Maj 2024",
+        "period": "Februar 2024 – Maj 2024",
         "description": [
-          "Ključne funkcionalnosti uključuju: Prijavu i Registraciju, Verifikaciju Email-a i Telefona, Dashboard, ChatGPT Integraciju, Upload Fajlova",
-          "Superlex pruža pouzdane i efikasne pravne savjete, koristeći najnoviju AI tehnologiju za osiguravanje visoke sigurnosti i zadovoljstva korisnika",
-          "Poboljšano zadovoljstvo kroz korisnički prijateljski dashboard interfejs"
+          "Razvio i implementirao ključne funkcionalnosti (Prijava/Registracija, Verifikacija Emaila/Broja telefona, Nadzorna ploča, Upload datoteka) koristeći naprednu AI tehnologiju (integracija sa ChatGPT).",
+          "Sigurne i jednostavne nadzorne ploče poboljšale su korisničko zadovoljstvo i omogućile pouzdano, efikasno davanje pravnih savjeta putem AI-a."
         ]
       },
       "bloola": {
         "title": "React Developer",
         "company": "Bloola GmbH & Co. KG",
         "location": "Gevelsberg, Njemačka",
-        "period": "Sep 2021 – Nov 2023",
+        "period": "Septembar 2021 – Novembar 2023",
         "description": [
-          "Radio sam u timu posvećenih developera na projektima kao što su BMW i Deutsche Bundesbank",
-          "Agilni razvoj sa dnevnim sastancima i planiranjem sprinta",
-          "Frontend dizajn sa Custom i MUI komponentama za odličan UX/UI"
+          "Vodio Agile razvoj na projektima visokog profila (BMW, Deutsche Bundesbank, Bloola Factory), provodeći sprintove i dnevne sastanke.",
+          "Rješavao kompleksne probleme aplikacija efikasnim otklanjanjem grešaka i debagovanjem.",
+          "Osigurao kvalitet koda kroz rigorozno testiranje jedinica i integracija."
         ]
       },
       "acke": {
         "title": "React Developer",
         "company": "ACKE Creative Studio",
         "location": "Ilijaš, Bosna i Hercegovina",
-        "period": "Maj 2023 – Jul 2023",
+        "period": "Maj 2023 – Juli 2023",
         "description": [
-          "Bio sam potpuno uključen u proces planiranja i razvoja web-based dashboard aplikacije",
-          "Frontend napravljen sa Material UI, Style i Custom komponentama"
+          "Razvio i isporučio potpuno funkcionalnu, personaliziranu web nadzornu ploču baziranu na Reactu (MVP) za muzičke producente u roku od tri mjeseca.",
+          "Blisko sarađivao s vlasnikom proizvoda i malim agilnim timom na upravljanju cijelim životnim ciklusom proizvoda (dizajn, planiranje, razvoj, implementacija)."
         ]
       },
       "solution404": {
-        "title": "Software Developer Intern",
+        "title": "Pripravnik - Softverski Developer",
         "company": "Solution404",
         "location": "Sarajevo, Bosna i Hercegovina",
-        "period": "Jan 2021 – Sep 2021",
+        "period": "Januar 2021 – Septembar 2021",
         "description": [
-          "Učio sam o React development ekosistemu",
-          "Radio sam full-stack na MyLawyer aplikaciji i dizajnirao Mine Tracking aplikaciju od početka do kraja",
-          "Povećao sam konverziju naše e-commerce aplikacije za 11%, prema mojim prijedlozima"
+          "Razvijao full-stack aplikacije koristeći React, doprinoseći aplikaciji MyLawyer i vodeći dizajn i razvoj aplikacije Mine Tracking od ideje do implementacije.",
+          "Poboljšao performanse e-commerce aplikacije, što je rezultiralo povećanjem stope konverzije za 11% kroz strateške preporuke.",
+          "Stekao značajno iskustvo unutar React ekosistema."
         ]
       }
     }

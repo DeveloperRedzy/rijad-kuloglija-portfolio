@@ -13,10 +13,10 @@
   },
   "hero": {
     "greeting": "Hi, I'm",
-    "title": "React Developer with",
+    "title": "Software Developer with",
     "years": "years",
     "experience": "of experience",
-    "description": "I specialize in crafting user-friendly web applications that seamlessly merge technology with design. My expertise lies in creating responsive interfaces and optimizing code for exceptional performance.",
+    "description": "Results-oriented developer with experience in building high-quality, visually appealing applications based on modern JavaScript technologies within a full-stack environment. Skilled in code optimization for enhanced performance and seamless user experience, consistently meeting deadlines and budget constraints. Proven leadership in development teams ensures timely project delivery.",
     "downloadCV": "Download CV",
     "contactMe": "Contact Me",
     "scrollDown": "Scroll Down"
@@ -42,7 +42,7 @@
     "languagesValue": "English (Professional), German (Intermediate), Bosnian (Native)"
   },
   "footer": {
-    "description": "React developer with 5 years of experience, specializing in crafting user-friendly web applications that seamlessly merge technology with design.",
+    "description": "Software developer with 5 years of experience, specializing in crafting user-friendly applications that seamlessly merge technology with design.",
     "quickLinks": "Quick Links",
     "contactInfo": "Contact Info",
     "copyright": "All rights reserved."
@@ -141,10 +141,9 @@
         "location": "Sarajevo, Bosnia and Herzegovina",
         "period": "Mar 2024 – Present",
         "description": [
-          "Worked in a team on projects like FeedBackApp, ProClients, MemberGetMember and Ultimate HR Dashboard",
-          "Agile development with daily syncs and sprint planning",
-          "Frontend (Bootstrap, Material and Vuetify) + Backend (Python Flask, SQLite, PHP Laravel and MySQL)",
-          "I have taken the lead in the comprehensive development of projects, encompassing design, creation, implementation, testing, and deployment"
+          "Led full-stack development lifecycle (design-to-deployment) using Agile methodologies, boosting team efficiency through sprint planning and daily stand-ups.",
+          "Successfully delivered high-impact projects including FeedBackApp, ProClients, MemberGetMember, and Ultimate HR Dashboard.",
+          "Proficient in Vue, React, Python (Flask), PHP (Laravel), MySQL, SQLite, Bootstrap, Material UI, and Vuetify."
         ]
       },
       "arkona": {
@@ -153,8 +152,8 @@
         "location": "Belgrade, Serbia",
         "period": "Oct 2024 – Mar 2025",
         "description": [
-          "Led the end-to-end development of Arkona Technology's website, transforming designs into a responsive, high-performance user experience",
-          "Enhanced user engagement by 20% through improved UI/UX design"
+          "Led the end-to-end development of Arkona Technology's responsive, high-performance website, delivering an exceptional user experience.",
+          "Developed the GumaMax web-based tire ordering dashboard application, enabling multi-vendor product sales and management."
         ]
       },
       "superlex": {
@@ -163,9 +162,8 @@
         "location": "Switzerland",
         "period": "Feb 2024 – May 2024",
         "description": [
-          "Key features include: Login and Registration, Email and Phone Verification, Dashboard, ChatGPT Integration, File Upload",
-          "Superlex delivers reliable and efficient legal advice, leveraging the latest AI technology to ensure high security and user satisfaction",
-          "Enhanced satisfaction via a user-friendly dashboard interface"
+          "Developed and deployed key features (Login/Registration, Email/Phone Verification, Dashboard, File Upload) leveraging cutting-edge AI (ChatGPT integration).",
+          "Secure, user-friendly dashboards enhanced user satisfaction and provided reliable, efficient legal advice via AI."
         ]
       },
       "bloola": {
@@ -174,9 +172,9 @@
         "location": "Gevelsberg, Germany",
         "period": "Sep 2021 – Nov 2023",
         "description": [
-          "Worked in a team of dedicated developers on projects like BMW and Deutsche Bundesbank",
-          "Agile development with daily syncs and sprint planning",
-          "Frontend design with Custom and MUI components for great-looking UX/UI"
+          "Led Agile development on high-profile projects (BMW, Deutsche Bundesbank, Bloola Factory), driving sprint execution and daily stand-ups.",
+          "Resolved complex application issues via effective debugging and troubleshooting.",
+          "Guaranteed code quality through rigorous unit and integration testing."
         ]
       },
       "acke": {
@@ -185,8 +183,8 @@
         "location": "Ilijas, Bosnia and Herzegovina",
         "period": "May 2023 – July 2023",
         "description": [
-          "Was completely involved in the process of planning and developing a web-based dashboard app",
-          "Frontend made with Material UI, Style, and Custom components"
+          "Developed and delivered a fully functional, personalized React-based web dashboard (MVP) for music producers within a three-month timeframe.",
+          "Collaborated closely with product owner and a small, agile team to manage the entire product lifecycle (design, planning, development, deployment)."
         ]
       },
       "solution404": {
@@ -195,9 +193,9 @@
         "location": "Sarajevo, Bosnia and Herzegovina",
         "period": "Jan 2021 – Sep 2021",
         "description": [
-          "Learned about React development ecosystem",
-          "Worked full-stack on the MyLawyer app and designed the Mine Tracking app from top to bottom",
-          "I increased the conversion rate of our e-commerce app by 11%, according to my suggestions"
+          "Developed full-stack applications using React, contributing to the MyLawyer app and leading the design and development of the Mine Tracking app from conception to deployment.",
+          "Enhanced e-commerce application performance, resulting in an 11% conversion rate increase through strategic recommendations.",
+          "Gained extensive experience within the React development ecosystem."
         ]
       }
     }

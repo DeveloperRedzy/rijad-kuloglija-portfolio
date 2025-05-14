@@ -10,7 +10,7 @@ import Footer from "./components/layout/Footer";
 
 function App() {
   useEffect(() => {
-    document.title = "Rijad Kuloglija | React Developer";
+    document.title = "Rijad Kuloglija | Software Developer";
   }, []);
 
   return (

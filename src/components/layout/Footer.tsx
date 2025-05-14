@@ -120,7 +120,6 @@ const Footer: React.FC = () => {
               {t("footer.contactInfo")}
             </h3>
             <ul className="space-y-2">
-              <li className="text-slate-400">{t("about.locationValue")}</li>
               <li>
                 <a
                   href="mailto:rkuloglija@gmail.com"
