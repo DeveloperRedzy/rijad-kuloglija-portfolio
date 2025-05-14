@@ -1,24 +1,94 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 import SectionHeading from "../shared/SectionHeading";
 import { useTranslation } from "react-i18next";
+import emailjs from "@emailjs/browser";
 
 const ContactSection: React.FC = () => {
   const { t } = useTranslation();
+  const form = useRef<HTMLFormElement>(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!import.meta.env.VITE_EMAILJS_SERVICE_ID) {
+      console.warn("Missing EmailJS Service ID in environment variables");
+    }
+    if (!import.meta.env.VITE_EMAILJS_TEMPLATE_ID) {
+      console.warn("Missing EmailJS Template ID in environment variables");
+    }
+    if (!import.meta.env.VITE_EMAILJS_PUBLIC_KEY) {
+      console.warn("Missing EmailJS Public Key in environment variables");
+    }
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Kreiraj mailto link sa popunjenim podacima iz forme
-    const mailtoLink = `mailto:rkuloglija@gmail.com?subject=Contact from ${name}&body=Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
+    if (!name || !email || !message) {
+      setSubmitStatus({
+        success: false,
+        message: t("contact.form.fillAllFields") || "Please fill in all fields",
+      });
 
-    // Otvori mailto link
-    window.location.href = mailtoLink;
+      setTimeout(() => {
+        setSubmitStatus(null);
+      }, 2000);
+
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
+
+    if (form.current) {
+      emailjs
+        .sendForm(serviceId, templateId, form.current, publicKey)
+        .then((result) => {
+          console.log("Email uspješno poslan!", result.text);
+          setSubmitStatus({
+            success: true,
+            message:
+              t("contact.form.successMessage") || "Message sent successfully!",
+          });
+
+          setName("");
+          setEmail("");
+          setMessage("");
+
+          setTimeout(() => {
+            setSubmitStatus(null);
+          }, 2000);
+        })
+        .catch((error) => {
+          console.error("Greška pri slanju:", error.text);
+          setSubmitStatus({
+            success: false,
+            message:
+              t("contact.form.errorMessage") ||
+              "Failed to send message. Please try again.",
+          });
+
+          setTimeout(() => {
+            setSubmitStatus(null);
+          }, 2000);
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+    }
   };
 
   return (
@@ -139,7 +209,7 @@ const ContactSection: React.FC = () => {
               {t("contact.sendMessage")}
             </h3>
 
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form ref={form} className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -150,6 +220,7 @@ const ContactSection: React.FC = () => {
                 <input
                   type="text"
                   id="name"
+                  name="user_name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-dark-100 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -167,6 +238,7 @@ const ContactSection: React.FC = () => {
                 <input
                   type="email"
                   id="email"
+                  name="user_email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-dark-100 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -183,6 +255,7 @@ const ContactSection: React.FC = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   rows={5}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -191,8 +264,26 @@ const ContactSection: React.FC = () => {
                 ></textarea>
               </div>
 
-              <button type="submit" className="w-full btn-primary py-3">
-                {t("contact.form.sendButton")}
+              {submitStatus && (
+                <div
+                  className={`p-3 rounded-md ${
+                    submitStatus.success
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="w-full btn-primary py-3"
+                disabled={isSubmitting}
+              >
+                {isSubmitting
+                  ? t("contact.form.sending") || "Sending..."
+                  : t("contact.form.sendButton")}
               </button>
             </form>
           </motion.div>

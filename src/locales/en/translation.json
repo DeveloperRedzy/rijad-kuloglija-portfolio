@@ -60,7 +60,11 @@
       "emailPlaceholder": "Your email",
       "message": "Message",
       "messagePlaceholder": "Your message",
-      "sendButton": "Send Message"
+      "sendButton": "Send Message",
+      "fillAllFields": "Please fill in all fields.",
+      "successMessage": "Message sent successfully!",
+      "errorMessage": "An error occurred. Please try again.",
+      "sending": "Sending..."
     }
   },
   "projects": {

@@ -60,7 +60,11 @@
       "emailPlaceholder": "Vaš email",
       "message": "Poruka",
       "messagePlaceholder": "Vaša poruka",
-      "sendButton": "Pošalji poruku"
+      "sendButton": "Pošalji poruku",
+      "fillAllFields": "Molimo popunite sva polja",
+      "successMessage": "Poruka uspješno poslana!",
+      "errorMessage": "Došlo je do greške. Pokušajte ponovo.",
+      "sending": "Slanje..."
     }
   },
   "projects": {
