@@ -170,7 +170,7 @@ const HeroSection: React.FC = () => {
                         type="image/webp"
                       />
                       <motion.img
-                        src={theme === "dark" ? "/logo_light.png" : "/logo_dark.png"}
+                        src={theme === "dark" ? "/logo_light.webp" : "/logo_dark.webp"}
                         alt="Redzy Logo"
                         className="w-40 h-40 transition-all duration-500"
                         style={{
