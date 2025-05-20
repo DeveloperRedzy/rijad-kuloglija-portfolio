@@ -73,7 +73,201 @@ const ExperienceSection: React.FC = () => {
   ];
 
   return (
-    <section id="experience" className="py-20">
+    <section id="experience" className="py-20 relative overflow-hidden">
+      {/* Animated Background Waves */}
+      <div className="absolute inset-0 -z-10">
+        <svg
+          className="absolute w-full h-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          {/* Original waves */}
+          <motion.path
+            d="M0,50 Q25,40 50,50 T100,50"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.1)"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+          />
+          <motion.path
+            d="M0,60 Q25,70 50,60 T100,60"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.15)"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.5,
+            }}
+          />
+          <motion.path
+            d="M0,40 Q25,30 50,40 T100,40"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.2)"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1,
+            }}
+          />
+          <motion.path
+            d="M0,30 Q25,20 50,30 T100,30"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.12)"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.2,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.3,
+            }}
+          />
+          <motion.path
+            d="M0,70 Q25,80 50,70 T100,70"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.18)"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.8,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.7,
+            }}
+          />
+          <motion.path
+            d="M0,20 Q25,10 50,20 T100,20"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.08)"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 3.2,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1.2,
+            }}
+          />
+          <motion.path
+            d="M0,80 Q25,90 50,80 T100,80"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.14)"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.7,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.9,
+            }}
+          />
+
+          {/* Additional interweaving lines */}
+          <motion.path
+            d="M0,45 Q25,35 50,45 T100,45"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.09)"
+            strokeWidth="0.4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.3,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.4,
+            }}
+          />
+          <motion.path
+            d="M0,55 Q25,65 50,55 T100,55"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.11)"
+            strokeWidth="0.4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.6,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.6,
+            }}
+          />
+          <motion.path
+            d="M0,35 Q25,25 50,35 T100,35"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.13)"
+            strokeWidth="0.4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.9,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.8,
+            }}
+          />
+          <motion.path
+            d="M0,65 Q25,75 50,65 T100,65"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.16)"
+            strokeWidth="0.4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.4,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1.1,
+            }}
+          />
+          <motion.path
+            d="M0,25 Q25,15 50,25 T100,25"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.07)"
+            strokeWidth="0.4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 3.1,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1.3,
+            }}
+          />
+          <motion.path
+            d="M0,75 Q25,85 50,75 T100,75"
+            fill="none"
+            stroke="rgba(59, 130, 246, 0.17)"
+            strokeWidth="0.4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1.0,
+            }}
+          />
+        </svg>
+      </div>
+
       <div className="container-custom">
         <SectionHeading
           title={t("experience.title")}

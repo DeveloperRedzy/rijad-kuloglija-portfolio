@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../../context/ThemeContext";
@@ -10,8 +10,31 @@ const HeroSection: React.FC = () => {
   const { theme } = useTheme();
 
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-20">
-      <div className="container-custom">
+    <section
+      id="hero"
+      className="min-h-screen flex items-center pt-20 relative overflow-hidden"
+    >
+      {/* Mobilni background */}
+      <div className="absolute inset-0 md:hidden">
+        <div className="absolute inset-0 bg-primary-500/10 dark:bg-primary-500/5 rounded-full animate-spin-slow"></div>
+        <div
+          className="absolute inset-4 bg-primary-500/20 dark:bg-primary-500/10 rounded-full animate-spin-slow"
+          style={{ animationDirection: "reverse" }}
+        ></div>
+        <div className="absolute inset-0 flex items-center justify-center opacity-20">
+          <div className="bg-white dark:bg-dark-100 p-2 rounded-full w-48 h-48 overflow-hidden">
+            <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
+              <img
+                src={theme === "dark" ? "/logo_light.png" : "/logo_dark.png"}
+                alt="Redzy Logo"
+                className="w-40 h-40"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <motion.div
             className="md:col-span-7"
@@ -88,52 +111,68 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="relative w-64 h-64 lg:w-80 lg:h-80">
-              <div className="absolute inset-0 bg-primary-500/20 dark:bg-primary-500/10 rounded-full animate-spin-slow"></div>
+            <div className="relative w-64 h-64 lg:w-80 lg:h-80 group">
+              <div className="absolute inset-0 bg-primary-500/20 dark:bg-primary-500/10 rounded-full animate-spin-slow group-hover:animate-none group-hover:bg-primary-500/30 dark:group-hover:bg-primary-500/20 transition-all duration-500"></div>
               <div
-                className="absolute inset-4 bg-primary-500/30 dark:bg-primary-500/20 rounded-full animate-spin-slow"
+                className="absolute inset-4 bg-primary-500/30 dark:bg-primary-500/20 rounded-full animate-spin-slow group-hover:animate-none group-hover:bg-primary-500/40 dark:group-hover:bg-primary-500/30 transition-all duration-500"
                 style={{ animationDirection: "reverse" }}
               ></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-white dark:bg-dark-100 p-2 rounded-full w-48 h-48 lg:w-56 lg:h-56 overflow-hidden shadow-lg">
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-4xl">
-                    <img
+                <motion.div
+                  className="bg-white dark:bg-dark-100 p-2 rounded-full w-48 h-48 lg:w-56 lg:h-56 overflow-hidden shadow-lg group-hover:shadow-2xl group-hover:shadow-primary-500/20 dark:group-hover:shadow-primary-400/20 transition-all duration-500"
+                  animate={{
+                    rotateY: 0,
+                    scale: 1,
+                  }}
+                  whileHover={{
+                    scale: 1.2,
+                    rotateY: [0, 720, 360],
+                    rotateZ: [0, 10, -5, 0],
+                    y: [0, -20, 0],
+                  }}
+                  transition={{
+                    duration: 1.2,
+                    times: [0, 0.4, 1],
+                    ease: [0.4, 0, 0.2, 1],
+                    rotateY: {
+                      duration: 1.2,
+                      times: [0, 0.4, 1],
+                      ease: [0.4, 0, 0.2, 1],
+                    },
+                  }}
+                >
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-4xl relative group-hover:from-primary-500 group-hover:to-primary-700 transition-all duration-500 perspective-1000 transform-style-3d">
+                    <motion.img
                       src={
                         theme === "dark" ? "/logo_light.png" : "/logo_dark.png"
                       }
                       alt="Redzy Logo"
-                      className="w-40 h-40"
+                      className="w-40 h-40 transition-all duration-500"
+                      style={{
+                        filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))",
+                        transformStyle: "preserve-3d",
+                        backfaceVisibility: "hidden",
+                      }}
+                      whileHover={{
+                        filter:
+                          "drop-shadow(0 0 15px rgba(59, 130, 246, 0.8)) brightness(1.2)",
+                      }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 rounded-full"
+                      initial={{ opacity: 0 }}
+                      whileHover={{
+                        opacity: 1,
+                        background:
+                          "linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.8) 50%, transparent 55%)",
+                        backgroundSize: "200% 200%",
+                        animation: "glitch 0.5s linear infinite",
+                      }}
                     />
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
-          </motion.div>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden md:block">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: 1,
-              repeat: Infinity,
-              repeatType: "reverse",
-              repeatDelay: 0.5,
-            }}
-          >
-            <Link
-              to="about"
-              spy={true}
-              smooth={true}
-              offset={-80}
-              duration={500}
-              className="flex flex-col items-center cursor-pointer text-slate-500 hover:text-primary-500 dark:text-slate-400 dark:hover:text-primary-400 transition-colors duration-200"
-            >
-              <span className="text-sm mb-2">{t("hero.scrollDown")}</span>
-              <ArrowDown size={20} />
-            </Link>
           </motion.div>
         </div>
       </div>
