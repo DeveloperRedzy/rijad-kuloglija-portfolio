@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-scroll";
 import { useTheme } from "../../context/ThemeContext";
 
 interface LogoProps {
@@ -11,11 +10,21 @@ const Logo: React.FC<LogoProps> = ({ force, forceLightStyle = false }) => {
   const { theme } = useTheme();
   const actualTheme = force ?? theme;
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById("hero");
+    if (element) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
-    <Link
-      to="hero"
-      smooth={true}
-      duration={500}
+    <a
+      href="#hero"
+      onClick={handleLogoClick}
       className="flex items-center space-x-2 cursor-pointer"
     >
       <img
@@ -45,7 +54,7 @@ const Logo: React.FC<LogoProps> = ({ force, forceLightStyle = false }) => {
           .dev
         </span>
       </span>
-    </Link>
+    </a>
   );
 };
 

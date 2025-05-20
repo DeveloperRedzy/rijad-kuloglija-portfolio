@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-scroll";
 import { Moon, Sun, Menu, X, Github, Linkedin, Mail } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { cn } from "../../utils/cn";
@@ -33,6 +32,24 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, to: string) => {
+    e.preventDefault();
+    const element = document.getElementById(to);
+    if (element) {
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header
       className={cn(
@@ -48,18 +65,14 @@ const Navbar: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.to}
-              to={link.to}
-              spy={true}
-              smooth={true}
-              offset={-80}
-              duration={500}
+              href={`#${link.to}`}
+              onClick={(e) => handleNavClick(e, link.to)}
               className="nav-link font-medium text-sm cursor-pointer"
-              activeClass="active"
             >
               {link.name}
-            </Link>
+            </a>
           ))}
 
           <button
@@ -138,19 +151,14 @@ const Navbar: React.FC = () => {
         {mobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-dark-200 shadow-lg py-4 px-6 flex flex-col space-y-4 border-t border-slate-200 dark:border-slate-700">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.to}
-                to={link.to}
-                spy={true}
-                smooth={true}
-                offset={-80}
-                duration={500}
+                href={`#${link.to}`}
+                onClick={(e) => handleNavClick(e, link.to)}
                 className="nav-link font-medium py-2"
-                activeClass="active"
-                onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
-              </Link>
+              </a>
             ))}
 
             <div className="flex items-center space-x-4 pt-2 border-t border-slate-200 dark:border-slate-700">

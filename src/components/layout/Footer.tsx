@@ -1,12 +1,28 @@
 import React from "react";
 import { Github, Linkedin, Mail } from "lucide-react";
-import { Link } from "react-scroll";
 import Logo from "../shared/Logo";
 import { useTranslation } from "react-i18next";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, to: string) => {
+    e.preventDefault();
+    const element = document.getElementById(to);
+    if (element) {
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <footer className="py-12 bg-slate-900 text-white">
@@ -53,64 +69,49 @@ const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="about"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={500}
+                <a
+                  href="#about"
+                  onClick={(e) => handleNavClick(e, "about")}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
                   {t("nav.about")}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  to="experience"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={500}
+                <a
+                  href="#experience"
+                  onClick={(e) => handleNavClick(e, "experience")}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
                   {t("nav.experience")}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  to="skills"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={500}
+                <a
+                  href="#skills"
+                  onClick={(e) => handleNavClick(e, "skills")}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
                   {t("nav.skills")}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  to="projects"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={500}
+                <a
+                  href="#projects"
+                  onClick={(e) => handleNavClick(e, "projects")}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
                   {t("nav.projects")}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  to="contact"
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={500}
+                <a
+                  href="#contact"
+                  onClick={(e) => handleNavClick(e, "contact")}
                   className="text-slate-400 hover:text-primary-400 transition-colors duration-200 cursor-pointer"
                 >
                   {t("nav.contact")}
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
