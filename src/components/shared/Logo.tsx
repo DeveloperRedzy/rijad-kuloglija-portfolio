@@ -40,15 +40,15 @@ const Logo: React.FC<LogoProps> = ({ force, forceLightStyle = false }) => {
       />
       <span
         className={`font-bold text-lg ${
-          forceLightStyle ? "text-white" : "text-slate-800 dark:text-white"
+          forceLightStyle ? "text-white" : "text-slate-900 dark:text-white"
         }`}
       >
         Redzy
         <span
           className={`${
             forceLightStyle
-              ? "text-primary-400"
-              : "text-primary-600 dark:text-primary-400"
+              ? "text-primary-300"
+              : "text-primary-700 dark:text-primary-300"
           }`}
         >
           .dev

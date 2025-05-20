@@ -144,7 +144,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-slate-800 mt-10 pt-6 text-center">
-          <p className="text-slate-500">
+          <p className="text-slate-400">
             &copy; {currentYear} Rijad Kuloglija. {t("footer.copyright")}
           </p>
         </div>

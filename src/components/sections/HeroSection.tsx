@@ -78,7 +78,7 @@ const HeroSection: React.FC = () => {
                 href="/Rijad-Kuloglija-CV.pdf"
                 download
                 rel="noopener noreferrer"
-                className="btn-primary"
+                className="px-4 py-3 bg-primary-700 hover:bg-primary-800 text-white rounded-md transition-colors duration-200"
               >
                 {t("hero.downloadCV")}
               </a>
