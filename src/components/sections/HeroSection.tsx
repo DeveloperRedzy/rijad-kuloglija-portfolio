@@ -40,11 +40,17 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0 flex items-center justify-center opacity-20">
           <div className="bg-white dark:bg-dark-100 p-2 rounded-full w-48 h-48 overflow-hidden">
             <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
-              <img
-                src={theme === "dark" ? "/logo_light.png" : "/logo_dark.png"}
-                alt="Redzy Logo"
-                className="w-40 h-40"
-              />
+              <picture>
+                <source
+                  srcSet={theme === "dark" ? "/logo_light.webp" : "/logo_dark.webp"}
+                  type="image/webp"
+                />
+                <img
+                  src={theme === "dark" ? "/logo_light.webp" : "/logo_dark.webp"}
+                  alt="Redzy Logo"
+                  className="w-40 h-40"
+                />
+              </picture>
             </div>
           </div>
         </div>
@@ -158,22 +164,26 @@ const HeroSection: React.FC = () => {
                   }}
                 >
                   <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-4xl relative group-hover:from-primary-500 group-hover:to-primary-700 transition-all duration-500 perspective-1000 transform-style-3d">
-                    <motion.img
-                      src={
-                        theme === "dark" ? "/logo_light.png" : "/logo_dark.png"
-                      }
-                      alt="Redzy Logo"
-                      className="w-40 h-40 transition-all duration-500"
-                      style={{
-                        filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))",
-                        transformStyle: "preserve-3d",
-                        backfaceVisibility: "hidden",
-                      }}
-                      whileHover={{
-                        filter:
-                          "drop-shadow(0 0 15px rgba(59, 130, 246, 0.8)) brightness(1.2)",
-                      }}
-                    />
+                    <picture>
+                      <source
+                        srcSet={theme === "dark" ? "/logo_light.webp" : "/logo_dark.webp"}
+                        type="image/webp"
+                      />
+                      <motion.img
+                        src={theme === "dark" ? "/logo_light.png" : "/logo_dark.png"}
+                        alt="Redzy Logo"
+                        className="w-40 h-40 transition-all duration-500"
+                        style={{
+                          filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))",
+                          transformStyle: "preserve-3d",
+                          backfaceVisibility: "hidden",
+                        }}
+                        whileHover={{
+                          filter:
+                            "drop-shadow(0 0 15px rgba(59, 130, 246, 0.8)) brightness(1.2)",
+                        }}
+                      />
+                    </picture>
                     <motion.div
                       className="absolute inset-0 rounded-full"
                       initial={{ opacity: 0 }}

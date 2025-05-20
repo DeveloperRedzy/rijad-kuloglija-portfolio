@@ -30,10 +30,10 @@ const Logo: React.FC<LogoProps> = ({ force, forceLightStyle = false }) => {
       <img
         src={
           forceLightStyle
-            ? "/logo_light.png"
+            ? "/logo_light.avif"
             : actualTheme === "dark"
-              ? "/logo_light.png"
-              : "/logo_dark.png"
+              ? "/logo_light.avif"
+              : "/logo_dark.avif"
         }
         alt="Redzy Logo"
         className="w-8 h-8"
