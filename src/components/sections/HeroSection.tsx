@@ -1,13 +1,29 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
-import { Link } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../../context/ThemeContext";
 
 const HeroSection: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, to: string) => {
+    e.preventDefault();
+    const element = document.getElementById(to);
+    if (element) {
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <section
@@ -67,16 +83,13 @@ const HeroSection: React.FC = () => {
                 {t("hero.downloadCV")}
               </a>
 
-              <Link
-                to="contact"
-                spy={true}
-                smooth={true}
-                offset={-80}
-                duration={500}
+              <a
+                href="#contact"
+                onClick={(e) => handleNavClick(e, "contact")}
                 className="px-4 py-2 border border-slate-300 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 rounded-md transition-colors duration-200 cursor-pointer"
               >
                 {t("hero.contactMe")}
-              </Link>
+              </a>
 
               <div className="flex items-center gap-4 ml-2">
                 <a

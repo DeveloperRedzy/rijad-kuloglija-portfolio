@@ -1,0 +1,14 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://rijad-kuloglija-portfolio.vercel.app/sitemap.xml
+
+# Disallow crawling of any private or admin areas if they exist
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+# Crawl-delay directive
+Crawl-delay: 10 
