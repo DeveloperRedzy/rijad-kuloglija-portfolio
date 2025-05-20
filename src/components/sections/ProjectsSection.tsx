@@ -181,7 +181,7 @@ const ProjectsSection: React.FC = () => {
               {project.detailedDescription && (
                 <button
                   onClick={() => toggleExpand(index)}
-                  className="mt-auto flex items-center justify-center text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200"
+                  className="mt-auto flex items-center justify-center text-sm text-primary-700 dark:text-primary-300 hover:text-primary-800 dark:hover:text-primary-200 transition-colors duration-200"
                 >
                   {expandedProjects.includes(index) ? (
                     <>
@@ -206,7 +206,7 @@ const ProjectsSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-slate-600 dark:text-slate-300 mb-6"
+            className="text-slate-700 dark:text-slate-200 mb-6"
           >
             {t("projects.description")}
           </motion.p>

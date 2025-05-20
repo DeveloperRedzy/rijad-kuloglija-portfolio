@@ -107,10 +107,10 @@ const ContactSection: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="flex flex-col justify-center"
           >
-            <h3 className="text-xl font-semibold mb-6 text-slate-800 dark:text-white">
+            <h3 className="text-xl font-semibold mb-6 text-slate-900 dark:text-white">
               {t("contact.letsGetInTouch")}
             </h3>
-            <p className="text-slate-600 dark:text-slate-300 mb-8">
+            <p className="text-slate-700 dark:text-slate-200 mb-8">
               {t("contact.description")}
             </p>
 
@@ -118,17 +118,17 @@ const ContactSection: React.FC = () => {
               <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
                   <Mail
-                    className="text-primary-600 dark:text-primary-400"
+                    className="text-primary-700 dark:text-primary-300"
                     size={20}
                   />
                 </div>
                 <div>
-                  <h4 className="text-sm text-slate-500 dark:text-slate-400">
+                  <h4 className="text-sm text-slate-700 dark:text-slate-300">
                     {t("contact.form.email")}
                   </h4>
                   <a
                     href="mailto:rkuloglija@gmail.com"
-                    className="text-slate-800 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                    className="text-slate-900 dark:text-white hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200"
                   >
                     rkuloglija@gmail.com
                   </a>

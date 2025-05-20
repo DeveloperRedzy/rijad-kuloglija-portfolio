@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <Logo force="light" forceLightStyle={true} />
-            <p className="mt-4 text-slate-400 max-w-md">
+            <p className="mt-4 text-slate-300 max-w-md">
               {t("footer.description")}
             </p>
 
@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
                 href="https://github.com/DeveloperRedzy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-primary-400 transition-colors duration-200"
+                className="text-slate-300 hover:text-primary-300 transition-colors duration-200"
                 aria-label="GitHub"
               >
                 <Github size={20} />
@@ -32,14 +32,14 @@ const Footer: React.FC = () => {
                 href="https://linkedin.com/in/rijad-kuloglija"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-primary-400 transition-colors duration-200"
+                className="text-slate-300 hover:text-primary-300 transition-colors duration-200"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
               </a>
               <a
                 href="mailto:rkuloglija@gmail.com"
-                className="text-slate-400 hover:text-primary-400 transition-colors duration-200"
+                className="text-slate-300 hover:text-primary-300 transition-colors duration-200"
                 aria-label="Email"
               >
                 <Mail size={20} />

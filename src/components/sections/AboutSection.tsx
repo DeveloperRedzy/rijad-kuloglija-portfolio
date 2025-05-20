@@ -28,19 +28,19 @@ const AboutSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-xl font-semibold mb-4 text-slate-800 dark:text-white">
+            <h3 className="text-xl font-semibold mb-4 text-slate-900 dark:text-white">
               {t("about.whoIAm")}
             </h3>
-            <p className="text-slate-600 dark:text-slate-300 mb-4">
+            <p className="text-slate-700 dark:text-slate-200 mb-4">
               {t("about.whoIAmText1")}
             </p>
-            <p className="text-slate-600 dark:text-slate-300 mb-4">
+            <p className="text-slate-700 dark:text-slate-200 mb-4">
               {t("about.whoIAmText2")}
             </p>
-            <p className="text-slate-600 dark:text-slate-300 mb-4">
+            <p className="text-slate-700 dark:text-slate-200 mb-4">
               {t("about.whoIAmText3")}
             </p>
-            <p className="text-slate-600 dark:text-slate-300">
+            <p className="text-slate-700 dark:text-slate-200">
               {t("about.whoIAmText4")}
             </p>
           </motion.div>
