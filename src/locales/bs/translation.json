@@ -75,6 +75,11 @@
     "viewMore": "Pogledaj više na GitHub-u",
     "description": "Ovo su samo neki od projekata na kojima sam radio tokom svoje karijere. Interesirani ste za detaljnije informacije ili razgovor o specifičnim projektima?",
     "items": {
+      "suiNftDapp": {
+        "title": "Sui NFT DApp",
+        "description": "Decentralizovana aplikacija za kreiranje i upravljanje NFT-ovima na Sui blockchainu.",
+        "detailedDescription": "Sveobuhvatna decentralizovana aplikacija (DApp) izgrađena na Sui blockchainu koja omogućava korisnicima da kreiraju NFT-ove, poboljšavaju ih i upravljaju SUI kovanicama. Ovaj projekat demonstrira moderne web3 razvojne prakse koristeći Next.js, TypeScript i Sui blockchain ekosistem."
+      },
       "ultimateDashboard": {
         "title": "Ultimate Dashboard",
         "description": "Sveobuhvatna HR dashboard aplikacija za upravljanje zaposlenicima",

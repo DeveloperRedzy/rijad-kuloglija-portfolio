@@ -75,6 +75,11 @@
     "viewMore": "View More on GitHub",
     "description": "These are just some highlights of the projects I've worked on throughout my career. Interested in more detailed information or discussing specific projects?",
     "items": {
+      "suiNftDapp": {
+        "title": "Sui NFT DApp",
+        "description": "A decentralized application for minting and managing NFTs on the Sui blockchain.",
+        "detailedDescription": "A comprehensive decentralized application (DApp) built on the Sui blockchain that allows users to mint NFTs, level them up, and manage SUI coins. This project demonstrates modern web3 development practices using Next.js, TypeScript, and the Sui blockchain ecosystem."
+      },
       "ultimateDashboard": {
         "title": "Ultimate Dashboard",
         "description": "Comprehensive HR dashboard application for employee management",
