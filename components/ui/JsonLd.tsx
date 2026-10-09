@@ -7,5 +7,5 @@ export function JsonLd() {
     sameAs: [profile.links.github, profile.links.linkedin], knowsAbout: profile.strengths,
     worksFor: profile.roles.filter((r) => r.current).map((r) => ({ "@type": "Organization", name: r.company, url: r.url })),
   };
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
 }
