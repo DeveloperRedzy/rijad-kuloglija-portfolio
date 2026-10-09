@@ -505,7 +505,7 @@ export const ProjectSchema = z.object({
     hero: z.union([MediaSchema, z.array(MediaSchema).min(2).max(3)]),
     gallery: z.array(MediaSchema).max(4),
   }),
-  cvLine: z.string().min(20).max(220),
+  cvLine: z.string().min(20).max(260),
   featured: z.literal(true),
 });
 
@@ -3356,7 +3356,8 @@ npm install -D @axe-core/playwright@^4
 ```ts
 import { test, expect } from "@playwright/test";
 
-test("navbar anchors reach their sections", async ({ page }) => {
+test("navbar anchors reach their sections", async ({ page }, info) => {
+  test.skip(info.project.name === "mobile", "desktop navigation is hidden on mobile; the mobile menu is covered manually");
   await page.goto("/");
   for (const [name, id] of [["Work", "work"], ["About", "about"], ["Experience", "experience"], ["Contact", "contact"]]) {
     await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name, exact: true }).click();
