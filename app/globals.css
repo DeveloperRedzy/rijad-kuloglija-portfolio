@@ -121,4 +121,6 @@ section[id] { scroll-margin-top: 4rem; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 @keyframes reading-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@supports not (animation-timeline: scroll()) { [data-reading-progress] { display: none; } }
+.reading-progress { animation: reading-progress linear both; animation-timeline: scroll(); }
+@supports not (animation-timeline: scroll()) { .reading-progress { display: none; } }
+@media (prefers-reduced-motion: reduce) { .reading-progress { animation: none; transform: none; } }
