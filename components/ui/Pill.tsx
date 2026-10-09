@@ -23,7 +23,8 @@ export function Pill({ href, children, variant = "primary", dot, external, trans
     </>
   );
   if (external) {
-    return <a href={href} target="_blank" rel="noreferrer" className={`${base} ${look} ${className}`} data-magnetic>{content}</a>;
+    const newTab = href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {};
+    return <a href={href} {...newTab} className={`${base} ${look} ${className}`} data-magnetic>{content}</a>;
   }
   return <Link href={href} transitionTypes={transitionTypes} className={`${base} ${look} ${className}`} data-magnetic>{content}</Link>;
 }
