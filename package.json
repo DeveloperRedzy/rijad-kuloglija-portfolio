@@ -10,7 +10,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "icons": "node scripts/make-icons.mjs",
-    "auras": "node --experimental-strip-types scripts/render-auras.mjs"
+    "auras": "node --experimental-strip-types scripts/render-auras.mjs",
+    "capture": "node scripts/capture-public-sites.mjs",
+    "assets": "node scripts/process-assets.mjs"
   },
   "dependencies": {
     "next": "16.4.0",
@@ -19,6 +21,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^22.20.5",
     "@types/react": "^19",
