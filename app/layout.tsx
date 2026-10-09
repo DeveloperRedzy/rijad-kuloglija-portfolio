@@ -6,6 +6,7 @@ import { Grain } from "@/components/ui/Grain";
 import { Vignette } from "@/components/ui/Vignette";
 import { FaviconSwap } from "@/components/ui/FaviconSwap";
 import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
+import { MotionRoot } from "@/components/motion/MotionRoot";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { profile } from "@/content/profile";
 import "./globals.css";
@@ -25,12 +26,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body className="bg-canvas text-ink">
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-canvas">Skip to content</a>
-        <Navbar />
-        <main id="main" className="pt-16">{children}</main>
-        <Footer />
-        <Vignette />
-        <Grain />
+        <MotionRoot>
+          <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-canvas">Skip to content</a>
+          <Navbar />
+          <main id="main" className="pt-16">{children}</main>
+          <Footer />
+          <Vignette />
+          <Grain />
+        </MotionRoot>
         <FaviconSwap />
         <ConsoleSignature />
         <JsonLd />

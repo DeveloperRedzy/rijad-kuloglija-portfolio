@@ -140,3 +140,6 @@ section[id] { scroll-margin-top: 4rem; }
   .cv-page { break-inside: avoid; box-sizing: border-box; height: 296.5mm; padding: 16mm 18mm; overflow: hidden; background: var(--color-paper); }
   .break-before-page { break-before: page; }
 }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
