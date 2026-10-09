@@ -33,7 +33,7 @@ export function About() {
               <div className="mt-4 space-y-4">
                 {profile.stack.map((g) => (
                   <div key={g.group}>
-                    <p className="eyebrow text-ink-muted/70">{g.group}</p>
+                    <p className="eyebrow text-ink-muted">{g.group}</p>
                     <ul className="mt-2 flex flex-wrap gap-1.5">
                       {g.items.map((i) => <li key={i} className="rounded-md border border-hairline bg-surface-1 px-2 py-1 font-mono text-[11px] tracking-[0.06em] text-ink-soft">{i}</li>)}
                     </ul>

@@ -31,3 +31,4 @@ assets/source/
 /.next
 /test-results
 /playwright-report
+/tsconfig.tsbuildinfo

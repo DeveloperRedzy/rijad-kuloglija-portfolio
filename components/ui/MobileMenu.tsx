@@ -8,12 +8,9 @@ import { profile } from "@/content/profile";
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
   const wasOpen = useRef(false);
-
-  useEffect(() => setMounted(true), []);
 
   const close = useCallback(() => setOpen(false), []);
 
@@ -54,7 +51,7 @@ export function MobileMenu() {
       <button ref={button} type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen((o) => !o)} className="p-2 text-ink">
         <Icon name={open ? "close" : "menu"} size={22} />
       </button>
-      {mounted && open && createPortal(
+      {open && createPortal(
         <div ref={panel} id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 top-16 z-40 flex flex-col bg-canvas px-6 pt-10">
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} onClick={close} className="display-md border-t border-hairline py-5">{n.label}</Link>

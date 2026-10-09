@@ -31,9 +31,9 @@ export function Cv() {
         <ol>
           {roles.map((r) => (
             <li key={`${r.company}-${r.start}`} className="grid grid-cols-[88px_1fr] gap-3 py-[3px] text-[11px] leading-snug">
-              <span className={`font-mono text-[10px] tracking-[0.06em] ${r.current ? "text-signal" : "text-paper-ink/60"}`}>{formatPeriod(r.start, r.end)}</span>
+              <span className={`font-mono text-[10px] tracking-[0.06em] ${r.current ? "text-signal" : "text-paper-ink/70"}`}>{formatPeriod(r.start, r.end)}</span>
               <div>
-                <p><span className="font-semibold">{r.company} · {r.titleProgression ?? r.title}</span> <span className="text-[10.5px] text-paper-ink/60">({r.location} · {r.mode})</span></p>
+                <p><span className="font-semibold">{r.company} · {r.titleProgression ?? r.title}</span> <span className="text-[10.5px] text-paper-ink/70">({r.location} · {r.mode})</span></p>
                 <p className="mt-0.5 text-paper-ink/85">{r.summary}</p>
               </div>
             </li>
@@ -61,18 +61,18 @@ export function Cv() {
         <ol>
           {projects.map((p) => (
             <li key={p.slug} className="grid grid-cols-[88px_1fr] gap-3 py-2.5 text-[12px] leading-snug">
-              <span className="font-mono text-[10px] tracking-[0.06em] text-paper-ink/60">{p.period}</span>
+              <span className="font-mono text-[10px] tracking-[0.06em] text-paper-ink/70">{p.period}</span>
               <div>
                 <p className="font-semibold">{p.name} · {p.role}</p>
                 <p className="mt-0.5 text-paper-ink/85">{p.cvLine}</p>
-                {p.live && <p className="mt-0.5 text-[11px] text-paper-ink/60"><a href={p.live.url}>{host(p.live.url)}</a></p>}
+                {p.live && <p className="mt-0.5 text-[11px] text-paper-ink/70"><a href={p.live.url}>{host(p.live.url)}</a></p>}
               </div>
             </li>
           ))}
         </ol>
         <h2 className="cv-h">Lab &amp; more</h2>
         <ul>
-          {profile.lab.map((l) => <li key={l.name} className="py-1 text-[12px]"><span className="font-semibold">{l.name}</span> <span className="text-paper-ink/60">({l.year})</span> — {l.line}</li>)}
+          {profile.lab.map((l) => <li key={l.name} className="py-1 text-[12px]"><span className="font-semibold">{l.name}</span> <span className="text-paper-ink/70">({l.year})</span> — {l.line}</li>)}
         </ul>
         <footer className="cv-foot"><span>{profile.domain}/cv · generated {built}</span><span>2 / 2</span></footer>
       </section>

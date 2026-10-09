@@ -7,14 +7,17 @@
     "build": "NEXT_PUBLIC_BUILD_DATE=$(date -u +%Y-%m-%d) next build",
     "postbuild": "node scripts/build-cv-pdf.mjs",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
     "icons": "node scripts/make-icons.mjs",
     "auras": "node --experimental-strip-types scripts/render-auras.mjs",
     "capture": "node scripts/capture-public-sites.mjs",
     "assets": "node scripts/process-assets.mjs",
-    "e2e": "npm run build && playwright test"
+    "e2e": "npm run build && playwright test",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run lint && npm run typecheck && npm test",
+    "screens": "node scripts/screenshot-after.mjs"
   },
   "dependencies": {
     "next": "16.4.0",
@@ -23,6 +26,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.64.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^22.20.5",
