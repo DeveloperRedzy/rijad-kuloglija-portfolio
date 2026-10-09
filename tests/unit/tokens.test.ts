@@ -24,4 +24,13 @@ describe("design tokens", () => {
     expect(css).not.toMatch(/#000(000)?\b/i);
     expect(css).not.toMatch(/#fff(fff)?\b/i);
   });
+
+  it("keeps theme font tokens decoupled from next/font variables", () => {
+    expect(css).toContain("--font-display: var(--font-display-face)");
+    expect(css).toContain("--font-body: var(--font-body-face)");
+    expect(css).toContain("--font-mono: var(--font-mono-face)");
+    expect(css).not.toContain("var(--font-display),");
+    expect(css).not.toContain("var(--font-body),");
+    expect(css).not.toContain("var(--font-mono),");
+  });
 });
