@@ -32,12 +32,12 @@ export const profile: Profile = {
     { group: "Infrastructure", items: ["Docker", "CI/CD", "Vercel", "Git"] },
   ],
   education: [
-    { school: "International Burch University, Sarajevo", degree: "B.Sc. Computer Science", years: "2017 – 2023" },
+    { school: "International Burch University, Sarajevo", short: "International Burch University", degree: "B.Sc. Computer Science", years: "2017 – 2023" },
   ],
   languages: [
-    { name: "Bosnian", level: "native" },
-    { name: "English", level: "professional" },
-    { name: "German", level: "upper intermediate" },
+    { name: "Bosnian", code: "BS", level: "native" },
+    { name: "English", code: "EN", level: "professional" },
+    { name: "German", code: "DE", level: "upper intermediate" },
   ],
   companies: [
     "LibLynx", "Neo Labs", "DIN Solution", "ProCredit Bank", "BMW", "Deutsche Bundesbank",
@@ -58,7 +58,7 @@ export const profile: Profile = {
     },
     {
       company: "LibLynx via Clearview", title: "Lead Software Developer", titleProgression: "Senior Frontend Developer → Lead Software Developer",
-      start: "2025-07", end: null, location: "Remote", mode: "remote",
+      start: "2025-07", end: null, location: "Sarajevo", mode: "remote",
       summary: "Joined the LibLynx development team through Clearview as Senior Frontend Developer; promoted to Lead in October 2025. Lead development of the platform's report-builder application.",
       stack: ["React 19", "TypeScript", "Vite", "Material UI", "TanStack Query", "Storybook"], url: "https://www.liblynx.com/", current: true, showOnCv: true, projectSlug: "liblynx",
     },

@@ -20,7 +20,6 @@ await Promise.all(["work/liblynx", "work/din-solution", "work/neo-labs", "work/a
 
 // Heroes and galleries (desktop 1600x1000, mobile 800x1734)
 await image(cap("liblynx", 0, "desktop"), "work/liblynx/hero-desktop-1600", { width: 1600, height: 1000 });
-await image(cap("liblynx", 0, "desktop"), "work/liblynx/gallery-1-1600", { width: 1600, height: 1000, position: "bottom" });
 await image(cap("liblynx", 0, "mobile"), "work/liblynx/gallery-2-800", { width: 800, height: 1734 });
 await image(cap("din-solution", 0, "desktop"), "work/din-solution/hero-desktop-1600", { width: 1600, height: 1000 });
 await image(cap("din-solution", 0, "mobile"), "work/din-solution/gallery-1-800", { width: 800, height: 1734 });
@@ -39,8 +38,8 @@ await image("assets/source/nepa/render-bulevar-gorazde.jpg", "work/nepa-invest/r
 await image("assets/source/photo/untitled-6516.jpg", "about/portrait-1200", { width: 1200, height: 1500, position: "centre", gray: true });
 await image("assets/source/photo/untitled-6516.jpg", "about/portrait-2400", { width: 2400, height: 3000, position: "centre", gray: true });
 
-// Video: up to 1280 wide (source is 848 wide, never upscaled) H.264, poster from the first second (requires ffmpeg: brew install ffmpeg)
+// Video: up to 1280 wide (source is 848 wide, never upscaled) H.264, poster from 8 s (the title slide runs to ~6 s) (requires ffmpeg: brew install ffmpeg)
 const poster = join(tmpdir(), "tour-poster.png");
 execFileSync("ffmpeg", ["-y", "-i", "assets/source/nepa/tour-pobjeda.mp4", "-vf", "scale=min(1280\\,iw):-2", "-c:v", "libx264", "-crf", "30", "-preset", "slow", "-an", "-movflags", "+faststart", "public/media/work/nepa-invest/tour-pobjeda-1280.mp4"], { stdio: "inherit" });
-execFileSync("ffmpeg", ["-y", "-ss", "1", "-i", "public/media/work/nepa-invest/tour-pobjeda-1280.mp4", "-frames:v", "1", poster], { stdio: "inherit" });
+execFileSync("ffmpeg", ["-y", "-ss", "8", "-i", "public/media/work/nepa-invest/tour-pobjeda-1280.mp4", "-frames:v", "1", poster], { stdio: "inherit" });
 await image(poster, "work/nepa-invest/tour-pobjeda-poster-1280", { width: 1280, height: 720, position: "centre" });

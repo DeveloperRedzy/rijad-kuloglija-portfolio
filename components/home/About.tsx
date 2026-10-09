@@ -2,6 +2,8 @@ import { profile } from "@/content/profile";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Aura } from "@/components/brand/Aura";
 
+const LANG_ORDER = ["EN", "DE", "BS"];
+
 export function About() {
   const portrait = { src: "/media/about/portrait-1200.webp", alt: `${profile.name}, portrait by a window`, kind: "desktop" as const, width: 1200, height: 1500 };
   return (
@@ -14,7 +16,7 @@ export function About() {
               <img src={portrait.src} srcSet="/media/about/portrait-1200.webp 1200w, /media/about/portrait-2400.webp 2400w" sizes="(min-width:1024px) 30vw, 90vw" alt={portrait.alt} width={portrait.width} height={portrait.height} loading="lazy" decoding="async" className="block w-full" />
             </picture>
             <div aria-hidden className="pointer-events-none absolute inset-0 mix-blend-screen" style={{ background: "linear-gradient(90deg, rgba(255,74,38,0) 45%, rgba(255,74,38,.38))" }} />
-            <Aura seed="rijad" className="pointer-events-none absolute inset-0 opacity-30 mix-blend-screen" />
+            <Aura seed="rijad" className="pointer-events-none absolute inset-0 opacity-[0.15] mix-blend-screen" />
           </div>
         </div>
         <div className="lg:col-span-7 lg:col-start-6">
@@ -28,7 +30,7 @@ export function About() {
                 {profile.strengths.map((s) => <li key={s} className="py-3 text-ink">{s}</li>)}
               </ul>
             </div>
-            <div>
+            <div id="skills" className="scroll-mt-16">
               <Eyebrow>Core stack</Eyebrow>
               <div className="mt-4 space-y-4">
                 {profile.stack.map((g) => (
@@ -42,7 +44,7 @@ export function About() {
               </div>
             </div>
           </div>
-          <p className="eyebrow mt-12">{profile.location} · Building since {profile.since} · {profile.education[0].degree}, {profile.education[0].school.split(",")[0]} · {profile.languages.map((l) => l.name.slice(0, 2).toUpperCase()).join(" / ")}</p>
+          <p className="eyebrow mt-12">{profile.location} · Building since {profile.since} · {profile.education[0].degree}, {profile.education[0].short} · {LANG_ORDER.map((c) => profile.languages.find((l) => l.code === c)?.code).filter(Boolean).join(" / ")}</p>
         </div>
       </div>
     </section>

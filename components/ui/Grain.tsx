@@ -1,3 +1,5 @@
+"use client";
+import { usePathname } from "next/navigation";
 const NOISE =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
@@ -5,6 +7,7 @@ const NOISE =
   );
 
 export function Grain() {
+  if (usePathname().startsWith("/cv")) return null;
   return (
     <div
       data-grain

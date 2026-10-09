@@ -8,6 +8,7 @@ import { ProductFrame } from "@/components/work/ProductFrame";
 export function WorkChapters() {
   return (
     <section id="work" data-chapters className="relative">
+      <span id="projects" className="sr-only" aria-hidden />
       <div className="container-site pb-6 pt-24 md:pt-32">
         <Eyebrow>01 — Selected work</Eyebrow>
         <h2 data-split className="display-lg mt-4 max-w-[16ch]">Real products, in production.</h2>

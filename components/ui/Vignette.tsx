@@ -1,4 +1,7 @@
+"use client";
+import { usePathname } from "next/navigation";
 export function Vignette() {
+  if (usePathname().startsWith("/cv")) return null;
   return (
     <div
       data-grain

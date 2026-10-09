@@ -15,7 +15,7 @@ Next.js 16 App Router, static export (`out/`), React 19, TypeScript strict, Tail
 - Commits: conventional prefix, end with `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`.
 
 ## Build and deploy notes
-- `vercel.json` sets `Content-Type: image/png` and an immutable `Cache-Control` for `/opengraph-image` and `/work/*/opengraph-image` (Next emits them extensionless in the static export).
+- OG images are static `.png` route handlers at `app/og/[slug]/route.tsx` (`/og/home.png`, `/og/<slug>.png`), so Vercel serves the right content type with `trailingSlash: true`.
 - The `postbuild` CV PDF script (`scripts/build-cv-pdf.mjs`) is deploy-safe: when Chromium is unavailable (e.g. on Vercel) it skips generation and keeps the committed `public/Rijad-Kuloglija-CV.pdf`. Regenerate locally and commit the PDF whenever the CV content or styling changes.
 - Text contrast is checked by axe (`tests/e2e/a11y.spec.ts`, serious/critical must be zero on `/`, a case study and `/cv/`). Keep small muted text at or above 4.5:1.
 - CI (`.github/workflows/ci.yml`): `npm run check`, build, then the full Playwright suite (desktop, mobile, reduced-motion).

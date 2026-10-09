@@ -10,6 +10,13 @@ test("navbar anchors reach their sections", async ({ page }, info) => {
   }
 });
 
+test("alias anchors #projects and #skills scroll to their targets", async ({ page }) => {
+  await page.goto("/#projects");
+  await expect(page.locator("#work")).toBeInViewport({ ratio: 0.1 });
+  await page.goto("/#skills");
+  await expect(page.locator("#skills")).toBeInViewport({ ratio: 0.5 });
+});
+
 test("work chapters stack on desktop and flow on mobile", async ({ page }, info) => {
   await page.goto("/");
   const first = page.locator("[data-chapter='liblynx']");

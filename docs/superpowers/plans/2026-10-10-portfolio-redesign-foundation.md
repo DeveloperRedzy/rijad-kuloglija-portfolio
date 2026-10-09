@@ -3530,3 +3530,14 @@ Record the preview URL and Lighthouse numbers in `docs/superpowers/plans/2026-10
 1. Owner confirms Neo Labs start month (`2025-09` assumed) and the Amodo row.
 2. Owner-supplied app screenshots for LibLynx, GumaMax, Neo panels.
 3. Hero poster is the SVG monogram until Plan 2 renders the 3D poster.
+
+## Plan 1 result
+
+- Date: 2026-10-10
+- Branch: redesign/signal
+- HEAD: this commit
+- Lighthouse mobile (simulated throttling, perf preset, static `out/`):
+  - `/`: performance 0.88, LCP 3845 ms, CLS 0.042, TBT 10 ms
+  - `/work/nepa-invest/`: performance 0.89, LCP 3846 ms, CLS 0.0003, TBT 14 ms
+  - Top opportunities: reduce unused JavaScript (home about 140 ms, Nepa about 80 ms); no other opportunity with measurable savings.
+- Vercel preview: pending owner review (not deployed yet)

@@ -1,3 +1,4 @@
+// TODO(owner): replace hero/gallery with report-builder app screenshots from assets/source/app-screenshots/liblynx/ before launch (spec §7.2).
 import type { Project } from "../schema";
 
 export const liblynx: Project = {
@@ -28,10 +29,9 @@ export const liblynx: Project = {
     "A Storybook-documented component system and an iframe integration bridge into the host platform",
   ],
   media: {
-    hero: { src: "/media/work/liblynx/hero-desktop-1600.webp", alt: "LibLynx report builder: composing a usage report with filter bricks", kind: "desktop", width: 1600, height: 1000 },
+    hero: { src: "/media/work/liblynx/hero-desktop-1600.webp", alt: "liblynx.com home page (report-builder screenshots pending)", kind: "desktop", width: 1600, height: 1000 },
     gallery: [
-      { src: "/media/work/liblynx/gallery-1-1600.webp", alt: "Saved reports list with sharing and reorder", kind: "desktop", width: 1600, height: 1000, caption: "Saved reports · sharing and reorder" },
-      { src: "/media/work/liblynx/gallery-2-800.webp", alt: "Report builder on a phone", kind: "mobile", width: 800, height: 1734, caption: "Mobile · report composer" },
+      { src: "/media/work/liblynx/gallery-2-800.webp", alt: "liblynx.com on a phone", kind: "mobile", width: 800, height: 1734, caption: "liblynx.com · mobile" },
     ],
   },
   cvLine: "Lead developer of the report-builder application inside LibLynx's analytics platform: drag-and-drop COUNTER reporting, saved/shared/template/comparison workflows, Storybook component system. React 19, TypeScript, Material UI, TanStack Query.",

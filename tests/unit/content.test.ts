@@ -21,6 +21,11 @@ describe("profile content", () => {
     ]);
   });
 
+  it("has language codes and a short school name", () => {
+    expect(profile.languages.map((l) => l.code).sort()).toEqual(["BS", "DE", "EN"]);
+    expect(profile.education[0].short).toBe("International Burch University");
+  });
+
   it("has no legacy facts", () => {
     const text = JSON.stringify(profile);
     expect(text).not.toMatch(/Full-Stack Developer at ProCredit/);
