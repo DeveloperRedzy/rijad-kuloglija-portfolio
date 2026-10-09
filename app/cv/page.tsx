@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "CV", description: "Rijad Kuloglija, 
 
 export default function CvPage() {
   return (
-    <div className="bg-paper">
+    <div className="cv-wrap bg-paper">
       <div className="no-print mx-auto flex max-w-[800px] items-center justify-between px-8 pt-8 md:px-12">
         <p className="eyebrow text-paper-ink/60">Generated from the same data as the site</p>
         <Pill href="/Rijad-Kuloglija-CV.pdf" external variant="outline" className="border-paper-ink/30 text-paper-ink">Download PDF</Pill>

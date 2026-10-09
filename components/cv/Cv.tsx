@@ -3,12 +3,13 @@ import { projects } from "@/content";
 import { formatPeriod } from "@/lib/format";
 import { Monogram } from "@/components/brand/Monogram";
 
+const host = (u: string) => u.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "");
 const built = process.env.NEXT_PUBLIC_BUILD_DATE ?? "dev";
 
 export function Cv() {
   const roles = profile.roles.filter((r) => r.showOnCv);
   return (
-    <div className="cv mx-auto max-w-[800px] bg-paper px-8 py-10 text-paper-ink md:px-12 md:py-14 print:max-w-none print:px-0 print:py-0">
+    <div style={{ ["--color-signal" as string]: "#c9341a" }} className="cv mx-auto max-w-[800px] bg-paper px-8 py-10 text-paper-ink md:px-12 md:py-14 print:max-w-none print:px-0 print:py-0">
       <section className="cv-page">
         <header className="flex items-end justify-between gap-6 border-b border-paper-ink pb-4">
           <div>
@@ -18,8 +19,8 @@ export function Cv() {
           <address className="eyebrow not-italic text-right normal-case tracking-[0.04em] leading-[1.7] text-paper-ink/80">
             <a href={`mailto:${profile.email}`}>{profile.email}</a><br />
             <a href={`https://www.${profile.domain}`}>{profile.domain}</a><br />
-            <a href={profile.links.github}>github.com/DeveloperRedzy</a><br />
-            <a href={profile.links.linkedin}>linkedin.com/in/rijad-kuloglija</a><br />
+            <a href={profile.links.github}>{host(profile.links.github)}</a><br />
+            <a href={profile.links.linkedin}>{host(profile.links.linkedin)}</a><br />
             {profile.location} · Remote
           </address>
         </header>
@@ -64,7 +65,7 @@ export function Cv() {
               <div>
                 <p className="font-semibold">{p.name} · {p.role}</p>
                 <p className="mt-0.5 text-paper-ink/85">{p.cvLine}</p>
-                {p.live && <p className="mt-0.5 text-[11px] text-paper-ink/60">{p.live.url}</p>}
+                {p.live && <p className="mt-0.5 text-[11px] text-paper-ink/60"><a href={p.live.url}>{host(p.live.url)}</a></p>}
               </div>
             </li>
           ))}
