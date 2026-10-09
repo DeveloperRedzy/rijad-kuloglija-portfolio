@@ -299,3 +299,52 @@ docs/                brief/, screenshots/{before,after}/, superpowers/{specs,pla
 2. Final copy pass on headline, lead, about paragraph and the five case studies (first person, trimmed). Owner approves copy on the preview.
 3. Owner confirms the Amodo row and the "Head of Communications & Software Innovation" title wording for the CV.
 4. Vercel project settings: framework preset switches to Next.js automatically on first build; confirm the domain stays attached.
+
+## 15. Signature details (added 2026-10-10 after a research pass)
+
+Everything below is custom, on-concept (the signal is light) and cheap enough to keep the budgets in §10. Items marked (A) run on Tier A only; the rest run everywhere unless reduced motion is on.
+
+### 15.1 Page transitions: the frame travels
+React 19.3 `<ViewTransition>` is stable in Next.js 16.4 (no flag). The `ProductFrame` in a home chapter and the hero frame on its case study share `name="frame-<slug>"` with `share="morph"`, so clicking a project makes the screenshot fly from the chapter into the case study head (400 ms, 3 px blur mid-flight). "← All work" is tagged `nav-back`; chapter links `nav-forward`; page content slides 60 px in the matching direction with asymmetric fade (exit 150 ms, enter 210 ms). The navbar is anchored (`viewTransitionName: site-header`). `::view-transition { pointer-events: none }`. Reduced motion sets all view-transition durations to 0.
+
+### 15.2 Text reveals
+GSAP is free for commercial use since the Webflow acquisition, including SplitText, DrawSVG and ScrollSmoother. Every `display-*` heading and the hero lead reveal line by line with `SplitText.create(el, { type: 'lines', mask: 'lines', autoSplit: true })`, `yPercent: 100 → 0`, stagger 0.08 s, once, triggered at 80 % viewport. Hero headline reveals right after the loader lands. Mono eyebrows fade in with a 2 px upward move. Reduced motion: no split, text is static.
+
+### 15.3 Signal cursor (A)
+Replaces the system cursor on pointer devices only: a 6 px signal dot that tracks the pointer with no lag, plus a 28 px ring with 120 ms lag that carries the glow from §3.5. Over links and buttons the ring grows to 48 px and the dot hides; over a `ProductFrame` the ring becomes a pill labeled "Open case ↗" in mono; over the hero R the ring collapses into the dot (the pointer "becomes" the signal). Implemented with GSAP `quickTo`; `cursor: none` only when the custom cursor is mounted; touch devices and reduced motion keep the system cursor.
+
+### 15.4 Magnetic pills (A)
+Primary and outlined pills attract the pointer within 80 px (translate up to 12 px, `power3.out`, release with elastic 0.6 s). The dot inside the primary pill moves 2 px opposite to the pull. Touch: tap scales to .98 for 120 ms.
+
+### 15.5 Custom icon set
+No icon library. One SVG sprite `public/brand/icons.svg` with 12 line icons drawn on a 24-unit grid, 1.5 stroke, round caps, slightly open joins so they read as drawn, not stamped: arrow-up-right, arrow-right, arrow-left, mail, copy, check, download, external, close, menu, play, pause, plus `github` and `linkedin` marks simplified to the same stroke weight. `<Icon name>` component references the sprite. Arrow icons draw on with DrawSVG on hover (A) and sit 2 px right on hover elsewhere.
+
+### 15.6 Hover previews
+In Experience and Lab rows, hovering (pointer devices) shows a 240 × 150 thumbnail that follows the pointer with GSAP `quickTo` lag and a 6° tilt in the direction of travel; the thumbnail is the related project frame or company site capture. Keyboard focus shows the same thumbnail anchored to the row's right edge.
+
+### 15.7 Project auras: generative custom imagery
+Each project gets a deterministic "aura": a seeded field of soft red light and grain, generated from the slug (seeded noise → SVG `feTurbulence` + `feDisplacementMap` + radial gradients), used (a) behind the case study head at 18 % opacity, (b) as the OG image background, (c) as the chapter background on home at 8 %. No two projects look alike; no stock images; the same function renders the About aura from the string "rijad". Rendered to static PNG at build for OG (`scripts/render-auras.mjs` with `sharp` from the SVG string) and inlined as SVG on pages.
+
+### 15.8 Shader hover on frames (A)
+The case study hero `ProductFrame` and gallery frames upgrade on Tier A to a small R3F plane with a custom fragment shader: on hover a 1.2 s displacement ripple (noise-driven `uProgress`) and a red light sweep computed in the shader instead of CSS. Below Tier A the CSS sweep from §3.5 is used. One shared `WebGLRenderer` via a single fixed `Canvas` with `View` tracking (drei `View`) so frames do not each create a context.
+
+### 15.9 Progress rails
+Selected work has a fixed vertical mono rail on the right (desktop) showing "01 / 05" with a signal tick that fills with chapter progress (ScrollTrigger scrub). Case study pages show a 2 px signal reading-progress line at the top under the navbar.
+
+### 15.10 Loader with real progress
+The loader's dot fills by actual readiness (`document.fonts.ready`, hero poster decoded, and on Tier A the 3D chunk loaded) with a floor of 900 ms and a cap of 2.4 s, then lands (§6.3). Skippable by scroll or click.
+
+### 15.11 Live and tiny delights
+- Navbar dot is a button: click sends a "ping", one light sweep across the viewport (600 ms); `aria-label="Send a ping"`; keyboard-accessible.
+- Favicon: the SVG dot is signal when the tab is visible and ink-muted when hidden (`visibilitychange` swaps `<link rel="icon">`).
+- Footer: live Sarajevo time, build date (`NEXT_PUBLIC_BUILD_DATE` set in the build script), "Status: shipping".
+- Availability badge in hero and contact: `profile.availability` string (e.g. "Open to product engagements from Q1 2027") with a pulsing dot; owner edits in content.
+- Console signature on load: the monogram in ASCII, "Send a signal → rkuloglija@gmail.com".
+- Company marquee set in `display-md`, not mono; hovered name lights to ink with a signal underline.
+- Vignette: a fixed radial darkening toward the viewport edges (8 %) so the light feels contained.
+
+### 15.12 404
+"Lost signal." The R renders with its dot off (ink-muted); moving the pointer near it makes the dot flicker on (Tier A) and a magnetic "Back to the signal" pill goes home. Mobile: the dot flickers on load.
+
+### 15.13 Budgets after additions
+Initial JS stays ≤ 200 KB gzipped (GSAP core + ScrollTrigger + SplitText ≈ 45 KB); the 3D chunk remains lazy and ≤ 400 KB gzipped including the shader-frame code. Lighthouse budgets from §10 are unchanged and still block merge.
