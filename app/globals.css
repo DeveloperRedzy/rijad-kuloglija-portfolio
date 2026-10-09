@@ -111,3 +111,9 @@
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(*), ::view-transition-new(*), ::view-transition-group(*) { animation-duration: 0s !important; animation-delay: 0s !important; }
 }
+
+section[id] { scroll-margin-top: 4rem; }
+
+@media (max-width: 1023px) {
+  [data-chapters] li { position: static; min-height: 0; }
+}
