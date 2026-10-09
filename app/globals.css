@@ -117,3 +117,5 @@ section[id] { scroll-margin-top: 4rem; }
 @media (max-width: 1023px) {
   [data-chapters] li { position: static; min-height: 0; }
 }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
