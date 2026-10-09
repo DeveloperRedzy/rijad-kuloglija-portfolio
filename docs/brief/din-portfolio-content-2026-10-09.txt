@@ -1,0 +1,301 @@
+# Text extracted from https://din-portfolio-five.vercel.app/ on 2026-10-09 (content source of truth)
+
+Rijad Kuloglija × Anel Kujović — Product Engineers 
+ Skip to content RK × AK Work Capabilities About Experience Contact Let's talk 
+ Rijad Kuloglija × Anel Kujović
+ Two engineers.
+ Full product ownership. 
+ We build production software across SaaS, AI, enterprise platforms and digital products — covering architecture, frontend, backend, integrations and deployment.
+ Explore our work About us 
+ Product Engineering
+ Full-Stack
+ AI
+ SaaS
+ Platforms
+ Infrastructure
+ Project index
+ 12 entries · all real
+ 01 MintedScale AI / Product Platform / Business Infrastructure AK 
+ 02 LibLynx Enterprise SaaS / Identity & Access / Analytics RK 
+ 03 Neo Labs AI / Communication Platform RK 
+ 04 DIN Solution FinTech / Consulting / Technology Leadership RK 
+ 05 Neo Care AI / Care Technology RK 
+ 06 Neo Therapy AI / Mental Wellness Technology RK 
+ 07 Asrify SaaS / Workforce & Project Management AK 
+ View all ↓ 
+ Software we've helped build spans:
+ AI
+ SaaS
+ Identity & Access
+ Analytics
+ Publishing
+ Healthcare
+ Banking
+ Real Estate
+ E-commerce
+ Business Operations
+ Products and companies we've worked with — as engineers, contractors and founders
+ LibLynx
+ Neo Labs
+ DIN Solution
+ MintedScale
+ ProCredit Bank
+ BMW
+ Deutsche Bundesbank
+ Arkona Technology
+ Superlex
+ Asrify
+ Puzzles IT
+ Nepa Invest
+ Solution404
+ Clearview
+ 01 — Selected work
+ Real products. Real users. Production constraints.
+ Every project below is live or in production. Open them. Check them.
+ 01 01 · AI / Product Platform / Business Infrastructure
+ MintedScale 
+ Turning audience data into products.
+ A creator-brand venture platform built around an internal AI analysis system of 28 specialized agents — founded, designed and engineered by one person.
+ Engineer Anel Kujović Role Founder / Product Engineer Stack AI agent system · Web platform · Storefronts & payments · Revenue modeling Case study Visit live product ↗ 
+ www.mintedscale.com/en 
+ 02 02 · Enterprise SaaS / Identity & Access / Analytics
+ LibLynx 
+ Leading a new analytics product inside enterprise infrastructure.
+ Rijad leads development of the report-builder application inside LibLynx — the identity, access and COUNTER-analytics platform used by publishers including PLOS, The Economist Group and Digital Science.
+ Engineer Rijad Kuloglija Role Lead Software Developer Stack React 19 · TypeScript · Vite · Material UI · TanStack Query · Storybook Case study Visit live product ↗ 
+ www.liblynx.com 
+ 03 03 · AI / Communication Platform
+ Neo Labs 
+ AI voice products people talk to every day.
+ An AI communications company building intelligent voice assistants across care, therapy and entertainment — Rijad is one of its four members, as Head of Communications & Software Innovation.
+ Engineer Rijad Kuloglija Role Head of Communications & Software Innovation Stack AI voices & assistants · Next.js · Product platforms · Multilingual Case study Visit live product ↗ 
+ www.neo-labs.ai 
+ 04 04 · FinTech / Consulting / Technology Leadership
+ DIN Solution 
+ Owning the technology function of an international consulting firm.
+ DIN is a FinTech consulting firm operating from London, Luxembourg and the US — Rijad is its CTO & Head of Software Development, owning technology direction and the software side of its service lines.
+ Engineer Rijad Kuloglija Role CTO & Head of Software Development Stack Technology leadership · IT solutions · FinTech consulting · Web platform Case study Visit live product ↗ 
+ www.dinsolution.com/ 
+ 05 05 · AI / Mental Wellness Technology
+ Neo Therapy 
+ Structured daily support between therapy sessions.
+ Daily AI-powered therapeutic calls — check-ins, exercise reminders, coping strategies and progress tracking — positioned as support alongside professional care, not a replacement for it.
+ Engineer Rijad Kuloglija Role Product Engineering Stack Next.js · AI voice calls · Progress tracking · Structured check-ins Case study Visit live product ↗ 
+ www.neo-therapy.ai 
+ 06 06 · SaaS / Workforce & Project Management
+ Asrify 
+ Long-term engineering on a production SaaS.
+ A live time-tracking and project-management platform — time tracking, Kanban boards, Gantt timelines, KPIs and billing — where Anel works across backend, frontend, database and the test suites that keep it shippable.
+ Engineer Anel Kujović Role Full-Stack Developer Stack Laravel · Vue.js · PostgreSQL · REST APIs · Cypress E2E Case study Visit live product ↗ 
+ asrify.com 
+ More work
+ AI / Care Technology
+ Neo Care
+ An AI service that calls seniors daily for wellbeing checks, medication reminders and companionship — over ordinary phone lines, with reports and emergency escalation for families.
+ Product Engineering · Rijad
+ Software Company / Web Platform
+ Arkona Technology
+ Led the end-to-end development of Arkona Technology's responsive, high-performance website, and built GumaMax — a multi-vendor tire-ordering dashboard.
+ Senior Frontend Developer · Rijad
+ Real Estate / Digital Product
+ Nepa Invest
+ The digital home of a real-estate investment company — presenting developments like Villa Park Obarak and Bulevar Goražde with galleries, video tours and lead capture.
+ Web Engineering · Rijad
+ Product Engineering / Multiple Products
+ Puzzles IT
+ As lead developer, Anel owned architecture decisions, performance and maintainability across multiple full-stack products as they grew.
+ Full-Stack / Lead Developer · Anel
+ Integrations / Real-Time Dashboards
+ Data & Analytics Systems
+ At TechWave, Anel built data-heavy dashboards integrating multiple third-party APIs with real-time analytics.
+ Software Developer · Anel
+ Engineering Lab / Web3
+ Sui NFT DApp
+ A live DApp for minting NFTs, leveling them up and managing SUI coins — modern web3 engineering on Next.js and TypeScript.
+ Design & Development · Rijad
+ 02 — The engineers
+ Different strengths.
+One product mindset.
+ Sarajevo, Bosnia & Herzegovina
+ Rijad Kuloglija
+ Lead Software Developer / Full-Stack
+ Building software professionally since 2021
+ Rijad is Lead Software Developer on the LibLynx development team — embedded through Clearview, a remote-first consultancy. He joined as a Senior Frontend Developer in July 2025 and was promoted to lead three months later; he now leads the build of the platform's report-builder application: drag-and-drop report composition over COUNTER usage data, in React 19, TypeScript and Material UI. Before that he owned design-to-deployment development of internal banking products at ProCredit Bank, and spent two years at Bloola in Germany on projects for BMW and Deutsche Bundesbank.
+ He is also CTO & Head of Software Development at DIN Solution, an international FinTech consulting firm, and one of the four members of Neo Labs, an EU AI-voice company, as Head of Communications & Software Innovation — where he engineered the customer-facing platforms of its products Neo Care and Neo Therapy. His center of gravity is frontend architecture — React, Vue 3, TypeScript, Next.js — backed by real backend work in Laravel, Flask and Node; along the way he has integrated AI into a Swiss legal-tech product and shipped a decentralized application on the Sui blockchain.
+ Strengths
+ Frontend architecture
+ React / Vue ecosystems
+ Design-to-deployment ownership
+ Enterprise & banking software
+ AI integrations
+ Performance & UI engineering
+ Core stack
+ React / Next.js · Vue 3 · TypeScript · Material UI · Tailwind CSS · TanStack Query · PHP (Laravel) · Python (Flask) · Node.js / Express · GraphQL · MySQL / PostgreSQL · Docker
+ GitHub ↗ LinkedIn ↗ Email 
+ Sarajevo, Bosnia & Herzegovina
+ Anel Kujović
+ Full-Stack / Product Engineer
+ Building software professionally since 2018
+ Anel builds products end to end: backend architecture, frontend, data, integrations and the business logic in between. Since 2018 he has shipped booking systems, e-commerce, data-heavy dashboards and production SaaS — most recently as a full-stack engineer on Asrify, a time-tracking and project-management platform, and as lead developer across multiple products at Puzzles IT.
+ He is also the founder of MintedScale, where he designed and built an AI analysis system of specialized agents that turns creator-audience data into product and monetization decisions. The through-line: he doesn't wait for a spec — he finds the opportunity, designs the system and ships it.
+ Strengths
+ Backend architecture
+ SaaS product systems
+ API integrations
+ AI product development
+ Business & product thinking
+ Testing (unit + Cypress E2E)
+ Core stack
+ Laravel / PHP · Vue.js · React · Node.js / Express · Python · PostgreSQL · MySQL · MongoDB · Docker · CI/CD
+ GitHub ↗ LinkedIn ↗ Email 
+ 03 — Why us
+ Where we add leverage.
+ 01
+ Product ownership
+ We don't need perfectly prepared tickets to make progress. We can take a product problem and turn it into architecture, implementation and production software.
+ 02
+ Across the stack
+ Frontend, backend, data, APIs, infrastructure and deployment. We understand the consequences of decisions across system boundaries.
+ 03
+ Existing systems
+ We're comfortable entering mature codebases, understanding the architecture that's already there, and improving systems without rebuilding everything from scratch.
+ 04
+ Shipping
+ The goal is production. Architecture and code quality matter because software needs to survive after launch.
+ 04 — Capabilities
+ The stack, attributed.
+ Technologies are only listed against the engineer who has shipped with them.
+ Frontend
+ React R·A 
+ Vue.js R·A 
+ Next.js R 
+ TypeScript R 
+ JavaScript R·A 
+ Tailwind CSS R·A 
+ React Native R 
+ Storybook R 
+ Frontend architecture R·A 
+ Backend
+ Laravel / PHP R·A 
+ Node.js / Express R·A 
+ Python R·A 
+ REST APIs R·A 
+ GraphQL R 
+ Flask R 
+ Data
+ PostgreSQL R·A 
+ MySQL R·A 
+ MongoDB R·A 
+ SQLite R 
+ Firebase / Supabase R 
+ Infrastructure
+ Docker R·A 
+ CI/CD pipelines R·A 
+ Git R·A 
+ Cypress E2E A 
+ Unit & integration testing R·A 
+ Production deployment R·A 
+ Product
+ SaaS platforms R·A 
+ AI products & agents R·A 
+ Authentication R·A 
+ Payments & storefronts A 
+ Analytics & dashboards R·A 
+ Third-party integrations R·A 
+ Admin systems R·A 
+ Business workflows R·A 
+ Legend
+ R — Rijad Kuloglija
+ A — Anel Kujović
+ R·A — both engineers, independently verified
+ Nothing here is aspirational — every entry maps to shipped work listed on this site.
+ 05 — Experience
+ Two careers, side by side.
+ Rijad Kuloglija
+ 2021 → now
+ DIN Solution ↗ 2026 — Present
+ CTO & Head of Software Development · London / Luxembourg / US · Remote 
+ Technology direction and the software development function of an international FinTech consulting firm — including delivery behind its IT-solutions service line.
+ Neo Labs ↗ Current
+ Head of Communications & Software Innovation · EU / Remote 
+ One of the company's four members. Engineered the customer-facing platforms of its AI voice products, Neo Care and Neo Therapy, and owns how the products are built and communicated.
+ Clearview × LibLynx ↗ Jul 2025 — Present
+ Senior Frontend Developer → Lead Software Developer · Remote 
+ Joined LibLynx's development team through Clearview (clearview.team) part-time as Senior Frontend Developer; promoted to Lead Software Developer in October 2025. Leads development of the platform's report-builder application. React 19, TypeScript, Vite, Material UI, TanStack Query, Storybook.
+ Arkona Technology ↗ Oct 2024 — Mar 2025
+ Senior Frontend Developer · Belgrade (part-time) 
+ Led end-to-end development of Arkona's website; built the GumaMax multi-vendor tire-ordering dashboard.
+ ProCredit Bank
+ Mar 2024 — Oct 2025
+ Full-Stack Developer · Sarajevo 
+ Design-to-deployment ownership of internal banking products: HR dashboard, customer-referral system, ATM-feedback tooling. Vue, React, Flask, Laravel, MySQL.
+ Superlex
+ Feb 2024 — May 2024
+ React + AI Engineer · Switzerland (contract) 
+ Built auth, verification, dashboard and file-upload features for an AI legal-advice product with ChatGPT integration.
+ ACKE Creative Studio
+ May 2023 — Jul 2023
+ React Developer · Contract 
+ Delivered a personalized React dashboard MVP for music producers in three months, covering the full product lifecycle.
+ Bloola GmbH & Co. KG
+ Sep 2021 — Nov 2023
+ React Developer · Germany (contract) 
+ Agile development on projects for BMW and Deutsche Bundesbank; contract management, a drag-and-drop app builder, and course-discovery tooling on React + SharePoint.
+ Solution404 ↗ Jan 2021 — Sep 2021
+ Software Developer · Sarajevo 
+ Full-stack React work on MyLawyer; led the Mine Tracking app from conception to deployment.
+ Anel Kujović
+ 2018 → now
+ MintedScale ↗ 2026 — Present
+ Founder / Product Engineer
+ Creator-brand venture builder. Designed and built the platform and its internal AI analysis system — 28 specialized agents that turn audience data into product and monetization decisions.
+ Asrify ↗ Mar 2025 — Present
+ Full-Stack Developer · Estonia · Remote 
+ Time-tracking and project-management SaaS. Laravel, Vue and PostgreSQL across backend, frontend, database, unit tests and Cypress E2E.
+ Puzzles IT
+ Apr 2024 — Present
+ Full-Stack / Lead Developer · Tallinn, Estonia · Remote 
+ Full-stack product development — architecture decisions, performance and maintainability as products grew. Laravel, Vue, PostgreSQL, Docker.
+ TechWave
+ Aug 2022 — Apr 2024
+ Software Developer · Sarajevo 
+ Data-heavy dashboards integrating multiple third-party APIs and real-time analytics. Vue, React, Node.js, Laravel.
+ Solution404 ↗ Sep 2021 — Mar 2022
+ Frontend → Backend Developer · Sarajevo 
+ Started on user-facing React features, then moved to the backend — server-side application logic and the APIs consumed by web and mobile frontends. E-commerce work with a focus on security and performance.
+ Imtec
+ Mar 2018 — Jun 2020
+ Intern → Backend Developer · Sarajevo 
+ Promoted from internship to backend developer after three months. Booking and e-commerce systems, MySQL database architecture, PHP and CodeIgniter.
+ 06 — Principles
+ How we build.
+ 01
+ Understand the product before choosing the architecture.
+ 02
+ Prefer simple systems that can evolve over clever systems nobody wants to maintain.
+ 03
+ Measure performance instead of guessing.
+ 04
+ Treat production as part of development.
+ 05
+ Design APIs and interfaces around real workflows.
+ 06
+ Ship, observe, improve.
+ Need engineers who can own the product?
+ We're open to product engineering opportunities, long-term collaborations and technically demanding builds.
+ Contact Rijad Contact Anel 
+ github/DeveloperRedzy linkedin/rijad-kuloglija github/AnelDeveloper linkedin/anel-kujovic 
+ RK × AK
+ Product engineers building software that has to keep working after launch.
+ Rijad Kuloglija
+ Email 
+ GitHub ↗ 
+ LinkedIn ↗ 
+ Portfolio ↗ 
+ Anel Kujović
+ Email 
+ GitHub ↗ 
+ LinkedIn ↗ 
+ MintedScale ↗ 
+ Sarajevo, Bosnia & Herzegovina
+ Every project on this site is real and linked
