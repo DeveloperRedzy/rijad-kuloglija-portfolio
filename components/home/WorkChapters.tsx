@@ -23,7 +23,7 @@ export function WorkChapters() {
               className="sticky top-16 min-h-[calc(100dvh-4rem)] border-t border-hairline bg-canvas"
             >
               <Aura seed={p.slug} className="absolute inset-0 opacity-[0.08]" />
-              <div className="container-site relative grid min-h-[calc(100dvh-4rem)] items-center gap-10 py-16 lg:grid-cols-12">
+              <div className="container-site relative grid items-center gap-10 py-12 lg:min-h-[calc(100dvh-4rem-1px)] lg:grid-cols-12 lg:py-10">
                 <div className="lg:col-span-5">
                   <p className="eyebrow text-signal">{String(p.index).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</p>
                   <p className="eyebrow mt-3">{p.categories.join(" · ")}</p>
@@ -34,7 +34,7 @@ export function WorkChapters() {
                     Read case study <Icon name="arrow-up-right" size={16} />
                   </Link>
                 </div>
-                <div className="lg:col-span-7">
+                <div className="order-first lg:order-none lg:col-span-7 lg:[&_img]:mx-auto lg:[&_img]:w-auto lg:[&_img]:max-h-[calc(100dvh-14rem)] lg:[&_img]:object-contain">
                   <Link href={`/work/${p.slug}/`} transitionTypes={["nav-forward"]} aria-label={`Open ${p.name} case study`} className="block">
                     <ProductFrame media={hero} slug={p.slug} url={p.live?.label} priority={i === 0} />
                   </Link>
