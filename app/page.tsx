@@ -7,6 +7,8 @@ import { Experience } from "@/components/home/Experience";
 import { Lab } from "@/components/home/Lab";
 import { Contact } from "@/components/home/Contact";
 
+export const metadata = { alternates: { canonical: "/" } };
+
 export default function Home() {
   return (
     <PageTransition>

@@ -6,6 +6,7 @@ import { Grain } from "@/components/ui/Grain";
 import { Vignette } from "@/components/ui/Vignette";
 import { FaviconSwap } from "@/components/ui/FaviconSwap";
 import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
+import { JsonLd } from "@/components/ui/JsonLd";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Grain />
         <FaviconSwap />
         <ConsoleSignature />
+        <JsonLd />
       </body>
     </html>
   );
