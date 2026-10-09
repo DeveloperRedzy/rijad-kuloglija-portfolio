@@ -7,6 +7,7 @@ const NOISE =
 export function Grain() {
   return (
     <div
+      data-grain
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-[60] opacity-[0.065] mix-blend-overlay"
       style={{ backgroundImage: `url("${NOISE}")`, backgroundSize: "120px 120px" }}

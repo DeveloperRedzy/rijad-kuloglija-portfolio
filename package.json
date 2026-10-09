@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "NEXT_PUBLIC_BUILD_DATE=$(date -u +%Y-%m-%d) next build",
+    "postbuild": "node scripts/build-cv-pdf.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
@@ -29,6 +30,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
+    "pdf-lib": "^1.17.1",
     "serve": "^14.2.6",
     "sharp": "^0.35.5",
     "tailwindcss": "^4",
