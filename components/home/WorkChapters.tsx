@@ -27,7 +27,7 @@ export function WorkChapters() {
               className="sticky top-16 min-h-[calc(100dvh-4rem)] border-t border-hairline bg-canvas"
             >
               <Aura seed={p.slug} className="absolute inset-0 opacity-[0.08]" />
-              <div className="container-site relative grid items-center gap-10 py-12 lg:min-h-[calc(100dvh-4rem-1px)] lg:grid-cols-12 lg:py-10">
+              <div data-chapter-grid className="container-site relative grid items-center gap-10 py-12 lg:min-h-[calc(100dvh-4rem-1px)] lg:grid-cols-12 lg:py-10">
                 <div className="lg:col-span-5">
                   <p className="eyebrow text-signal">{String(p.index).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</p>
                   <p className="eyebrow mt-3">{p.categories.join(" · ")}</p>

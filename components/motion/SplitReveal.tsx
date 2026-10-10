@@ -10,9 +10,13 @@ export function SplitReveal() {
   useEffect(() => {
     if (!tier || tier === "C") return;
     let cancelled = false;
+    // Images settling after fonts shift layout; re-measure trigger positions once the page has loaded.
+    const onLoad = () => { ScrollTrigger.refresh(); };
+    if (document.readyState !== "complete") window.addEventListener("load", onLoad, { once: true });
     const ctx = gsap.context(() => {
       document.fonts.ready.then(() => {
         if (cancelled) return;
+        ctx.add(() => {
         gsap.utils.toArray<HTMLElement>("[data-split]").forEach((el) => {
           if (el.dataset.revealed) return;
           SplitText.create(el, {
@@ -32,9 +36,10 @@ export function SplitReveal() {
           gsap.from(el, { y: 2, opacity: 0, duration: 0.5, scrollTrigger: { trigger: el, start: "top 90%", once: true } });
         });
         ScrollTrigger.refresh();
+        });
       });
     });
-    return () => { cancelled = true; ctx.revert(); };
+    return () => { cancelled = true; window.removeEventListener("load", onLoad); ctx.revert(); };
   }, [tier, pathname]);
   return null;
 }

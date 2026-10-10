@@ -6,16 +6,19 @@ import { useTier } from "@/lib/tiers";
 export function ChapterChoreo() {
   const tier = useTier();
   useEffect(() => {
-    if (!tier || tier === "C" || innerWidth < 1024) return;
+    if (!tier || tier === "C") return;
     const root = document.querySelector<HTMLElement>("[data-chapters]");
     const rail = document.querySelector<HTMLElement>("[data-rail]");
     const label = rail?.querySelector<HTMLElement>("[data-rail-label]");
     if (!root) return;
     const chapters = gsap.utils.toArray<HTMLElement>("[data-chapter]");
     const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 1024px)", () => {
       chapters.forEach((ch, i) => {
         const next = chapters[i + 1];
-        const grid = ch.firstElementChild?.nextElementSibling;
+        // Explicit hook instead of DOM-order traversal.
+        const grid = ch.querySelector("[data-chapter-grid]");
         if (!next || !grid) return;
         // As the next chapter slides over, the current one recedes.
         gsap.to(grid, {
@@ -31,6 +34,7 @@ export function ChapterChoreo() {
           const idx = Math.min(chapters.length, Math.floor(st.progress * chapters.length) + 1);
           if (label) label.textContent = `${String(idx).padStart(2, "0")} / ${String(chapters.length).padStart(2, "0")}`;
         },
+      });
       });
     }, root);
     return () => ctx.revert();
