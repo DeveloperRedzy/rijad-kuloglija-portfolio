@@ -6,15 +6,34 @@ import { EffectComposer, Bloom, ToneMapping } from "@react-three/postprocessing"
 import { ToneMappingMode, type BloomEffect } from "postprocessing";
 import * as THREE from "three";
 import { DOT_WORLD, RLetter } from "./RLetter";
-import { sceneBridge } from "./SceneBridge";
+import { onScenePause, sceneBridge } from "./SceneBridge";
 
 /** Pointer distance (CSS px) from the projected dot at which the flare starts. */
 const FLARE_RADIUS = 160;
-/** Canvas bleed beyond the poster box on each side (fraction of the box), so the bloom halo is never clipped. */
-const BLEED = 0.25;
+/** Vertical FOV across the poster box at rest (camera z 6): defines the letter's on-screen size. */
 const BASE_FOV = 35;
-/** Same on-screen letter size in a canvas (1 + 2·BLEED)× larger than the box. */
-const BLEED_FOV = THREE.MathUtils.radToDeg(2 * Math.atan((1 + 2 * BLEED) * Math.tan(THREE.MathUtils.degToRad(BASE_FOV / 2))));
+const TAN_HALF_BASE = Math.tan(THREE.MathUtils.degToRad(BASE_FOV / 2));
+
+/**
+ * Viewport canvas, box framing: renders exactly what a BASE_FOV camera would show inside the poster box (same focal
+ * length in CSS px, principal point at the box centre), extended to the whole canvas with an off-centre view offset.
+ * `aim` (0..1) slides the principal point to the canvas centre for the dive.
+ */
+function frameToBox(camera: THREE.PerspectiveCamera, canvas: DOMRect, box: DOMRect, aim: number) {
+  const w = canvas.width;
+  const h = canvas.height;
+  if (!w || !h || !box.height) return;
+  const focal = box.height / (2 * TAN_HALF_BASE);
+  const px = THREE.MathUtils.lerp(box.left - canvas.left + box.width / 2, w / 2, aim);
+  const py = THREE.MathUtils.lerp(box.top - canvas.top + box.height / 2, h / 2, aim);
+  // the smallest centred "full view" that contains the canvas with the principal point at its centre
+  const fw = 2 * Math.max(px, w - px);
+  const fh = 2 * Math.max(py, h - py);
+  camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(fh / (2 * focal)));
+  camera.aspect = fw / fh;
+  camera.setViewOffset(fw, fh, fw / 2 - px, fh / 2 - py, w, h);
+  camera.updateProjectionMatrix();
+}
 
 export type Props = {
   onReady: () => void;
@@ -24,8 +43,10 @@ export type Props = {
   postprocessing?: boolean;
   /** Needed for toDataURL() in the poster renderer. */
   preserveDrawingBuffer?: boolean;
-  /** false: canvas exactly fills the box (poster renders). Default: bleed past the box so bloom is not clipped. */
-  bleed?: boolean;
+  /** false: canvas exactly fills the box (poster renders). Default: a viewport-sized canvas framed to the box (the dive). */
+  viewport?: boolean;
+  /** Software rasterizer forced (tests/debug): half resolution, no multisampling, so the CPU-rendered frames stay cheap. */
+  lite?: boolean;
 };
 
 type ClientPointer = { x: number; y: number; active: boolean };
@@ -34,18 +55,24 @@ type ClientPointer = { x: number; y: number; active: boolean };
  * Per-frame driver: camera from the bridge, bloom intensity from the bridge, pointer flare.
  * Owns the EffectComposer so the Bloom ref is local to the component that mutates it.
  */
-function Rig({ postprocessing, client }: { postprocessing: boolean; client: RefObject<ClientPointer> }) {
+function Rig({ postprocessing, client, viewport, lite }: { postprocessing: boolean; client: RefObject<ClientPointer>; viewport: boolean; lite: boolean }) {
   const bloom = useRef<BloomEffect>(null);
   const dot = useRef(new THREE.Vector3());
   const gl = useThree((s) => s.gl);
   const rect = useRef<DOMRect | null>(null);
-  // Cache the canvas rect; re-read on resize/scroll instead of every frame.
+  const boxRect = useRef<DOMRect | null>(null);
+  // Cache the canvas and poster-box rects; re-read on resize/scroll instead of every frame.
   useEffect(() => {
     const el = gl.domElement;
-    const read = () => { rect.current = el.getBoundingClientRect(); };
+    const box = el.closest<HTMLElement>("[data-hero-poster]");
+    const read = () => {
+      rect.current = el.getBoundingClientRect();
+      boxRect.current = box?.getBoundingClientRect() ?? null;
+    };
     read();
     const ro = new ResizeObserver(read);
     ro.observe(el);
+    if (box) ro.observe(box);
     window.addEventListener("scroll", read, { passive: true });
     window.addEventListener("resize", read);
     return () => {
@@ -56,9 +83,13 @@ function Rig({ postprocessing, client }: { postprocessing: boolean; client: RefO
   }, [gl]);
   useFrame((state, dt) => {
     const { camera } = state;
-    const { progress, cameraZ } = sceneBridge;
-    camera.position.z = cameraZ;
-    camera.lookAt(DOT_WORLD.x * progress, DOT_WORLD.y * progress, 0);
+    const { aim, cameraZ } = sceneBridge;
+    // approach: the camera slides in front of the dot and looks straight at it (aim 0 = the at-rest framing)
+    camera.position.set(DOT_WORLD.x * aim, DOT_WORLD.y * aim, cameraZ);
+    camera.lookAt(DOT_WORLD.x * aim, DOT_WORLD.y * aim, 0);
+    if (viewport && rect.current && boxRect.current && camera instanceof THREE.PerspectiveCamera) {
+      frameToBox(camera, rect.current, boxRect.current, aim);
+    }
     if (bloom.current) bloom.current.intensity = sceneBridge.bloom;
 
     // Flare: +40 % light when the pointer is within FLARE_RADIUS px of the projected dot.
@@ -75,7 +106,7 @@ function Rig({ postprocessing, client }: { postprocessing: boolean; client: RefO
   });
   if (!postprocessing) return null;
   return (
-    <EffectComposer multisampling={4}>
+    <EffectComposer multisampling={lite ? 0 : 4}>
       <Bloom ref={bloom} mipmapBlur intensity={sceneBridge.bloom} luminanceThreshold={0.8} luminanceSmoothing={0.2} levels={6} />
       <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
     </EffectComposer>
@@ -112,10 +143,16 @@ function Ready({ onReady }: { onReady: () => void }) {
   return null;
 }
 
-export default function HeroScene({ onReady, postprocessing = true, preserveDrawingBuffer = false, bleed = true }: Props) {
+export default function HeroScene({ onReady, postprocessing = true, preserveDrawingBuffer = false, viewport = true, lite = false }: Props) {
   const wrapper = useRef<HTMLDivElement>(null);
   const client = useRef<ClientPointer>({ x: 0, y: 0, active: false });
   const [visible, setVisible] = useState(true);
+  // the dive hides the scene past .72 and stops the loop (no GPU work while invisible)
+  const [paused, setPaused] = useState(() => sceneBridge.paused);
+  useEffect(() => onScenePause(() => setPaused(sceneBridge.paused)), []);
+  // ...but always draw the first frames, so readiness (the loader) resolves on a deep link that starts past the dive
+  const [drawn, setDrawn] = useState(false);
+  const handleReady = useCallback(() => { setDrawn(true); onReady(); }, [onReady]);
   const [warm, setWarm] = useState(false);
   const handleWarm = useCallback(() => setWarm(true), []);
 
@@ -139,7 +176,8 @@ export default function HeroScene({ onReady, postprocessing = true, preserveDraw
     };
   }, []);
 
-  // Pause the render loop while the scene is well outside the viewport.
+  // Pause the render loop while the scene is well outside the viewport (box mode; the viewport canvas is fixed
+  // and relies on the bridge pause instead).
   useEffect(() => {
     const el = wrapper.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
@@ -149,15 +187,18 @@ export default function HeroScene({ onReady, postprocessing = true, preserveDraw
   }, []);
 
   return (
-    // The bleed wrapper extends past the poster box so the bloom halo fades out instead of being clipped into a square.
-    // Task 6 makes the canvas viewport-sized for the dive anyway. Never intercepts pointer events.
-    <div ref={wrapper} data-hero-scene className={`pointer-events-none absolute ${bleed ? "inset-[-25%]" : "inset-0"}`}>
+    // Viewport-sized (fixed) so the dive can fill the screen and the bloom halo is never clipped; the camera is framed
+    // to the poster box (see frameToBox), so at rest the letter sits exactly where the box is. -top-16: the pinned hero
+    // (transformed by ScrollTrigger) is the containing block and starts under the navbar; the canvas reaches the top
+    // edge behind the navbar glass either way. Never intercepts pointer events.
+    <div ref={wrapper} data-hero-scene className={`pointer-events-none ${viewport ? "fixed inset-x-0 -top-16 bottom-0" : "absolute inset-0"}`}>
       <Canvas
-        dpr={[1, 1.5]}
-        camera={{ position: [0, 0, 6], fov: bleed ? BLEED_FOV : BASE_FOV }}
+        dpr={lite ? 0.5 : [1, 1.5]}
+        // near 0.01: the dive ends 0.03 units from the counter's surface
+        camera={{ position: [0, 0, 6], fov: BASE_FOV, near: 0.01 }}
         // the EffectComposer multisamples; native MSAA on the default framebuffer would be wasted
         gl={{ antialias: false, alpha: true, powerPreference: "high-performance", preserveDrawingBuffer }}
-        frameloop={warm && visible ? "always" : "never"}
+        frameloop={warm && visible && (!paused || !drawn) ? "always" : "never"}
         style={{ pointerEvents: "none" }}
         aria-hidden
       >
@@ -176,9 +217,9 @@ export default function HeroScene({ onReady, postprocessing = true, preserveDraw
         <directionalLight position={[-4, 5, 6]} intensity={0.8} color="#B8C4FF" />
         <directionalLight position={[2, 3, -4]} intensity={2.5} color="#8FA2E0" />
         <RLetter />
-        <Rig postprocessing={postprocessing} client={client} />
+        <Rig postprocessing={postprocessing} client={client} viewport={viewport} lite={lite} />
         <Warmup onWarm={handleWarm} />
-        <Ready onReady={onReady} />
+        <Ready onReady={handleReady} />
       </Canvas>
     </div>
   );

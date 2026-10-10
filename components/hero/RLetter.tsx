@@ -63,10 +63,12 @@ export const DOT_WORLD = { x: (MONOGRAM.dot.cx - 50) * SCALE, y: -(MONOGRAM.dot.
 const MONOGRAM_DOT_R = 5;
 const BREATH_PERIOD_MS = 4000;
 const BASE_LIGHT = 10;
+const CORE_EMISSIVE = 2.4;
 
 export function RLetter() {
   const group = useRef<THREE.Group>(null);
   const light = useRef<THREE.PointLight>(null);
+  const core = useRef<THREE.MeshStandardMaterial>(null);
   const geometry = useMemo(() => {
     const data = new SVGLoader().parse(SVG);
     const shapes = data.paths.flatMap((p) => SVGLoader.createShapes(p));
@@ -85,14 +87,17 @@ export function RLetter() {
 
   useFrame((_, dt) => {
     if (!group.current || !light.current) return;
-    const { pointer, flare, intensity, progress } = sceneBridge;
-    const settle = 1 - progress;
+    const { pointer, flare, intensity, aim } = sceneBridge;
+    // the pointer tilt settles to 0 during the dive's approach
+    const settle = 1 - aim;
     const tiltX = THREE.MathUtils.degToRad(8 * pointer.y) * settle;
     const tiltY = THREE.MathUtils.degToRad(8 * pointer.x) * settle;
     group.current.rotation.x = THREE.MathUtils.damp(group.current.rotation.x, tiltX, 4, dt);
     group.current.rotation.y = THREE.MathUtils.damp(group.current.rotation.y, tiltY, 4, dt);
     const breathe = 1 + 0.1 * Math.sin((performance.now() / BREATH_PERIOD_MS) * Math.PI * 2);
     light.current.intensity = BASE_LIGHT * intensity * breathe * (1 + 0.4 * flare);
+    light.current.position.z = sceneBridge.lightZ;
+    if (core.current) core.current.emissiveIntensity = CORE_EMISSIVE * sceneBridge.core;
   });
 
   return (
@@ -114,8 +119,9 @@ export function RLetter() {
       {/* key light just in front of the counter (grazing): rakes the bowl's inner walls and spills onto the face */}
       <pointLight ref={light} position={[dot.x, dot.y, 0.4]} color="#FF4A26" intensity={BASE_LIGHT} distance={7} decay={2} />
       <mesh position={dot}>
-        <sphereGeometry args={[MONOGRAM_DOT_R * SCALE, 24, 24]} />
-        <meshStandardMaterial color="#FF4A26" emissive="#FF4A26" emissiveIntensity={2.4} toneMapped={false} />
+        {/* finely tessellated: the dive ends a few hundredths of a unit from its surface */}
+        <sphereGeometry args={[MONOGRAM_DOT_R * SCALE, 64, 48]} />
+        <meshStandardMaterial ref={core} color="#FF4A26" emissive="#FF4A26" emissiveIntensity={CORE_EMISSIVE} toneMapped={false} />
       </mesh>
     </group>
   );

@@ -19,6 +19,9 @@ const HeroScene = dynamic<SceneProps>(() => import("./HeroScene").catch(() => ({
 // (camera z 6, fov 35, dot at world (-0.128, 0.576), sphere r 0.16; see RLetter/HeroScene).
 const POSTER_DOT = { left: "46.62%", top: "34.78%", size: "8.46%" };
 
+/** Set by sceneCapable(): the scene was forced onto a software rasterizer (tests/debug); it then renders lighter. */
+let softwareForced = false;
+
 /** Dev-only: `?poster=1` forces the scene full-viewport with a preserved drawing buffer for scripts/render-poster.mjs. */
 function posterMode(): boolean {
   if (process.env.NODE_ENV === "production") return false;
@@ -40,7 +43,9 @@ function sceneCapable(): boolean {
     gl.getExtension("WEBGL_lose_context")?.loseContext();
     let forced = false;
     try { forced = localStorage.getItem("redzy:scene") === "force"; } catch {}
-    return forced || !/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer);
+    const software = /swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer);
+    softwareForced = forced && software;
+    return forced || !software;
   } catch { return false; }
 }
 
@@ -109,7 +114,7 @@ export function HeroPoster() {
     <div data-hero-poster className={box}>
       {!poster && (
         // Ambient glow centred on the counter; fully transparent well before the box edges (no visible disc).
-        <div aria-hidden className="pointer-events-none absolute inset-[-20%]" style={{ background: "radial-gradient(circle at 47.6% 39.1%, rgba(255,74,38,.2), rgba(255,74,38,.05) 22%, transparent 45%)" }} />
+        <div data-hero-glow aria-hidden className="pointer-events-none absolute inset-[-20%]" style={{ background: "radial-gradient(circle at 47.6% 39.1%, rgba(255,74,38,.2), rgba(255,74,38,.05) 22%, transparent 45%)" }} />
       )}
 
       {/* SSR, first client frame, and Tier A until the scene draws: the SVG monogram (no layout shift); it crossfades to the scene. */}
@@ -121,7 +126,7 @@ export function HeroPoster() {
 
       {sceneTier && mount && (
         <div role="img" aria-label="Redzy monogram, lit from the counter" aria-hidden={!ready || undefined} className={ready ? "absolute inset-0 opacity-100 transition-opacity duration-500" : "absolute inset-0 opacity-0"}>
-          <HeroScene onReady={handleReady} onFail={handleFail} preserveDrawingBuffer={poster} bleed={!poster} />
+          <HeroScene onReady={handleReady} onFail={handleFail} preserveDrawingBuffer={poster} viewport={!poster} lite={softwareForced && !poster} />
         </div>
       )}
 
