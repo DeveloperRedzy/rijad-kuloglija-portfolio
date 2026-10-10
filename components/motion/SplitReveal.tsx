@@ -23,6 +23,7 @@ export function SplitReveal() {
             type: "lines",
             mask: "lines",
             autoSplit: true,
+            aria: "none", // aria-label on a <p> is prohibited; split lines stay real text
             onSplit(self) {
               return gsap.from(self.lines, {
                 yPercent: 100, opacity: 0, duration: 0.9, ease: "expo.out", stagger: 0.08,

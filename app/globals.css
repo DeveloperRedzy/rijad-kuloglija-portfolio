@@ -147,3 +147,6 @@ html.lenis, html.lenis body { height: auto; }
 html[data-cursor="custom"], html[data-cursor="custom"] * { cursor: none !important; }
 html[data-cursor="custom"] :is(input, textarea, select, iframe) { cursor: auto !important; }
 @media (pointer: coarse) { [data-magnetic]:active { transform: scale(.98); transition: transform 120ms; } }
+
+@keyframes navpulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+html[hidden-tab] [data-nav-dot] span { animation-play-state: paused; }

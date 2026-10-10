@@ -1,5 +1,6 @@
 "use client";
 import { TierProvider } from "@/lib/tiers";
+import { Loader } from "@/components/brand/Loader";
 import { SmoothScroll } from "./SmoothScroll";
 import { SplitReveal } from "./SplitReveal";
 import { LightSweeps } from "./LightSweeps";
@@ -11,6 +12,7 @@ import { Cursor } from "./Cursor";
 export function MotionRoot({ children }: { children: React.ReactNode }) {
   return (
     <TierProvider>
+      <Loader />
       {children}
       <SmoothScroll />
       <SplitReveal />
