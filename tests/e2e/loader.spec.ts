@@ -30,6 +30,16 @@ test.describe("loader (Tier A)", () => {
     await expect.poll(() => page.locator("[data-nav-dot]").evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
   });
 
+  test("wheel input skips the loader early", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("[role=status][aria-label=Loading]")).toBeVisible();
+    await page.waitForTimeout(200);
+    await page.mouse.wheel(0, 10);
+    await expect(page.locator("[role=status][aria-label=Loading]")).toHaveCount(0, { timeout: 1200 });
+    await expect.poll(() => page.locator("[data-nav-dot]").evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+    expect(await page.evaluate(() => document.documentElement.dataset.landed)).toBe("true");
+  });
+
   test("clicking the nav dot sends a ping band that cleans itself up", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("[role=status][aria-label=Loading]")).toHaveCount(0, { timeout: 4000 });

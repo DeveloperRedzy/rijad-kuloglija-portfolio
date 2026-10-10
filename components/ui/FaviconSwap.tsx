@@ -9,6 +9,7 @@ export function FaviconSwap() {
       document.documentElement.toggleAttribute("hidden-tab", document.hidden);
       if (link && lit) link.href = document.hidden ? "/brand/icon-muted.svg" : lit;
     };
+    onChange();
     document.addEventListener("visibilitychange", onChange);
     return () => document.removeEventListener("visibilitychange", onChange);
   }, []);

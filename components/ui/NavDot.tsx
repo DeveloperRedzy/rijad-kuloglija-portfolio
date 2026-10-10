@@ -17,7 +17,11 @@ export function NavDot() {
     return () => window.removeEventListener("redzy:landed", on);
   }, []);
 
-  useEffect(() => () => { ctx.current?.revert(); ctx.current = null; }, []);
+  useEffect(() => () => {
+    ctx.current?.revert();
+    ctx.current = null;
+    document.querySelectorAll("[data-ping-band]").forEach((b) => b.remove());
+  }, []);
 
   const ping = () => {
     if (!tier || tier === "C") return;
@@ -40,7 +44,7 @@ export function NavDot() {
       data-nav-dot
       onClick={ping}
       aria-label="Send a ping"
-      className={`nav-dot-landed relative inline-flex h-[5px] w-[5px] items-center after:absolute after:-inset-2 after:content-[''] items-center justify-center rounded-full transition-opacity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal ${landed ? "opacity-100" : "opacity-0"}`}
+      className={`nav-dot-landed pointer-events-auto relative inline-flex h-[5px] w-[5px] items-center after:absolute after:-inset-[10px] after:content-[''] justify-center rounded-full transition-opacity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal ${landed ? "opacity-100" : "opacity-0"}`}
     >
       <span aria-hidden className="absolute inset-0 rounded-full bg-signal motion-safe:animate-[navpulse_2.4s_ease-in-out_infinite] shadow-[0_0_6px_1px_rgba(255,74,38,.6)]" />
     </button>

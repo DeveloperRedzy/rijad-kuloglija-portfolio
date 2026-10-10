@@ -25,7 +25,7 @@ export function Navbar({ backLink }: { backLink?: boolean }) {
             <Lockup size={20} unlit />
           </Link>
           {/* Sibling of the link (no interactive-in-interactive), positioned over the monogram counter. */}
-          <span className="absolute left-0 top-1/2 h-5 w-5 -translate-y-1/2">
+          <span className="pointer-events-none absolute left-0 top-1/2 h-5 w-5 -translate-y-1/2">
             <span className="absolute left-[46%] top-[32%] -translate-x-1/2 -translate-y-1/2">
               <NavDot />
             </span>

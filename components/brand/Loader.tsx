@@ -37,8 +37,9 @@ export function Loader() {
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
 
+    let intro: gsap.core.Timeline | undefined;
     const ctx = gsap.context(() => {
-      gsap.timeline()
+      intro = gsap.timeline()
         .fromTo(dot, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)" })
         .to(dot, { scale: 1.25, yoyo: true, repeat: 1, duration: 0.25 }, "+=0.05")
         .fromTo(parts, { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.08 }, "-=0.1")
@@ -49,6 +50,7 @@ export function Loader() {
     const finish = () => {
       if (done || cancelled) return;
       done = true;
+      intro?.kill();
       try { sessionStorage.setItem(KEY, "1"); } catch {}
       const nav = document.querySelector<HTMLElement>("[data-nav-dot]");
       const target = nav?.getBoundingClientRect();
