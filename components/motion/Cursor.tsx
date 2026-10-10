@@ -15,21 +15,30 @@ export function Cursor() {
     const ctx = gsap.context(() => {});
     gsap.set([d, r], { opacity: 0 });
     let shown = false;
+    let current: "default" | "link" | "frame" | "signal" = "default";
     const dx = gsap.quickTo(d, "x", { duration: 0.05 }), dy = gsap.quickTo(d, "y", { duration: 0.05 });
     const rx = gsap.quickTo(r, "x", { duration: 0.12 }), ry = gsap.quickTo(r, "y", { duration: 0.12 });
-    const mode = (m: "default" | "link" | "frame" | "signal") => ctx.add(() => {
+    const mode = (m: "default" | "link" | "frame" | "signal", force = false) => {
+      if (m === current && !force) return;
+      current = m;
+      ctx.add(() => {
       gsap.to(r, { width: m === "link" ? 48 : m === "frame" ? 112 : m === "signal" ? 10 : 28, height: m === "frame" ? 32 : m === "link" ? 48 : m === "signal" ? 10 : 28, borderRadius: 999, duration: 0.24, overwrite: "auto" });
       gsap.to(d, { opacity: m === "link" || m === "frame" ? 0 : 1, scale: m === "signal" ? 1.6 : 1, duration: 0.2, overwrite: "auto" });
       if (label.current) label.current.style.opacity = m === "frame" ? "1" : "0";
-    });
+      });
+    };
     const move = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       if (!shown) {
         shown = true;
-        gsap.set([d, r], { x: e.clientX, y: e.clientY, opacity: 1 });
+        gsap.set([d, r], { x: e.clientX, y: e.clientY });
+        gsap.set(r, { opacity: 1 });
+        mode(current, true);
       }
       dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY);
     };
     const over = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       const t = e.target as HTMLElement;
       if (!t.closest) return;
       if (t.closest("[data-hero-poster], [data-hero-scene]")) return mode("signal");

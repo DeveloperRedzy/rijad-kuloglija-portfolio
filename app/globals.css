@@ -145,4 +145,5 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 html[data-cursor="custom"], html[data-cursor="custom"] * { cursor: none !important; }
+html[data-cursor="custom"] :is(input, textarea, select, iframe) { cursor: auto !important; }
 @media (pointer: coarse) { [data-magnetic]:active { transform: scale(.98); transition: transform 120ms; } }
