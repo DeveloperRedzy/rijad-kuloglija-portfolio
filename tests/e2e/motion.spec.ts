@@ -132,3 +132,20 @@ test("Tab from the hero reaches chapter 01 and lands the dive", async ({ page },
   // ...and focusing it scrolls the dive to its landing
   await expect.poll(() => page.locator("[data-hero]").getAttribute("data-dive"), { timeout: 15_000 }).toBe("landed");
 });
+
+test("Read case study from the pinned hero navigates without a React error", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop", "Tier A only: the hero is pinned (reparented into a pin-spacer)");
+  test.setTimeout(60_000);
+  await page.addInitScript(() => { localStorage.setItem("redzy:tier", "A"); sessionStorage.setItem("redzy:loaded", "1"); });
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.goto("/");
+  await expect(page.locator(".pin-spacer")).toHaveCount(1, { timeout: 5000 });
+  await motionMounted(page);
+  // client-side navigation unmounts the home page while the hero sits inside GSAP's pin-spacer
+  await page.locator("[data-chapter]").first().getByRole("link", { name: "Read case study" }).click();
+  await expect(page).toHaveURL(/\/work\/[a-z-]+\/$/);
+  // a failed removeChild leaves the home page's h1 behind next to the case study's
+  await expect(page.locator("h1")).toHaveCount(1);
+  expect(errors).toEqual([]);
+});

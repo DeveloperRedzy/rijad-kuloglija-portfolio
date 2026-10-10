@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useTier } from "@/lib/tiers";
@@ -30,7 +30,10 @@ const land = () => { if (!hasLanded()) announceLanded(); };
 export function HeroDive() {
   const tier = useTier();
   const pathname = usePathname();
-  useEffect(() => {
+  // A layout effect, not a passive one: on route change React removes the hero <section> from <main> during the
+  // commit, and this cleanup (ctx.revert → unpin) must run first, while the hero still sits inside GSAP's pin-spacer.
+  // Passive cleanups run after the DOM mutation and would leave React calling removeChild on the wrong parent.
+  useLayoutEffect(() => {
     if (!tier || tier === "C") return;
     const hero = document.querySelector<HTMLElement>("[data-hero]");
     const work = document.querySelector<HTMLElement>("[data-chapters]");
