@@ -143,3 +143,6 @@ section[id] { scroll-margin-top: 4rem; }
 
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+html[data-cursor="custom"], html[data-cursor="custom"] * { cursor: none !important; }
+@media (pointer: coarse) { [data-magnetic]:active { transform: scale(.98); transition: transform 120ms; } }

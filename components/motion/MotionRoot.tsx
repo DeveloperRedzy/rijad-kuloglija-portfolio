@@ -3,6 +3,10 @@ import { TierProvider } from "@/lib/tiers";
 import { SmoothScroll } from "./SmoothScroll";
 import { SplitReveal } from "./SplitReveal";
 import { LightSweeps } from "./LightSweeps";
+import { Magnetic } from "./Magnetic";
+import { DrawArrows } from "./DrawArrows";
+import { HoverPreview } from "./HoverPreview";
+import { Cursor } from "./Cursor";
 
 export function MotionRoot({ children }: { children: React.ReactNode }) {
   return (
@@ -11,6 +15,10 @@ export function MotionRoot({ children }: { children: React.ReactNode }) {
       <SmoothScroll />
       <SplitReveal />
       <LightSweeps />
+      <Magnetic />
+      <DrawArrows />
+      <HoverPreview />
+      <Cursor />
     </TierProvider>
   );
 }
