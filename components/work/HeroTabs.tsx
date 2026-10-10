@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { startTransition, useRef, useState, ViewTransition, type KeyboardEvent } from "react";
 import type { Media } from "@/content/schema";
 import { ProductFrame } from "./ProductFrame";
 
@@ -8,7 +8,7 @@ export function HeroTabs({ heroes, slug, url, shader }: { heroes: Media[]; slug:
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
 
   const select = (idx: number) => {
-    setI(idx);
+    startTransition(() => setI(idx));
     tabs.current[idx]?.focus();
   };
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -35,7 +35,7 @@ export function HeroTabs({ heroes, slug, url, shader }: { heroes: Media[]; slug:
             aria-selected={i === idx}
             aria-controls={`hero-panel-${idx}`}
             tabIndex={i === idx ? 0 : -1}
-            onClick={() => setI(idx)}
+            onClick={() => startTransition(() => setI(idx))}
             className={`eyebrow rounded-full border px-3 py-1.5 transition-colors ${i === idx ? "border-signal text-ink" : "border-hairline hover:text-ink"}`}
           >
             {h.caption ?? `0${idx + 1}`}
@@ -44,7 +44,9 @@ export function HeroTabs({ heroes, slug, url, shader }: { heroes: Media[]; slug:
       </div>
       <div role="tabpanel" id={`hero-panel-${i}`} aria-labelledby={`hero-tab-${i}`}>
         {/* Only the first hero shares the frame-<slug> name with the home chapter. */}
-        <ProductFrame media={heroes[i]} slug={slug} url={url} priority morph={i === 0} shader={shader} />
+        <ViewTransition key={i} name="neo-hero" share="auto" enter="auto" default="none">
+          <ProductFrame media={heroes[i]} slug={slug} url={url} priority morph={i === 0} shader={shader} />
+        </ViewTransition>
       </div>
     </div>
   );

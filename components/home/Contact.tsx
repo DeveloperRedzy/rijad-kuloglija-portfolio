@@ -1,7 +1,7 @@
 import { profile } from "@/content/profile";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/brand/Icon";
-import { Monogram } from "@/components/brand/Monogram";
+import { ContactAssemble } from "./ContactAssemble";
 import { CopyEmailButton } from "./CopyEmailButton";
 import { AvailabilityBadge } from "@/components/hero/AvailabilityBadge";
 
@@ -12,7 +12,7 @@ export function Contact() {
         <Eyebrow>05 — Contact</Eyebrow>
         <div className="mt-6 flex items-center gap-6">
           <h2 data-split className="display-xl">Send a signal.</h2>
-          <Monogram size={64} className="hidden text-ink md:block" title="Redzy monogram" />
+          <ContactAssemble />
         </div>
         <div className="mt-12 flex flex-col items-start gap-6">
           <CopyEmailButton email={profile.email} />

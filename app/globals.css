@@ -150,3 +150,12 @@ html[data-cursor="custom"] :is(input, textarea, select, iframe) { cursor: auto !
 
 @keyframes navpulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
 html[hidden-tab] [data-nav-dot] span { animation-play-state: paused; }
+
+/* Touch feedback: subtle press on frames and rows (coarse pointers only). */
+@media (pointer: coarse) {
+  [data-frame]:active { transform: scale(.985); }
+  [data-row]:active { background: var(--color-surface-1); }
+}
+@media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  [data-frame] { transition: transform 120ms var(--ease-out-quint); }
+}
