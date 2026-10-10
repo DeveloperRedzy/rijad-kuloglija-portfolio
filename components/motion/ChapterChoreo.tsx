@@ -39,5 +39,11 @@ export function ChapterChoreo() {
     }, root);
     return () => ctx.revert();
   }, [tier]);
+  // Runs after the effect above: the lazy chunk is mounted and its triggers exist (tests wait on this marker).
+  useEffect(() => {
+    if (!tier || tier === "C") return;
+    document.documentElement.dataset.choreoMounted = "true";
+    return () => { delete document.documentElement.dataset.choreoMounted; };
+  }, [tier]);
   return null;
 }

@@ -61,7 +61,9 @@ test("keyboard focus on a row shows the preview", async ({ page }) => {
 test("arrow icons are swapped for drawn paths", async ({ page }) => {
   await page.goto("/");
   await settled(page);
-  const svg = page.locator("a svg[data-drawn]").first();
+  // #contact, not the first match: the work-chapter links sit under the pinned hero until the dive lands (Tier A), so a
+  // hover there waits on an element the dive covers by design.
+  const svg = page.locator("#contact a svg[data-drawn]").first();
   await expect(svg).toHaveCount(1);
   await svg.locator("xpath=ancestor::a").hover();
   expect(await svg.locator("path").count()).toBeGreaterThan(0);

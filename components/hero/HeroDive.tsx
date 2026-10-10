@@ -206,5 +206,11 @@ export function HeroDive() {
       Object.assign(sceneBridge, { progress: 0, aim: 0, cameraZ: 6, intensity: 1, bloom: 1.2, core: 1, lightZ: 0.4 });
     };
   }, [tier, pathname]);
+  // Runs after the effect above: the lazy chunk is mounted and its triggers exist (tests wait on this marker).
+  useEffect(() => {
+    if (!tier || tier === "C") return;
+    document.documentElement.dataset.diveMounted = "true";
+    return () => { delete document.documentElement.dataset.diveMounted; };
+  }, [tier]);
   return null;
 }

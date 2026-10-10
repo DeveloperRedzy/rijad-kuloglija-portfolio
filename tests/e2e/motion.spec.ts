@@ -1,4 +1,12 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
+
+/** Tier A/B: the lazily loaded motion layer (Lenis), dive and chapter choreography are mounted before any scrolling. */
+async function motionMounted(page: Page) {
+  await page.waitForFunction(() => {
+    const d = document.documentElement.dataset;
+    return d.motion === "ready" && d.diveMounted === "true" && d.choreoMounted === "true";
+  });
+}
 
 test("headings reveal on desktop and mobile, not under reduced motion", async ({ page }, info) => {
   await page.goto("/");
@@ -19,13 +27,16 @@ test("progress rail reflects chapter progress on desktop", async ({ page }, info
   test.skip(info.project.name !== "desktop");
   await page.goto("/");
   await page.waitForFunction(() => document.documentElement.dataset.tier === "A" || document.documentElement.dataset.tier === "B");
+  await motionMounted(page);
   // Park the last chapter at the top of the viewport (inside the work section, rail active).
   await page.locator("[data-chapter]").last().evaluate((el) => window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 80));
   const rail = page.locator("[data-rail]");
+  // The rail updates on the scroll frame itself (measured: --progress .996 within ~20 ms), but under parallel workers
+  // the renderer can stall for 3–7 s (even `page.evaluate(() => 1)` waits), so the polls get a CPU-starvation margin.
   await expect
-    .poll(() => rail.evaluate((el) => parseFloat(getComputedStyle(el).getPropertyValue("--progress"))), { timeout: 5000 })
+    .poll(() => rail.evaluate((el) => parseFloat(getComputedStyle(el).getPropertyValue("--progress"))), { timeout: 15_000 })
     .toBeGreaterThan(0.7);
-  await expect.poll(() => rail.evaluate((el) => getComputedStyle(el).opacity), { timeout: 5000 }).toBe("1");
+  await expect.poll(() => rail.evaluate((el) => getComputedStyle(el).opacity), { timeout: 15_000 }).toBe("1");
   await expect(page.locator("[data-rail-label]")).toHaveText(/0[1-5] \/ 05/);
 });
 
@@ -44,6 +55,7 @@ test("desktop dive lands in chapter 01 and reverses; mobile has no pin", async (
   await page.goto("/");
   await page.waitForFunction(() => !!document.documentElement.dataset.tier);
   const tier = await page.evaluate(() => document.documentElement.dataset.tier);
+  if (tier === "A" || tier === "B") await motionMounted(page);
   const hero = page.locator("[data-hero]");
   const chapter = page.locator("[data-chapter]").first();
   if (tier === "A") {

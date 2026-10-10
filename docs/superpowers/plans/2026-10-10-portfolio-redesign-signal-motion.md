@@ -1638,16 +1638,19 @@ Wait for the Vercel production deploy; walk the checklist; append "Plan 2 result
 Measured on a static `out/` (local, Apple Silicon). Lighthouse 12.6 through `@lhci/cli` 0.15, median of 3 runs, default
 simulated throttling (mobile = Moto G Power, 4x CPU, slow 4G; desktop preset).
 
-**Bundles** (`npm run budget`, gzip -9; "initial" = every chunk referenced by `out/index.html` /
-`out/work/liblynx/index.html`, minus the `noModule` legacy polyfill that module browsers never download):
+**Bundles** (`npm run budget`, gzip -9; "initial" = every chunk referenced by `out/index.html`,
+`out/work/liblynx/index.html`, `out/cv/index.html` and `out/404.html` (max), minus the `noModule` legacy polyfill that
+module browsers never download; "3D" = three.js/postprocessing signatures plus every chunk that only loads inside the
+HeroScene / ShaderFrame / FrameCanvas dynamic-import groups):
 
 | | before (ada57f4) | after |
 |---|---|---|
 | initial JS `/` | 211.4 KB (249.9 KB incl. the 38.5 KB noModule polyfill) | **149.5 KB** (188.0 KB incl. polyfill) |
 | initial JS `/work/liblynx/` | 208.4 KB | **148.2 KB** |
+| initial JS `/cv/`, `/404` | — | 145.7 KB |
 | GSAP in the initial bundle | core + ScrollTrigger + SplitText + DrawSVG + Lenis + all motion components | none |
-| 3D chunk (three/R3F/drei/postprocessing) | 231.7 KB, lazy | 231.7 KB, lazy, never referenced by the initial HTML |
-| motion layer | initial | lazy, ≈ 70 KB over 4–5 chunks, fetched once the tier is A/B |
+| 3D chunks (three/R3F/drei, postprocessing, scene + frame components) | 306.4 KB in 5 chunks, lazy | **306.4 KB** in 5 chunks (three 231.7, postprocessing 57.9, FrameCanvas 7.4, HeroScene 5.6, ShaderFrame 3.9), lazy, none referenced by the initial HTML |
+| motion layer | initial | lazy, ≈ 70 KB over 4–5 chunks, fetched only once the tier is A/B (Tier C fetches none) |
 
 **Lighthouse mobile** (Tier B poster path, no 3D):
 

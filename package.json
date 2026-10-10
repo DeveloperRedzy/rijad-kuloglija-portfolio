@@ -19,7 +19,7 @@
     "screens": "node scripts/screenshot-after.mjs",
     "poster": "node scripts/render-poster.mjs",
     "budget": "node scripts/bundle-budget.mjs",
-    "lhci": "lhci autorun && lhci autorun --config=lighthouserc.mobile.json"
+    "lhci": "node scripts/lhci.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

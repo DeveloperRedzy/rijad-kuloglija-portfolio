@@ -9,7 +9,7 @@ import { MotionLayer } from "./lazy";
  */
 function DeferredMotion() {
   const tier = useTier();
-  return tier && tier !== "C" ? <MotionLayer /> : null;
+  return tier === "A" || tier === "B" ? <MotionLayer /> : null;
 }
 
 export function MotionRoot({ children }: { children: React.ReactNode }) {

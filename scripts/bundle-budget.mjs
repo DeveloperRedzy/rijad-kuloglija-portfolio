@@ -7,7 +7,7 @@ import { join } from "node:path";
 const INITIAL_LIMIT = Number(process.env.BUDGET_INITIAL_KB ?? 200) * 1024;
 const THREE_LIMIT = Number(process.env.BUDGET_3D_KB ?? 400) * 1024;
 const dir = "out/_next/static/chunks";
-const pages = ["out/index.html", "out/work/liblynx/index.html"];
+const pages = ["out/index.html", "out/work/liblynx/index.html", "out/cv/index.html", "out/404.html"];
 
 if (!existsSync(dir)) { console.error(`missing ${dir}: run npm run build first`); process.exit(1); }
 
@@ -21,10 +21,24 @@ const chunks = new Map(
     }),
 );
 
-// three.js / R3F signatures that survive minification (string literals and class names in the library).
-const THREE_SIGNATURES = [/THREE\.WebGLRenderer/, /WebGLRenderer: /, /__THREE__/, /"three"/, /THREE\.WebGLProgram/];
-const is3D = (src) => THREE_SIGNATURES.some((re) => re.test(src));
-const three = [...chunks].filter(([, c]) => is3D(c.src)).map(([f]) => f);
+// 3D detection, two passes:
+// 1. Signatures that survive minification (string literals / class names of three, R3F, postprocessing).
+const SIGNATURES = [/THREE\.WebGLRenderer/, /WebGLRenderer: /, /__THREE__/, /"three"/, /THREE\.WebGLProgram/, /EffectComposer/, /\bpostprocessing\b/];
+const signed = new Set([...chunks].filter(([, c]) => SIGNATURES.some((re) => re.test(c.src))).map(([f]) => f));
+// 2. The import graph: Turbopack loads a dynamic import as a group of chunks
+//    (`Promise.all(["static/chunks/a.js", ...].map(load)).then(() => require(id))`). A group that contains a signed chunk
+//    is a 3D entry (HeroScene, ShaderFrame, FrameCanvas); every chunk that only ever loads as part of 3D groups is
+//    3D too (scene/frame components, the postprocessing passes, SceneBridge). Chunks shared with non-3D groups
+//    (GSAP core, ScrollTrigger) are not.
+const groups = [];
+for (const [, c] of chunks) {
+  for (const m of c.src.matchAll(/Promise\.all\(\[((?:"static\/chunks\/[^"]+\.js",?)+)\]/g)) {
+    groups.push([...m[1].matchAll(/"static\/chunks\/([^"]+\.js)"/g)].map((x) => x[1]));
+  }
+}
+const groups3D = groups.filter((g) => g.some((f) => signed.has(f)));
+const inOther = new Set(groups.filter((g) => !groups3D.includes(g)).flat());
+const three = [...new Set([...signed, ...groups3D.flat().filter((f) => !inOther.has(f))])].filter((f) => chunks.has(f));
 const threeTotal = three.reduce((a, f) => a + chunks.get(f).gz, 0);
 
 let fail = false;
@@ -45,7 +59,7 @@ for (const page of pages) {
 }
 console.log(`initial JS (max): ${kb(initialMax)} gz (budget ${kb(INITIAL_LIMIT)})`);
 console.log(`3D chunks: ${kb(threeTotal)} gz across ${three.length} chunks (budget ${kb(THREE_LIMIT)})${three.length ? ` [${three.map((f) => `${f} ${kb(chunks.get(f).gz)}`).join(", ")}]` : ""}`);
-if (!three.length) { console.error("FAIL no 3D chunk detected (signature check broken?)"); fail = true; }
+if (!signed.size || !groups3D.length) { console.error("FAIL no 3D chunk/entry detected (signature or loader pattern changed?)"); fail = true; }
 if (initialMax > INITIAL_LIMIT) { console.error(`FAIL initial JS budget ${kb(INITIAL_LIMIT)}`); fail = true; }
 if (threeTotal > THREE_LIMIT) { console.error(`FAIL 3D chunk budget ${kb(THREE_LIMIT)}`); fail = true; }
 process.exit(fail ? 1 : 0);
