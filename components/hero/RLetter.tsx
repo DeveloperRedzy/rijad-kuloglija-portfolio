@@ -6,8 +6,53 @@ import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 import { MONOGRAM } from "@/components/brand/Monogram";
 import { sceneBridge } from "./SceneBridge";
 
-// Geometry-only SVG (no dot). The bowl is evenodd so its inner sub-path becomes a hole (the counter).
-const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="${MONOGRAM.stem.x}" y="${MONOGRAM.stem.y}" width="${MONOGRAM.stem.width}" height="${MONOGRAM.stem.height}"/><path fill-rule="evenodd" d="${MONOGRAM.bowl}"/><polygon points="${MONOGRAM.leg}"/></svg>`;
+/**
+ * One unioned outline for stem + bowl + leg (so the bevels never interpenetrate at the joints), plus the counter as an
+ * evenodd hole. Derived from MONOGRAM: the leg's right edge leaves the bowl where it crosses the bowl's outer arc,
+ * its left edge enters the bowl's bottom edge.
+ */
+function rOutline(): string {
+  const { stem, leg } = MONOGRAM;
+  const [, [x2, y2], [x3, y3], [x4, y4]] = leg.split(" ").map((p) => p.split(",").map(Number));
+  const cx = 52, cy = 32, r = 22, top = stem.y, bottom = cy + r; // bowl circle (from MONOGRAM.bowl)
+  const left = stem.x, inner = stem.x + stem.width, foot = stem.y + stem.height;
+  // leg right edge (x2,y2)->(x3,y3) ∩ bowl circle
+  const dx = (x3 - x2) / (y3 - y2);
+  const ox = x2 - cx, oy = y2 - cy;
+  const qa = dx * dx + 1, qb = 2 * (ox * dx + oy), qc = ox * ox + oy * oy - r * r;
+  const t = (-qb + Math.sqrt(qb * qb - 4 * qa * qc)) / (2 * qa);
+  const ex = x2 + dx * t, ey = y2 + t;
+  // leg left edge (x4,y4)->(leg[0]) ∩ bowl bottom (y = bottom)
+  const [x1, y1] = leg.split(" ")[0].split(",").map(Number);
+  const lx = x1 + ((x4 - x1) / (y4 - y1)) * (bottom - y1);
+  const f = (n: number) => n.toFixed(3);
+  return [
+    `M${left},${top} H${cx} A${r},${r} 0 0 1 ${f(ex)},${f(ey)} L${x3},${y3} L${x4},${y4} L${f(lx)},${bottom} H${inner} V${foot} H${left} Z`,
+    "M30,24 H52 A8,8 0 0 1 52,40 H30 Z", // counter (hole), as in MONOGRAM.bowl
+  ].join(" ");
+}
+
+const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill-rule="evenodd" d="${rOutline()}"/></svg>`;
+
+/** Fine horizontal brushing as a tiny generated normal map (no network). */
+function brushedNormalMap(): THREE.DataTexture {
+  const size = 256;
+  const data = new Uint8Array(size * size * 4);
+  let seed = 0x5eed; // deterministic, so re-rendered posters match
+  const rand = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+  for (let y = 0; y < size; y++) {
+    const r = 128 + Math.round(rand() * 24 - 12);
+    for (let x = 0; x < size; x++) {
+      const i = (y * size + x) * 4;
+      data[i] = r; data[i + 1] = 128; data[i + 2] = 255; data[i + 3] = 255;
+    }
+  }
+  const tex = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(0.03, 0.03); // extrude UVs are in SVG units
+  tex.needsUpdate = true;
+  return tex;
+}
 
 /** SVG units → world units (100 SVG units = 3.2 world units: the R fills ~70 % of the frame at camera z 6, fov 35). */
 export const SCALE = 0.032;
@@ -17,7 +62,7 @@ export const DOT_WORLD = { x: (MONOGRAM.dot.cx - 50) * SCALE, y: -(MONOGRAM.dot.
 /** Dot radius in SVG units (matches the SVG monogram). */
 const MONOGRAM_DOT_R = 5;
 const BREATH_PERIOD_MS = 4000;
-const BASE_LIGHT = 14;
+const BASE_LIGHT = 10;
 
 export function RLetter() {
   const group = useRef<THREE.Group>(null);
@@ -25,15 +70,17 @@ export function RLetter() {
   const geometry = useMemo(() => {
     const data = new SVGLoader().parse(SVG);
     const shapes = data.paths.flatMap((p) => SVGLoader.createShapes(p));
-    const geo = new THREE.ExtrudeGeometry(shapes, { depth: 12, bevelEnabled: true, bevelThickness: 1.2, bevelSize: 1.2, bevelSegments: 3, curveSegments: 24 });
+    const geo = new THREE.ExtrudeGeometry(shapes, { depth: 12, bevelEnabled: true, bevelThickness: 2, bevelSize: 1.2, bevelSegments: 6, curveSegments: 24 });
     // Centre on the viewBox centre (not the bbox) so the dot maps exactly to DOT_WORLD.
-    geo.translate(-50, -50, -6);
+    geo.translate(-50, -50, -6); // depth 12 → z symmetric
     // SVG y is down: mirror y. Mirroring z too keeps the determinant positive, so triangle winding
     // and the extruder's smooth bevel normals stay valid (the extrusion is symmetric in z after the translate).
     geo.scale(SCALE, -SCALE, -SCALE);
     return geo;
   }, []);
-  useEffect(() => () => geometry.dispose(), [geometry]);
+  const normalMap = useMemo(() => brushedNormalMap(), []);
+  const normalScale = useMemo(() => new THREE.Vector2(0.12, 0.12), []);
+  useEffect(() => () => { geometry.dispose(); normalMap.dispose(); }, [geometry, normalMap]);
   const dot = useMemo(() => new THREE.Vector3(DOT_WORLD.x, DOT_WORLD.y, 0), []);
 
   useFrame((_, dt) => {
@@ -51,10 +98,21 @@ export function RLetter() {
   return (
     <group ref={group}>
       <mesh geometry={geometry}>
-        <meshPhysicalMaterial color="#1C1A18" metalness={0.85} roughness={0.38} clearcoat={0.2} clearcoatRoughness={0.4} />
+        <meshPhysicalMaterial
+          color="#3B3732"
+          metalness={1}
+          roughness={0.34}
+          anisotropy={0.75}
+          anisotropyRotation={Math.PI / 2}
+          clearcoat={0.3}
+          clearcoatRoughness={0.22}
+          envMapIntensity={1}
+          normalMap={normalMap}
+          normalScale={normalScale}
+        />
       </mesh>
-      {/* key light sits in front of the counter: it rakes the bowl's inner walls and spills onto the face */}
-      <pointLight ref={light} position={[dot.x, dot.y, 0.7]} color="#FF4A26" intensity={BASE_LIGHT} distance={9} decay={2} />
+      {/* key light just in front of the counter (grazing): rakes the bowl's inner walls and spills onto the face */}
+      <pointLight ref={light} position={[dot.x, dot.y, 0.4]} color="#FF4A26" intensity={BASE_LIGHT} distance={7} decay={2} />
       <mesh position={dot}>
         <sphereGeometry args={[MONOGRAM_DOT_R * SCALE, 24, 24]} />
         <meshStandardMaterial color="#FF4A26" emissive="#FF4A26" emissiveIntensity={2.4} toneMapped={false} />

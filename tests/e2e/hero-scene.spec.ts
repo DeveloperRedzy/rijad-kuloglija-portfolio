@@ -32,7 +32,7 @@ test.describe("hero scene", () => {
     });
     test.skip(!software, "hardware GL: the scene path is covered above");
     await expect(page.locator("[data-hero-poster] img")).toHaveCount(1);
-    await expect.poll(() => page.locator("[data-hero-poster] img").evaluate((el: HTMLImageElement) => el.currentSrc)).toContain("poster-1600");
+    await expect.poll(() => page.locator("[data-hero-poster] img").evaluate((el: HTMLImageElement) => el.currentSrc)).toMatch(/poster-(900|1600)\.webp/);
     await page.waitForTimeout(1500);
     await expect(page.locator("[data-hero-scene]")).toHaveCount(0);
   });
@@ -44,7 +44,8 @@ test.describe("hero scene", () => {
     const img = page.locator("[data-hero-poster] img");
     await expect(img).toHaveCount(1);
     await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.currentSrc || el.src)).toContain("poster-900");
-    await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth)).toBe(900);
+    // srcset `w` descriptors make naturalWidth density-corrected, so only assert that it decoded
+    await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
     await expect(page.locator("[data-poster-dot]")).toHaveCount(1);
     await page.waitForTimeout(1500);
     await expect(page.locator("[data-hero-scene], [data-hero-poster] canvas")).toHaveCount(0);

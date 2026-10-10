@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Environment, Lightformer } from "@react-three/drei";
 import { EffectComposer, Bloom, ToneMapping } from "@react-three/postprocessing";
 import { ToneMappingMode, type BloomEffect } from "postprocessing";
 import * as THREE from "three";
@@ -9,13 +10,22 @@ import { sceneBridge } from "./SceneBridge";
 
 /** Pointer distance (CSS px) from the projected dot at which the flare starts. */
 const FLARE_RADIUS = 160;
+/** Canvas bleed beyond the poster box on each side (fraction of the box), so the bloom halo is never clipped. */
+const BLEED = 0.25;
+const BASE_FOV = 35;
+/** Same on-screen letter size in a canvas (1 + 2·BLEED)× larger than the box. */
+const BLEED_FOV = THREE.MathUtils.radToDeg(2 * Math.atan((1 + 2 * BLEED) * Math.tan(THREE.MathUtils.degToRad(BASE_FOV / 2))));
 
-type Props = {
+export type Props = {
   onReady: () => void;
+  /** Only used by the import-failure fallback in HeroPoster. */
+  onFail?: () => void;
   /** false renders without the EffectComposer (fallback when the GPU cannot run the bloom passes). */
   postprocessing?: boolean;
   /** Needed for toDataURL() in the poster renderer. */
   preserveDrawingBuffer?: boolean;
+  /** false: canvas exactly fills the box (poster renders). Default: bleed past the box so bloom is not clipped. */
+  bleed?: boolean;
 };
 
 type ClientPointer = { x: number; y: number; active: boolean };
@@ -27,8 +37,25 @@ type ClientPointer = { x: number; y: number; active: boolean };
 function Rig({ postprocessing, client }: { postprocessing: boolean; client: RefObject<ClientPointer> }) {
   const bloom = useRef<BloomEffect>(null);
   const dot = useRef(new THREE.Vector3());
+  const gl = useThree((s) => s.gl);
+  const rect = useRef<DOMRect | null>(null);
+  // Cache the canvas rect; re-read on resize/scroll instead of every frame.
+  useEffect(() => {
+    const el = gl.domElement;
+    const read = () => { rect.current = el.getBoundingClientRect(); };
+    read();
+    const ro = new ResizeObserver(read);
+    ro.observe(el);
+    window.addEventListener("scroll", read, { passive: true });
+    window.addEventListener("resize", read);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("scroll", read);
+      window.removeEventListener("resize", read);
+    };
+  }, [gl]);
   useFrame((state, dt) => {
-    const { camera, gl } = state;
+    const { camera } = state;
     const { progress, cameraZ } = sceneBridge;
     camera.position.z = cameraZ;
     camera.lookAt(DOT_WORLD.x * progress, DOT_WORLD.y * progress, 0);
@@ -37,11 +64,11 @@ function Rig({ postprocessing, client }: { postprocessing: boolean; client: RefO
     // Flare: +40 % light when the pointer is within FLARE_RADIUS px of the projected dot.
     let target = 0;
     const p = client.current;
-    if (p.active) {
-      const rect = gl.domElement.getBoundingClientRect();
+    const r = rect.current;
+    if (p.active && r) {
       const v = dot.current.set(DOT_WORLD.x, DOT_WORLD.y, 0).project(camera);
-      const sx = rect.left + ((v.x + 1) / 2) * rect.width;
-      const sy = rect.top + ((1 - v.y) / 2) * rect.height;
+      const sx = r.left + ((v.x + 1) / 2) * r.width;
+      const sy = r.top + ((1 - v.y) / 2) * r.height;
       target = 1 - THREE.MathUtils.smoothstep(Math.hypot(p.x - sx, p.y - sy), FLARE_RADIUS * 0.5, FLARE_RADIUS);
     }
     sceneBridge.flare = THREE.MathUtils.damp(sceneBridge.flare, target, 8, dt);
@@ -85,7 +112,7 @@ function Ready({ onReady }: { onReady: () => void }) {
   return null;
 }
 
-export default function HeroScene({ onReady, postprocessing = true, preserveDrawingBuffer = false }: Props) {
+export default function HeroScene({ onReady, postprocessing = true, preserveDrawingBuffer = false, bleed = true }: Props) {
   const wrapper = useRef<HTMLDivElement>(null);
   const client = useRef<ClientPointer>({ x: 0, y: 0, active: false });
   const [visible, setVisible] = useState(true);
@@ -97,7 +124,8 @@ export default function HeroScene({ onReady, postprocessing = true, preserveDraw
       if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
       sceneBridge.pointer.x = (e.clientX / innerWidth) * 2 - 1;
       sceneBridge.pointer.y = (e.clientY / innerHeight) * 2 - 1;
-      client.current = { x: e.clientX, y: e.clientY, active: true };
+      const c = client.current;
+      c.x = e.clientX; c.y = e.clientY; c.active = true;
     };
     const onLeave = () => { client.current.active = false; sceneBridge.pointer.x = 0; sceneBridge.pointer.y = 0; };
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -121,20 +149,32 @@ export default function HeroScene({ onReady, postprocessing = true, preserveDraw
   }, []);
 
   return (
-    <div ref={wrapper} data-hero-scene className="absolute inset-0">
+    // The bleed wrapper extends past the poster box so the bloom halo fades out instead of being clipped into a square.
+    // Task 6 makes the canvas viewport-sized for the dive anyway. Never intercepts pointer events.
+    <div ref={wrapper} data-hero-scene className={`pointer-events-none absolute ${bleed ? "inset-[-25%]" : "inset-0"}`}>
       <Canvas
         dpr={[1, 1.5]}
-        camera={{ position: [0, 0, 6], fov: 35 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance", preserveDrawingBuffer }}
+        camera={{ position: [0, 0, 6], fov: bleed ? BLEED_FOV : BASE_FOV }}
+        // the EffectComposer multisamples; native MSAA on the default framebuffer would be wasted
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance", preserveDrawingBuffer }}
         frameloop={warm && visible ? "always" : "never"}
+        style={{ pointerEvents: "none" }}
         aria-hidden
       >
-        {/* Cool fill from the upper left plus a faint rim from behind: the dark metal keeps its silhouette.
-            (No runtime environment map: a PMREM bake blocks the main thread on slow GPUs.) */}
-        <ambientLight intensity={0.08} color="#9DB2FF" />
-        <directionalLight position={[-4, 5, 6]} intensity={2.4} color="#B8C4FF" />
-        <directionalLight position={[3, -2, -5]} intensity={1.2} color="#8FA2E0" />
-        <pointLight position={[-2.2, 2.4, 2.6]} intensity={9} distance={12} decay={2} color="#AEB9E8" />
+        {/* Procedural studio environment (no network) for the brushed metal: a cool softbox upper left, a cool strip
+            behind right, a dim cool card in front, and a small red ring at the counter so the face reflects the signal. Hardware GL only (software
+            renderers get the poster). */}
+        <Environment resolution={64} frames={1}>
+          <Lightformer form="rect" color="#B8C4FF" intensity={1.6} position={[-4, 4, 3]} scale={[5, 1.5, 1]} target={[0, 0, 0]} />
+          <Lightformer form="rect" color="#8FA2E0" intensity={0.7} position={[4, -1, -3]} scale={[2, 6, 1]} target={[0, 0, 0]} />
+          {/* a dim cool card straight in front: the flat face mirrors +z, so this sets the metal's base sheen */}
+          <Lightformer form="rect" color="#B4B8C8" intensity={1.4} position={[0, 0, 4]} scale={[7, 7, 1]} target={[0, 0, 0]} />
+          {/* the face mirrors +z, so the ring is kept small and dim: red stays light, never a fill */}
+          <Lightformer form="ring" color="#FF4A26" intensity={0.9} position={[-0.13, 0.58, 2.5]} scale={0.6} target={[0, 0, 0]} />
+        </Environment>
+        <ambientLight intensity={0.05} color="#9DB2FF" />
+        <directionalLight position={[-4, 5, 6]} intensity={0.8} color="#B8C4FF" />
+        <directionalLight position={[2, 3, -4]} intensity={2.5} color="#8FA2E0" />
         <RLetter />
         <Rig postprocessing={postprocessing} client={client} />
         <Warmup onWarm={handleWarm} />
