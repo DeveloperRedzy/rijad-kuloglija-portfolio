@@ -22,7 +22,8 @@ export function LightSweeps() {
         if (!band) return;
         ScrollTrigger.create({ trigger: frame, start: "top 75%", once: true, onEnter: () => { ctx.add(() => { sweep(band); }); } });
         if (tier === "A") {
-          const onEnter = () => { ctx.add(() => { sweep(band, 0.9); }); };
+          // a frame with a live WebGL shader runs its band in the shader instead (ShaderFrame); no double sweep
+          const onEnter = () => { if (frame.dataset.shaderFrame) return; ctx.add(() => { sweep(band, 0.9); }); };
           frame.addEventListener("mouseenter", onEnter);
           cleanups.push(() => frame.removeEventListener("mouseenter", onEnter));
         }

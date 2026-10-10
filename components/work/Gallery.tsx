@@ -13,14 +13,14 @@ function spans(items: Media[]): string[] {
   return out;
 }
 
-export function Gallery({ items, slug }: { items: Media[]; slug: string }) {
+export function Gallery({ items, slug, shader }: { items: Media[]; slug: string; shader?: boolean }) {
   if (items.length === 0) return null;
   const cols = spans(items);
   return (
     <ul className="grid gap-5 md:grid-cols-6">
       {items.map((m, i) => (
         <li key={m.src} className={cols[i]}>
-          <ProductFrame media={m} slug={`${slug}-g${i}`} morph={false} />
+          <ProductFrame media={m} slug={`${slug}-g${i}`} morph={false} shader={shader} />
           {m.caption && <p className="eyebrow mt-3">{m.caption}</p>}
         </li>
       ))}

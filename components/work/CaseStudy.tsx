@@ -40,7 +40,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
         </header>
 
         <div className="mt-12 md:mt-16">
-          {heroes.length > 1 ? <HeroTabs heroes={heroes} slug={project.slug} url={project.live?.label} /> : <ProductFrame media={heroes[0]} slug={project.slug} url={project.live?.label} priority />}
+          {heroes.length > 1 ? <HeroTabs heroes={heroes} slug={project.slug} url={project.live?.label} shader /> : <ProductFrame media={heroes[0]} slug={project.slug} url={project.live?.label} priority shader />}
         </div>
 
         <div className="mt-16 grid md:mt-24 md:grid-cols-[200px_1fr]">
@@ -56,7 +56,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
           </ul>
         </div>
 
-        <div className="mt-12"><Gallery items={project.media.gallery} slug={project.slug} /></div>
+        <div className="mt-12"><Gallery items={project.media.gallery} slug={project.slug} shader /></div>
 
         <div className="mt-14 flex flex-wrap gap-3">
           {project.live && <Pill href={project.live.url} external dot>Visit {project.live.label}</Pill>}

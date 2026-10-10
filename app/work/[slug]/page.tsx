@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getProject, nextProject, projectSlugs } from "@/content";
 import { CaseStudy } from "@/components/work/CaseStudy";
 import { PageTransition } from "@/components/ui/PageTransition";
+import { FrameCanvasMount as FrameCanvas } from "@/components/work/ShaderGate";
 
 export const dynamicParams = false;
 
@@ -25,8 +26,12 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   const project = getProject(slug);
   if (!project) notFound();
   return (
-    <PageTransition>
-      <CaseStudy project={project} next={nextProject(slug)} />
-    </PageTransition>
+    <>
+      <PageTransition>
+        <CaseStudy project={project} next={nextProject(slug)} />
+      </PageTransition>
+      {/* one shared WebGL canvas for the shader frames (Tier A, hardware GL); unmounts when leaving the case page */}
+      <FrameCanvas />
+    </>
   );
 }

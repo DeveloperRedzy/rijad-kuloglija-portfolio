@@ -3,7 +3,7 @@ import { useRef, useState, type KeyboardEvent } from "react";
 import type { Media } from "@/content/schema";
 import { ProductFrame } from "./ProductFrame";
 
-export function HeroTabs({ heroes, slug, url }: { heroes: Media[]; slug: string; url?: string }) {
+export function HeroTabs({ heroes, slug, url, shader }: { heroes: Media[]; slug: string; url?: string; shader?: boolean }) {
   const [i, setI] = useState(0);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -44,7 +44,7 @@ export function HeroTabs({ heroes, slug, url }: { heroes: Media[]; slug: string;
       </div>
       <div role="tabpanel" id={`hero-panel-${i}`} aria-labelledby={`hero-tab-${i}`}>
         {/* Only the first hero shares the frame-<slug> name with the home chapter. */}
-        <ProductFrame media={heroes[i]} slug={slug} url={url} priority morph={i === 0} />
+        <ProductFrame media={heroes[i]} slug={slug} url={url} priority morph={i === 0} shader={shader} />
       </div>
     </div>
   );

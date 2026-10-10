@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTier } from "@/lib/tiers";
+import { glCapability } from "@/lib/gl";
 import { Monogram } from "@/components/brand/Monogram";
 
 import type { Props as SceneProps } from "./HeroScene";
@@ -28,25 +29,11 @@ function posterMode(): boolean {
   return new URLSearchParams(location.search).has("poster");
 }
 
-/**
- * Software rasterizers (SwiftShader, llvmpipe, WARP) link shaders synchronously for seconds and freeze the page, so
- * they get the poster (spec §6.4: GPU tier 0 is never a scene tier). Real tier detection already rules them out; this
- * covers the `redzy:tier` override. three 0.186 needs WebGL2, so without it there is no scene either.
- * `localStorage["redzy:scene"] = "force"` mounts the scene on a software renderer anyway (tests/debug).
- */
+/** Hardware WebGL2, or a software renderer forced with `redzy:scene=force` (see lib/gl.ts). */
 function sceneCapable(): boolean {
-  try {
-    const gl = document.createElement("canvas").getContext("webgl2");
-    if (!gl) return false;
-    const info = gl.getExtension("WEBGL_debug_renderer_info");
-    const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
-    let forced = false;
-    try { forced = localStorage.getItem("redzy:scene") === "force"; } catch {}
-    const software = /swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer);
-    softwareForced = forced && software;
-    return forced || !software;
-  } catch { return false; }
+  const { capable, software } = glCapability();
+  softwareForced = software;
+  return capable;
 }
 
 type Idle = { cancel: () => void };
