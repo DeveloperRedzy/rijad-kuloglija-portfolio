@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-export const LinkSchema = z.object({ label: z.string().min(1), url: z.url() });
+/** External links are absolute URLs; internal links are site paths starting with "/" (rendered with next/link). */
+export const LinkSchema = z.object({
+  label: z.string().min(1),
+  url: z.union([z.url(), z.string().regex(/^\/(?!\/)\S*$/, "internal links start with a single /")]),
+});
 
 export const MediaSchema = z.object({
   src: z.string().startsWith("/media/"),
@@ -37,7 +41,10 @@ export const ProjectSchema = z.object({
   role: z.string().min(1),
   roleNote: z.string().optional(),
   period: z.string().min(4),
+  /** Technologies only (a stack line and the case's Stack row). */
   stack: z.array(z.string().min(1)).min(1),
+  /** Non-technology themes of the work (the case's Focus row). */
+  focus: z.array(z.string().min(1)).min(1).max(5).optional(),
   live: LinkSchema.optional(),
   repo: LinkSchema.optional(),
   body: z.object({
@@ -70,6 +77,7 @@ export const ProfileSchema = z.object({
   jobTitle: z.string().min(1),
   headline: z.string().max(60),
   lead: z.string().max(260),
+  aboutHeading: z.string().min(1).max(60),
   about: z.string().min(200).max(900),
   availability: z.string().max(80).nullable(),
   location: z.string(),

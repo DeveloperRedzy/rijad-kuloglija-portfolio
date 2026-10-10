@@ -9,7 +9,8 @@ export const neoLabs: Project = {
   role: "Head of Communications & Software Innovation",
   roleNote: "one of four members · engineered both customer-facing platforms",
   period: "2025 — present",
-  stack: ["Next.js", "Tailwind CSS", "Vercel", "AI voice calls", "Scheduling & reports", "Escalation workflows"],
+  stack: ["Next.js", "Tailwind CSS", "Vercel"],
+  focus: ["AI voice calls", "Scheduling & reports", "Escalation workflows"],
   live: { label: "neo-labs.ai", url: "https://www.neo-labs.ai/" },
   body: {
     overview:
@@ -24,7 +25,7 @@ export const neoLabs: Project = {
   delivered: [
     "Two live subscription products shipped on a shared product model",
     "Customer-facing platforms for onboarding, scheduling and reporting",
-    "A company-level product and communications remit in a four-person team",
+    "Company-wide ownership of product communication alongside the engineering",
   ],
   media: {
     hero: [

@@ -7,9 +7,10 @@ export const profile: Profile = {
   jobTitle: "Lead Software Developer",
   headline: "Software that keeps working after launch.",
   lead:
-    "Frontend architecture backed by real backend work. I take products from design to deployment and own them after. CTO at DIN Solution, Lead Software Developer at LibLynx.",
+    "I take products from design to deployment and stay accountable for them after launch. CTO at DIN Solution and Lead Software Developer at LibLynx.",
+  aboutHeading: "Frontend architecture, backed by real backend work.",
   about:
-    "I've built software professionally since 2021, from Sarajevo, for teams in Germany, Switzerland, the UK, Luxembourg and the US. My focus is frontend architecture in React, Vue 3, TypeScript and Next.js, with backend work in Laravel, Flask and Node. I lead the report-builder application at LibLynx, the identity and analytics platform used by PLOS, The Economist Group and Digital Science. I'm also CTO at DIN Solution, an international FinTech consulting firm, and one of four members of Neo Labs, where I engineered the customer-facing platforms of two AI voice products. Earlier work includes internal banking products at ProCredit Bank, two years at Bloola on BMW and Deutsche Bundesbank projects, an AI integration for a Swiss legal-tech product and a dApp shipped on Sui.",
+    "Since 2021 I've built software from Sarajevo for teams in Germany, Switzerland, the UK, Luxembourg and the US. My focus is frontend architecture in React, Vue 3, TypeScript and Next.js, with backend work in Laravel, Flask and Node. I lead the report-builder application at LibLynx, the identity and analytics platform used by PLOS, The Economist Group and Digital Science. I'm also CTO at DIN Solution, an international FinTech consulting firm, and a member of the Neo Labs team, where I engineered the customer-facing platforms of two AI voice products. Earlier work includes internal banking products at ProCredit Bank, two years at Bloola on BMW and Deutsche Bundesbank projects, an AI integration for a Swiss legal-tech product and a dApp shipped on Sui.",
   availability: "Open to product engagements from Q1 2027",
   location: "Sarajevo, Bosnia and Herzegovina",
   city: "Sarajevo",
@@ -111,16 +112,16 @@ export const profile: Profile = {
   ],
   lab: [
     {
-      name: "Sui NFT DApp", year: "2024",
+      name: "Sui NFT dApp", year: "2024",
       line: "Live on the Sui blockchain: wallet connection, on-chain NFT minting and leveling, SUI coin management. Next.js, TypeScript, Zustand.",
       links: [
         { label: "Live", url: "https://dapp-test-hazel.vercel.app/" },
-        { label: "GitHub", url: "https://github.com/DeveloperRedzy" },
       ],
     },
     {
       name: "GumaMax", year: "2025",
       line: "Multi-vendor tire-ordering dashboard for Arkona Technology: catalog, vendor management and ordering workflows.",
+      links: [{ label: "Case study", url: "/work/arkona/" }],
       previewSlug: "arkona",
     },
     {

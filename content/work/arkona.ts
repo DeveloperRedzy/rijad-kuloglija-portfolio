@@ -9,7 +9,8 @@ export const arkona: Project = {
   role: "Senior Frontend Developer",
   roleNote: "part-time",
   period: "Oct 2024 — Mar 2025",
-  stack: ["React", "Responsive UI", "Performance", "i18n (EN/SR)", "Dashboard workflows"],
+  stack: ["React"],
+  focus: ["Responsive UI", "Performance", "i18n (EN/SR)", "Dashboard workflows"],
   live: { label: "arkonatechnology.com", url: "https://www.arkonatechnology.com/" },
   body: {
     overview:

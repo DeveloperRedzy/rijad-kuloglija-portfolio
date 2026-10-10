@@ -8,11 +8,13 @@ export const dinSolution: Project = {
   oneLiner: "Owning the technology function of an international FinTech consulting firm.",
   role: "CTO & Head of Software Development",
   period: "2026 — present",
-  stack: ["Technology leadership", "IT solutions", "FinTech consulting", "Web platform"],
+  // stack: verified from the live site (Next.js `_next/static` assets, `server: Vercel`)
+  stack: ["Next.js", "Vercel"],
+  focus: ["Technology leadership", "IT solutions", "FinTech consulting"],
   live: { label: "dinsolution.com", url: "https://www.dinsolution.com/" },
   body: {
     overview:
-      "DIN FinTech Solutions is an international consulting firm with offices in London, Sheridan (Wyoming) and Luxembourg, serving clients across the US and Europe. Its service lines cover bookkeeping and accounting to US GAAP, IFRS and LUX GAAP, business and financial consulting, FinTech advisory, marketing, and IT and engineering solutions.",
+      "DIN Solution is an international consulting firm with offices in London, Sheridan (Wyoming) and Luxembourg, serving clients across the US and Europe. Its service lines cover bookkeeping and accounting to US GAAP, IFRS and LUX GAAP, business and financial consulting, FinTech advisory, marketing, and IT and engineering solutions.",
     problem:
       "A consulting firm that sells precision has to run its own technology precisely. The role points two ways: the technology behind the firm itself, and the software capability it sells to clients through its IT and FinTech service lines. Four specialized teams share one four-stage process (Discover, Plan, Execute, Optimize), and engineering has to speak the language of finance.",
     contribution:

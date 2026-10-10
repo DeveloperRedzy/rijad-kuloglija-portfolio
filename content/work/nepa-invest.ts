@@ -4,11 +4,12 @@ export const nepaInvest: Project = {
   slug: "nepa-invest",
   index: 5,
   name: "Nepa Invest",
-  categories: ["Real estate", "Digital product"],
+  categories: ["Real estate", "Web platform"],
   oneLiner: "The web presence of a real-estate developer: project galleries, video tours and lead capture.",
-  role: "Web Engineering",
+  role: "Web Engineer",
   period: "2025",
-  stack: ["Next.js", "Project galleries", "Video tours", "Lead generation", "Responsive UI"],
+  stack: ["Next.js"],
+  focus: ["Project galleries", "Video tours", "Lead generation", "Responsive UI"],
   live: { label: "nepainvest.com", url: "https://www.nepainvest.com/" },
   body: {
     overview:
