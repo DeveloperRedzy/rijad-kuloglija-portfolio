@@ -1630,3 +1630,53 @@ Wait for the Vercel production deploy; walk the checklist; append "Plan 2 result
 1. If `ViewTransition` is exported as `unstable_ViewTransition` in the installed React, alias the import in `PageTransition.tsx`, `ProductFrame.tsx` and `HeroTabs.tsx`.
 2. If `gsap/DrawSVGPlugin` is not present in the installed GSAP build, drop `DrawArrows` (arrows keep the 2 px hover shift).
 3. Headless WebGL in CI (SwiftShader) may report GPU tier 0 ⇒ Tier C; the desktop motion tests therefore branch on the detected tier and must not assume Tier A in CI.
+
+## Plan 2 result
+
+### Task 9: performance gates (2026-10-10, branch `redesign/signal`)
+
+Measured on a static `out/` (local, Apple Silicon). Lighthouse 12.6 through `@lhci/cli` 0.15, median of 3 runs, default
+simulated throttling (mobile = Moto G Power, 4x CPU, slow 4G; desktop preset).
+
+**Bundles** (`npm run budget`, gzip -9; "initial" = every chunk referenced by `out/index.html` /
+`out/work/liblynx/index.html`, minus the `noModule` legacy polyfill that module browsers never download):
+
+| | before (ada57f4) | after |
+|---|---|---|
+| initial JS `/` | 211.4 KB (249.9 KB incl. the 38.5 KB noModule polyfill) | **149.5 KB** (188.0 KB incl. polyfill) |
+| initial JS `/work/liblynx/` | 208.4 KB | **148.2 KB** |
+| GSAP in the initial bundle | core + ScrollTrigger + SplitText + DrawSVG + Lenis + all motion components | none |
+| 3D chunk (three/R3F/drei/postprocessing) | 231.7 KB, lazy | 231.7 KB, lazy, never referenced by the initial HTML |
+| motion layer | initial | lazy, ≈ 70 KB over 4–5 chunks, fetched once the tier is A/B |
+
+**Lighthouse mobile** (Tier B poster path, no 3D):
+
+| page | perf | LCP | TBT | CLS | FCP |
+|---|---|---|---|---|---|
+| `/` | 0.92 | 3.33 s | 59 ms | 0.042 | 1.51 s |
+| `/work/liblynx/` | 0.93 | 3.10 s | 92 ms | 0.001 | 1.21 s |
+| `/work/nepa-invest/` | 0.91 | 3.48 s | 36 ms | 0.000 | 1.21 s |
+| `/cv/` | 0.96 | 2.79 s | 41 ms | 0.000 | 1.21 s |
+
+Before: `/` 0.86 (LCP 4.02 s, TBT 85 ms); Plan 1: 0.88 (LCP 3.85 s).
+
+**Lighthouse desktop** (Tier A, 3D scene loads): 1.00 on `/` (LCP 0.67 s, TBT 0, CLS 0.026), `/work/liblynx/` (0.65 s, 0,
+0.002), `/work/nepa-invest/` (0.69 s, 0, 0.002), `/cv/` (0.55 s, 0, 0.005). Before the shared WebGL probe: `/` 0.76
+(TBT 570 ms from two cold WebGL context creations); before the transform-based sweep: Nepa CLS 0.11–0.12.
+
+Accessibility 0.96, best practices 0.96–1.00, SEO 1.00 everywhere.
+
+**Open budget: mobile LCP ≤ 2.5 s is not met** (asserted as a warning in `lighthouserc.mobile.json`). The LCP element
+is text (the hero `h1`, or the Nepa hero frame) painted at first paint; Lighthouse's simulation counts every request
+that finished before that paint in the local trace, i.e. the whole framework JS. Even `/cv/` (no motion, no images)
+lands at 2.8 s; an experiment with every script removed gave 1.9 s. With devtools (real) throttling the same build
+measures LCP = FCP = 1.6 s. Closing the gap needs less framework JS (React + Next runtime ≈ 125 KB gz), not app changes.
+
+**Frame time** (`tests/e2e/perf.spec.ts`, advisory; skips under SwiftShader): GPU-backed new-headless Chrome, Tier A,
+24 scroll steps through the dive: 0 / 0 long frames (> 32 ms) on warm runs (p95 17.6–18.3 ms), 8 on a cold first run
+(shader/GPU cache, max 304 ms).
+- [ ] Manual: M1 Air, Performance panel, no frame > 32 ms during the dive (owner)
+
+**Pointer e2e stability**: `npx playwright test tests/e2e/pointer.spec.ts --repeat-each=5` → 40 passed, 0 failed
+(50 skipped: desktop-only tests on the other projects). Full suite: 105 passed, 51 skipped, 0 failed (desktop 47,
+mobile 29, reduced-motion 29), run twice.

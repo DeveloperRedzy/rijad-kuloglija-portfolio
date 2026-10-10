@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
+import { probeGL, releaseProbe } from "./gl";
 
 export type Tier = "A" | "B" | "C";
 export type TierInput = { gpuTier: 0 | 1 | 2 | 3; pointerFine: boolean; width: number; reducedMotion: boolean; webgl: boolean };
@@ -11,15 +12,6 @@ export function resolveTier(i: TierInput): Tier {
 }
 
 const TierContext = createContext<Tier | null>(null);
-
-function hasWebGL(): boolean {
-  try {
-    const c = document.createElement("canvas");
-    const gl = c.getContext("webgl2") || c.getContext("webgl");
-    gl?.getExtension("WEBGL_lose_context")?.loseContext();
-    return !!gl;
-  } catch { return false; }
-}
 
 export function TierProvider({ children }: { children: React.ReactNode }) {
   const [tier, setTier] = useState<Tier | null>(null);
@@ -37,14 +29,17 @@ export function TierProvider({ children }: { children: React.ReactNode }) {
       }
       const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
       const pointerFine = matchMedia("(pointer: fine)").matches;
-      const webgl = hasWebGL();
+      const probe = probeGL();
+      const webgl = !!probe.gl;
       let gpuTier: TierInput["gpuTier"] = 1;
       if (!reducedMotion && webgl && pointerFine && innerWidth >= 1024) {
         try {
           const { getGPUTier } = await import("detect-gpu");
-          gpuTier = (await getGPUTier()).tier as TierInput["gpuTier"];
+          // reuse the probing context: every new context is another long main-thread task
+          gpuTier = (await getGPUTier({ glContext: probe.gl ?? undefined })).tier as TierInput["gpuTier"];
         } catch { gpuTier = 1; }
       }
+      releaseProbe();
       const t = resolveTier({ gpuTier, pointerFine, width: innerWidth, reducedMotion, webgl });
       if (cancelled) return;
       document.documentElement.dataset.tier = t;

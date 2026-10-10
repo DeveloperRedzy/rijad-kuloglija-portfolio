@@ -26,8 +26,9 @@ describe("design tokens", () => {
   });
 
   it("keeps theme font tokens decoupled from next/font variables", () => {
-    expect(css).toContain("--font-display: var(--font-display-face)");
-    expect(css).toContain("--font-body: var(--font-body-face)");
+    // explicit family first (app/fonts.ts shares one font-family across the preloaded and the deferred faces)
+    expect(css).toContain('--font-display: "Cabinet Grotesk", var(--font-display-face)');
+    expect(css).toContain('--font-body: "Switzer", var(--font-body-face)');
     expect(css).toContain("--font-mono: var(--font-mono-face)");
     expect(css).not.toContain("var(--font-display),");
     expect(css).not.toContain("var(--font-body),");

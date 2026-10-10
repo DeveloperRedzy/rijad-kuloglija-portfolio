@@ -5,7 +5,7 @@ import { Icon } from "@/components/brand/Icon";
 import { Aura } from "@/components/brand/Aura";
 import { ProductFrame } from "@/components/work/ProductFrame";
 import { ProgressRail } from "@/components/motion/ProgressRail";
-import { ChapterChoreo } from "@/components/motion/ChapterChoreo";
+import { ChapterChoreo } from "@/components/motion/lazy";
 
 export function WorkChapters() {
   return (
@@ -41,7 +41,7 @@ export function WorkChapters() {
                 </div>
                 <div className="order-first lg:order-none lg:col-span-7 lg:[&_img]:mx-auto lg:[&_img]:w-auto lg:[&_img]:max-h-[calc(100dvh-14rem)] lg:[&_img]:object-contain">
                   <Link href={`/work/${p.slug}/`} transitionTypes={["nav-forward"]} aria-label={`Open ${p.name} case study`} className="block">
-                    <ProductFrame media={hero} slug={p.slug} url={p.live?.label} priority={i === 0} />
+                    <ProductFrame media={hero} slug={p.slug} url={p.live?.label} />
                   </Link>
                 </div>
               </div>

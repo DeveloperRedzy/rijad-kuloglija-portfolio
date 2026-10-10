@@ -1,4 +1,14 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
+
+/**
+ * Tier A pointer effects need two things before the first input: the loader gone (it is a full-screen overlay on a
+ * first visit to `/`, so pointer events hit it, not the page) and the lazily loaded motion layer mounted (its
+ * listeners are attached once `data-motion="ready"` is set).
+ */
+async function settled(page: Page) {
+  await page.waitForFunction(() => document.documentElement.dataset.landed === "true" && document.documentElement.dataset.motion === "ready");
+  await expect(page.locator("[role=status][aria-label=Loading]")).toHaveCount(0);
+}
 
 test.describe("tier A", () => {
 test.beforeEach(async ({ page }, info) => {
@@ -8,6 +18,7 @@ test.beforeEach(async ({ page }, info) => {
 
 test("custom cursor mounts on Tier A", async ({ page }) => {
   await page.goto("/");
+  await settled(page);
   await expect(page.locator("html")).toHaveAttribute("data-cursor", "custom");
   await expect(page.locator("[data-cursor-dot]")).toHaveCount(1);
   await expect(page.locator("[data-cursor-ring]")).toHaveCount(1);
@@ -15,6 +26,7 @@ test("custom cursor mounts on Tier A", async ({ page }) => {
 
 test("hovering an experience row shows the floating preview", async ({ page }) => {
   await page.goto("/");
+  await settled(page);
   const row = page.locator("[data-row][data-preview]").first();
   await row.scrollIntoViewIfNeeded();
   const box = page.locator("[data-preview-box]");
@@ -27,6 +39,7 @@ test("hovering an experience row shows the floating preview", async ({ page }) =
 
 test("magnetic pill is pulled toward the pointer", async ({ page }) => {
   await page.goto("/");
+  await settled(page);
   const pill = page.locator("[data-magnetic]").first();
   await pill.scrollIntoViewIfNeeded();
   const b = (await pill.boundingBox())!;
@@ -37,6 +50,7 @@ test("magnetic pill is pulled toward the pointer", async ({ page }) => {
 
 test("keyboard focus on a row shows the preview", async ({ page }) => {
   await page.goto("/");
+  await settled(page);
   const row = page.locator("[data-row][data-preview]").first();
   await row.scrollIntoViewIfNeeded();
   await row.evaluate((el) => { el.setAttribute("tabindex", "-1"); (el as HTMLElement).focus(); });
@@ -46,6 +60,7 @@ test("keyboard focus on a row shows the preview", async ({ page }) => {
 
 test("arrow icons are swapped for drawn paths", async ({ page }) => {
   await page.goto("/");
+  await settled(page);
   const svg = page.locator("a svg[data-drawn]").first();
   await expect(svg).toHaveCount(1);
   await svg.locator("xpath=ancestor::a").hover();

@@ -1,26 +1,23 @@
 "use client";
-import { TierProvider } from "@/lib/tiers";
+import { TierProvider, useTier } from "@/lib/tiers";
 import { Loader } from "@/components/brand/Loader";
-import { SmoothScroll } from "./SmoothScroll";
-import { SplitReveal } from "./SplitReveal";
-import { LightSweeps } from "./LightSweeps";
-import { Magnetic } from "./Magnetic";
-import { DrawArrows } from "./DrawArrows";
-import { HoverPreview } from "./HoverPreview";
-import { Cursor } from "./Cursor";
+import { MotionLayer } from "./lazy";
+
+/**
+ * Mounts the lazy motion layer once the tier is known (A/B only; Tier C has no motion). Its chunk (GSAP plugins,
+ * Lenis, pointer effects) is fetched at that point, after hydration, never as part of the initial bundle.
+ */
+function DeferredMotion() {
+  const tier = useTier();
+  return tier && tier !== "C" ? <MotionLayer /> : null;
+}
 
 export function MotionRoot({ children }: { children: React.ReactNode }) {
   return (
     <TierProvider>
       <Loader />
       {children}
-      <SmoothScroll />
-      <SplitReveal />
-      <LightSweeps />
-      <Magnetic />
-      <DrawArrows />
-      <HoverPreview />
-      <Cursor />
+      <DeferredMotion />
     </TierProvider>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "@/lib/gsap";
+import type { gsap } from "gsap";
+import { loadGsap } from "@/lib/gsap-load";
 import { useTier } from "@/lib/tiers";
 import { hasLanded } from "@/lib/ready";
 
@@ -25,19 +26,21 @@ export function NavDot() {
 
   const ping = () => {
     if (!tier || tier === "C") return;
-    ctx.current ??= gsap.context(() => {});
-    ctx.current.add(() => {
-      const band = document.createElement("span");
-      band.className = "pointer-events-none fixed inset-x-0 z-[75] h-[40vh]";
-      band.style.background = "linear-gradient(180deg, rgba(255,74,38,0), rgba(255,74,38,.18), rgba(255,74,38,0))";
-      band.setAttribute("data-ping-band", "");
-      document.body.append(band);
-      gsap.fromTo(band, { top: "-40vh" }, { top: "110vh", duration: 0.6, ease: "power2.inOut", onComplete: () => band.remove() });
-      // Mid-dive (Tier A home) the dive's scrubbed timeline owns the dot's scale: the ping only sends the band.
-      const hero = document.querySelector<HTMLElement>("[data-hero]");
-      const diving = tier === "A" && !!hero && hero.dataset.dive !== "landed";
-      if (!diving) gsap.fromTo(ref.current, { scale: 1.8 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.4)" });
-    });
+    loadGsap().then((gsap) => {
+      ctx.current ??= gsap.context(() => {});
+      ctx.current.add(() => {
+        const band = document.createElement("span");
+        band.className = "pointer-events-none fixed inset-x-0 z-[75] h-[40vh]";
+        band.style.background = "linear-gradient(180deg, rgba(255,74,38,0), rgba(255,74,38,.18), rgba(255,74,38,0))";
+        band.setAttribute("data-ping-band", "");
+        document.body.append(band);
+        gsap.fromTo(band, { top: "-40vh" }, { top: "110vh", duration: 0.6, ease: "power2.inOut", onComplete: () => band.remove() });
+        // Mid-dive (Tier A home) the dive's scrubbed timeline owns the dot's scale: the ping only sends the band.
+        const hero = document.querySelector<HTMLElement>("[data-hero]");
+        const diving = tier === "A" && !!hero && hero.dataset.dive !== "landed";
+        if (!diving) gsap.fromTo(ref.current, { scale: 1.8 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.4)" });
+      });
+    }, () => {});
   };
 
   return (

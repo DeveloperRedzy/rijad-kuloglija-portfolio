@@ -2,7 +2,7 @@ import { Pill } from "@/components/ui/Pill";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { HeroPoster } from "./HeroPoster";
 import { HeroOverlay } from "./HeroOverlay";
-import { HeroDive } from "./HeroDive";
+import { HeroDive } from "@/components/motion/lazy";
 import { AvailabilityBadge } from "./AvailabilityBadge";
 import { profile } from "@/content/profile";
 

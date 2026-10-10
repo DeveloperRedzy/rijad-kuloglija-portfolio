@@ -4,9 +4,16 @@ import { usePathname } from "next/navigation";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useTier } from "@/lib/tiers";
 
+/**
+ * Runs a light band from 50 % above its positioned container to 110 % down it. Animates a transform (y in px of the
+ * container height), never `top`: a moving `top` is a layout shift and counts against CLS (spec §10: CLS ≤ 0.05).
+ */
 export function sweep(target: Element, duration = 1.2) {
   gsap.killTweensOf(target);
-  return gsap.fromTo(target, { top: "-50%", opacity: 1 }, { top: "110%", duration, ease: "power2.inOut", onComplete: () => { gsap.set(target, { opacity: 0 }); } });
+  const el = target as HTMLElement;
+  const h = (el.offsetParent as HTMLElement | null)?.offsetHeight ?? 0;
+  const base = el.offsetTop; // layout position without transforms
+  return gsap.fromTo(el, { y: -0.5 * h - base, opacity: 1 }, { y: 1.1 * h - base, duration, ease: "power2.inOut", onComplete: () => { gsap.set(el, { opacity: 0 }); } });
 }
 
 export function LightSweeps() {

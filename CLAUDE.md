@@ -4,6 +4,7 @@ Next.js 16 App Router, static export (`out/`), React 19, TypeScript strict, Tail
 
 ## Commands
 - `npm run dev` · `npm run build` (also writes the CV PDF in postbuild) · `npm run check` (lint + typecheck + unit) · `npm run e2e` (build + Playwright) · `npm run screens` (after-screenshots)
+- Performance gates (after a build): `npm run budget` (initial JS ≤ 200 KB gz, 3D chunk ≤ 400 KB gz and lazy) · `npm run lhci` (Lighthouse desktop + mobile; set `CHROME_PATH` if no system Chrome). Keep GSAP plugins, Lenis and `three` out of the initial bundle: motion goes through `components/motion/lazy.tsx` / `MotionLayer`, GSAP core through `lib/gsap-load.ts`.
 - Assets: `npm run capture` (public-site captures → assets/source/captures), `npm run assets` (sharp → public/media), `npm run icons`, `npm run auras`, `node scripts/fetch-fonts.mjs`
 
 ## Rules

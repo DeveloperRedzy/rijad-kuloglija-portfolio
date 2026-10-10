@@ -25,8 +25,15 @@ test.describe("shader frames", () => {
     for (const k of ["x", "y", "width", "height"] as const) expect(Math.abs(view![k] - img![k])).toBeLessThan(1);
 
     await expect(hero).not.toHaveAttribute("data-shader-active", "true");
+    // The active state is transient (~1.1 s) and the software-rendered canvas can starve the main thread long enough
+    // for a runner-side poll to miss it: record the transition in the page instead.
+    await hero.evaluate((el) => {
+      const w = window as unknown as { __shaderActivated?: boolean };
+      new MutationObserver(() => { if (el.getAttribute("data-shader-active") === "true") w.__shaderActivated = true; })
+        .observe(el, { attributes: true, attributeFilter: ["data-shader-active"] });
+    });
     await hero.hover();
-    await expect.poll(() => hero.getAttribute("data-shader-active")).toBe("true");
+    await expect.poll(() => page.evaluate(() => !!(window as unknown as { __shaderActivated?: boolean }).__shaderActivated)).toBe(true);
     // the tween ends and the plane hides again
     await expect.poll(() => hero.getAttribute("data-shader-active"), { timeout: 10_000 }).toBeNull();
   });

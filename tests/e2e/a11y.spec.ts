@@ -5,7 +5,11 @@ for (const path of ["/", "/work/liblynx/", "/cv/"]) {
   test(`${path} has no serious axe violations`, async ({ page }) => {
     await page.goto(path);
     // Let entrance tweens settle: axe measures contrast on mid-fade text.
-    await page.waitForFunction(() => document.documentElement.dataset.tier !== undefined);
+    // Tier A/B: the lazily loaded motion layer must have mounted (and started its tweens) before we wait them out.
+    await page.waitForFunction(() => {
+      const { tier, motion } = document.documentElement.dataset;
+      return tier === "C" || (tier !== undefined && motion === "ready");
+    });
     await expect
       .poll(() => page.locator("header .eyebrow").evaluateAll((els) => els.every((e) => getComputedStyle(e).opacity === "1")), { timeout: 5000 })
       .toBe(true);
