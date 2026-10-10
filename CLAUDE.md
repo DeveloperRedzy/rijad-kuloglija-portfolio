@@ -5,14 +5,15 @@ Next.js 16 App Router, static export (`out/`), React 19, TypeScript strict, Tail
 ## Commands
 - `npm run dev` · `npm run build` (also writes the CV PDF in postbuild) · `npm run check` (lint + typecheck + unit) · `npm run e2e` (build + Playwright) · `npm run screens` (after-screenshots)
 - Performance gates (after a build): `npm run budget` (initial JS ≤ 200 KB gz, 3D chunk ≤ 400 KB gz and lazy) · `npm run lhci` (Lighthouse desktop then mobile via `scripts/lhci.mjs`, fails if either fails; set `CHROME_PATH` if no system Chrome). Keep GSAP plugins, Lenis and `three` out of the initial bundle: motion goes through `components/motion/lazy.tsx` / `MotionLayer`, GSAP core through `lib/gsap-load.ts`.
-- Assets: `npm run capture` (public-site captures → assets/source/captures), `npm run assets` (sharp → public/media), `npm run icons`, `npm run auras`, `node scripts/fetch-fonts.mjs`
+- Assets: `npm run capture` (public-site captures → assets/source/captures), `npm run assets` (sharp → public/media), `npm run icons`, `npm run auras`, `npm run poster` (Tier B/C hero posters from the live scene; run against `npm run dev`), `node scripts/fetch-fonts.mjs`
+- Tier overrides for testing: `localStorage["redzy:tier"]` = `A` | `B` | `C`; `localStorage["redzy:scene"] = "force"` lets the R3F scene run on a software renderer; `sessionStorage["redzy:loaded"] = "1"` skips the loader. Playwright sets these via `addInitScript`; headless CI usually resolves to Tier C, so tests branch on the detected tier.
 
 ## Rules
-- All copy lives in `content/` (`profile.ts`, `work/*.ts`) and is validated by `content/schema.ts`. Never hardcode roles, projects or profile text in components.
+- All copy lives in `content/` (`profile.ts`, `work/*.ts`) and is validated by `content/schema.ts`. Never hardcode roles, projects or profile text in components; brand, city, job title and project totals come from `profile.brand`, `profile.city`, `profile.jobTitle` and `projects.length`.
 - Design tokens live in `app/globals.css` `@theme`; use the Tailwind utilities (`bg-canvas`, `text-ink`, `text-signal`, `display-xl`, `eyebrow`). Never pure #000/#FFF. Red is light, never a large fill or body text.
 - Spec: `docs/superpowers/specs/2026-10-09-portfolio-redesign-design.md`. Plans: `docs/superpowers/plans/`.
 - `assets/source/` is gitignored (originals). `public/media/` is committed (processed).
-- Motion: respect `prefers-reduced-motion`; Plan 2 adds GSAP/R3F behind `lib/tiers.ts`.
+- Motion: respect `prefers-reduced-motion`; GSAP/R3F run behind `lib/tiers.tsx` (Tier C = reduced motion, no motion layer).
 - Commits: conventional prefix, end with `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`.
 
 ## Build and deploy notes
