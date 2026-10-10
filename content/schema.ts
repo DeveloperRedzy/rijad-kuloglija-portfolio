@@ -65,12 +65,16 @@ export const LabItemSchema = z.object({
 
 export const ProfileSchema = z.object({
   name: z.string(),
+  brand: z.string().min(1),
   title: z.string(),
+  jobTitle: z.string().min(1),
   headline: z.string().max(60),
   lead: z.string().max(260),
   about: z.string().min(200).max(900),
   availability: z.string().max(80).nullable(),
   location: z.string(),
+  city: z.string().min(1),
+  countryCode: z.string().length(2),
   since: z.number().int(),
   email: z.email(),
   domain: z.string(),

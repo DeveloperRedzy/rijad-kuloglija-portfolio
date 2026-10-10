@@ -5,20 +5,20 @@ export const nepaInvest: Project = {
   index: 5,
   name: "Nepa Invest",
   categories: ["Real estate", "Digital product"],
-  oneLiner: "A commercial digital presence for a real-estate developer: galleries, video tours and lead capture.",
+  oneLiner: "The web presence of a real-estate developer: project galleries, video tours and lead capture.",
   role: "Web Engineering",
   period: "2025",
   stack: ["Next.js", "Project galleries", "Video tours", "Lead generation", "Responsive UI"],
   live: { label: "nepainvest.com", url: "https://www.nepainvest.com/" },
   body: {
     overview:
-      "Nepa Invest is a real-estate investment and development company that acquires, develops and sells residential and commercial property. Its site presents active developments, Villa Park Obarak, Projekat Pobjeda and Bulevar Goražde, combining investment positioning with architecture imagery.",
+      "Nepa Invest is a real-estate investment and development company that acquires, develops and sells residential and commercial property. Its site presents three active developments (Villa Park Obarak, Projekat Pobjeda and Bulevar Goražde) and pairs investment positioning with architectural imagery.",
     problem:
-      "Outside SaaS the job changes: the site sells trust in physical assets. Image-heavy galleries have to stay fast on mobile connections, video tours have to play without stalling, and the composition has to feel like the buildings it presents: polished and solid.",
+      "Outside SaaS the job changes: the site sells trust in physical assets. Image-heavy galleries have to stay fast on mobile connections, video tours have to play without stalling, and the layout has to feel as polished and solid as the buildings it presents.",
     contribution:
       "I engineered Nepa Invest's web presence: per-project presentations with substantial render galleries, video tours for selected projects, an investment-approach narrative, and consultation and lead-generation flows for buyers and partners.",
     engineering:
-      "An image-forward site where performance work concentrates on media: galleries of up to eleven renders per project and embedded video tours, delivered responsively with modern formats, lazy loading and posters, so the first view of each development lands fast.",
+      "Performance work concentrates on media: galleries of up to eleven renders per project and embedded video tours. Everything is delivered responsively, with modern formats, lazy loading and video posters, so the first view of each development loads fast.",
   },
   delivered: [
     "Live commercial web presence for an active property developer",

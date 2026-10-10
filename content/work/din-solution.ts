@@ -12,13 +12,13 @@ export const dinSolution: Project = {
   live: { label: "dinsolution.com", url: "https://www.dinsolution.com/" },
   body: {
     overview:
-      "DIN FinTech Solutions is an international consulting firm with offices in London, Sheridan (Wyoming) and Luxembourg, serving clients across the US and Europe. Its service lines span bookkeeping and accounting to US GAAP, IFRS and LUX GAAP standards, business and financial consulting, FinTech advisory, marketing, and IT and engineering solutions. The firm positions itself as an integrated strategy unit working as a long-term partner rather than a temporary provider.",
+      "DIN FinTech Solutions is an international consulting firm with offices in London, Sheridan (Wyoming) and Luxembourg, serving clients across the US and Europe. Its service lines cover bookkeeping and accounting to US GAAP, IFRS and LUX GAAP, business and financial consulting, FinTech advisory, marketing, and IT and engineering solutions.",
     problem:
-      "A consulting firm whose pitch is precision has to run its own technology precisely. The role spans two directions at once: the technology behind the firm itself, and the software development capability it sells to clients through its IT and FinTech service lines. Four specialized teams run a shared four-stage process, Discover, Plan, Execute, Optimize, and the engineering side has to speak the language of the finance side.",
+      "A consulting firm that sells precision has to run its own technology precisely. The role points two ways: the technology behind the firm itself, and the software capability it sells to clients through its IT and FinTech service lines. Four specialized teams share one four-stage process (Discover, Plan, Execute, Optimize), and engineering has to speak the language of finance.",
     contribution:
-      "As CTO & Head of Software Development I am responsible for the firm's technology direction and for leading its software development function: the delivery behind the IT-solutions service line, build decisions across client engagements, and the firm's own digital presence.",
+      "I set the firm's technology direction and lead its software development function: delivery behind the IT-solutions service line, build decisions across client engagements, and the firm's own digital presence.",
     engineering:
-      "This is the leadership complement to the hands-on work elsewhere on this site: setting technical direction, choosing stacks per engagement, reviewing architecture, and owning outcomes rather than tickets. The firm's web platform is the visible part; the invisible part is making four teams in three time zones ship on one process.",
+      "This is the leadership counterpart to the hands-on work elsewhere on this site: setting technical direction, choosing stacks per engagement, reviewing architecture and owning outcomes rather than tickets. The web platform is the visible part. The rest is getting four teams in three time zones to ship on one process.",
   },
   delivered: [
     "Technology leadership across an international, multi-office consulting firm",
@@ -28,9 +28,9 @@ export const dinSolution: Project = {
   media: {
     hero: { src: "/media/work/din-solution/hero-desktop-1600.webp", alt: "dinsolution.com home page", kind: "desktop", width: 1600, height: 1000 },
     gallery: [
-      { src: "/media/work/din-solution/gallery-1-800.webp", alt: "dinsolution.com on a phone", kind: "mobile", width: 800, height: 1734, caption: "Mobile · services" },
+      { src: "/media/work/din-solution/gallery-1-800.webp", alt: "dinsolution.com on a phone", kind: "mobile", width: 800, height: 1734, caption: "dinsolution.com · mobile" },
     ],
   },
-  cvLine: "CTO & Head of Software Development of an international FinTech consulting firm (London, Luxembourg, US): technology direction, delivery behind the IT-solutions service line, the firm's web platform.",
+  cvLine: "Technology direction and the software development function of an international FinTech consulting firm (London, Luxembourg, US), including delivery behind its IT-solutions service line and the firm's web platform.",
   featured: true,
 };
