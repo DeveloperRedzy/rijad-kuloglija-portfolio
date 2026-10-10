@@ -1,10 +1,16 @@
 import { z } from "zod";
 
-/** External links are absolute URLs; internal links are site paths starting with "/" (rendered with next/link). */
-export const LinkSchema = z.object({
-  label: z.string().min(1),
-  url: z.union([z.url(), z.string().regex(/^\/(?!\/)\S*$/, "internal links start with a single /")]),
-});
+/** Absolute http(s) URL — the only protocols rendered as plain hrefs. */
+export const HttpUrl = z.url({ protocol: /^https?$/ });
+
+/** Site path starting with a single "/" (rendered with next/link); "//" and "/\" would become off-site. */
+const SitePath = z.string().regex(/^\/(?![\/\\])\S*$/, "internal links start with a single /");
+
+/** Project links are always external. */
+export const LinkSchema = z.object({ label: z.string().min(1), url: HttpUrl });
+
+/** Lab links may also point at a page on this site (e.g. a case study). */
+export const LabLinkSchema = z.object({ label: z.string().min(1), url: z.union([HttpUrl, SitePath]) });
 
 export const MediaSchema = z.object({
   src: z.string().startsWith("/media/"),
@@ -26,7 +32,7 @@ export const RoleSchema = z.object({
   mode: z.enum(["remote", "on-site", "hybrid", "contract", "part-time"]),
   summary: z.string().min(20),
   stack: z.array(z.string()).optional(),
-  url: z.url().optional(),
+  url: HttpUrl.optional(),
   current: z.boolean(),
   showOnCv: z.boolean(),
   projectSlug: z.string().optional(),
@@ -66,7 +72,7 @@ export const LabItemSchema = z.object({
   name: z.string().min(1),
   line: z.string().min(10),
   year: z.string().min(4),
-  links: z.array(LinkSchema).optional(),
+  links: z.array(LabLinkSchema).optional(),
   previewSlug: z.string().optional(),
 });
 
@@ -86,7 +92,7 @@ export const ProfileSchema = z.object({
   since: z.number().int(),
   email: z.email(),
   domain: z.string(),
-  links: z.object({ github: z.url(), linkedin: z.url() }),
+  links: z.object({ github: HttpUrl, linkedin: HttpUrl }),
   strengths: z.array(z.string()).length(6),
   stack: z.array(z.object({ group: z.string(), items: z.array(z.string()).min(1) })).min(3),
   education: z.array(z.object({ school: z.string(), short: z.string(), degree: z.string(), years: z.string() })).min(1),

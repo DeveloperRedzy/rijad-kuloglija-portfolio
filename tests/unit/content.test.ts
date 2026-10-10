@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ProfileSchema, ProjectSchema } from "../../content/schema";
+import { LabLinkSchema, LinkSchema, ProfileSchema, ProjectSchema } from "../../content/schema";
 import { profile } from "../../content/profile";
 import { projects, getProject, nextProject, projectSlugs } from "../../content";
 
@@ -56,5 +56,18 @@ describe("projects", () => {
       const text = Object.values(p.body).join(" ");
       expect(text).not.toMatch(/\bRijad (leads|is|built|engineered|worked)\b/);
     }
+  });
+});
+
+describe("link schemas", () => {
+  it("accepts only http(s) for project links", () => {
+    expect(LinkSchema.safeParse({ label: "x", url: "https://example.com" }).success).toBe(true);
+    expect(LinkSchema.safeParse({ label: "x", url: "javascript:alert(1)" }).success).toBe(false);
+    expect(LinkSchema.safeParse({ label: "x", url: "/work/arkona/" }).success).toBe(false);
+  });
+  it("lets lab links point at a site path, but never an off-site path", () => {
+    expect(LabLinkSchema.safeParse({ label: "x", url: "/work/arkona/" }).success).toBe(true);
+    expect(LabLinkSchema.safeParse({ label: "x", url: "//evil.com" }).success).toBe(false);
+    expect(LabLinkSchema.safeParse({ label: "x", url: "/\\evil.com" }).success).toBe(false);
   });
 });

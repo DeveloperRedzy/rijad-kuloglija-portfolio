@@ -8,13 +8,20 @@ type Cell = { span: string; lone?: boolean };
 // centred (columns 3–4) with its caption beside it, instead of a phone stranded at the left edge.
 function cells(items: Media[]): Cell[] {
   const out: Cell[] = [];
-  for (let i = 0; i < items.length; i++) {
+  let i = 0;
+  while (i < items.length) {
     const m = items[i];
-    if (m.kind === "mobile") {
-      const lone = items[i - 1]?.kind !== "mobile" && items[i + 1]?.kind !== "mobile";
-      out.push(lone ? { span: "md:col-span-6", lone } : { span: "md:col-span-2" });
-    } else if (items[i + 1]?.kind === "mobile") { out.push({ span: "md:col-span-4" }, { span: "md:col-span-2" }); i++; }
-    else out.push({ span: "md:col-span-6" });
+    if (m.kind !== "mobile") {
+      if (items[i + 1]?.kind === "mobile") { out.push({ span: "md:col-span-4" }, { span: "md:col-span-2" }); i += 2; }
+      else { out.push({ span: "md:col-span-6" }); i += 1; }
+      continue;
+    }
+    // A run of mobile items not consumed by a preceding desktop/video item.
+    let run = 0;
+    while (items[i + run]?.kind === "mobile") run++;
+    if (run === 1) out.push({ span: "md:col-span-6", lone: true });
+    else for (let k = 0; k < run; k++) out.push({ span: "md:col-span-2" });
+    i += run;
   }
   return out;
 }
