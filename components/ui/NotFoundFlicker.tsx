@@ -4,6 +4,7 @@ import type { gsap } from "gsap";
 import { loadGsap } from "@/lib/gsap-load";
 import { useTier } from "@/lib/tiers";
 import { Monogram } from "@/components/brand/Monogram";
+import { profile } from "@/content/profile";
 
 const RADIUS = 120;
 
@@ -60,7 +61,7 @@ export function NotFoundFlicker() {
   }, [tier]);
   return (
     <div ref={ref}>
-      <Monogram size={160} lit={false} glow={false} className="text-[#1C1A18]" title="Redzy monogram, unlit" />
+      <Monogram size={160} lit={false} glow={false} className="text-[#1C1A18]" title={`${profile.brand} monogram, unlit`} />
     </div>
   );
 }

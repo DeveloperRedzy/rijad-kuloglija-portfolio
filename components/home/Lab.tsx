@@ -6,7 +6,7 @@ export function Lab() {
   return (
     <section id="lab" data-sweep-section className="border-t border-hairline py-24 md:py-32">
       <div className="container-site">
-        <Eyebrow>04 — Lab &amp; more work</Eyebrow>
+        <Eyebrow as="h2">04 — Lab &amp; more work</Eyebrow>
         <ol className="mt-8 border-t border-hairline">
           {profile.lab.map((item) => (
             <li key={item.name} data-row data-preview={item.previewSlug} className="grid gap-2 border-b border-hairline py-4 md:grid-cols-12 md:items-baseline md:gap-6">

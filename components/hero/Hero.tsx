@@ -16,7 +16,7 @@ export function Hero() {
       <div className="overflow-hidden">
         <div className="container-site grid min-h-[calc(100dvh-4rem)] items-center gap-12 py-16 lg:grid-cols-12">
           <div data-hero-copy className="lg:col-span-7">
-            <Eyebrow>{profile.name} · {profile.title} · Sarajevo</Eyebrow>
+            <Eyebrow>{profile.name} · {profile.title} · {profile.city}</Eyebrow>
             <h1 data-split className="display-xl mt-6 max-w-[14ch] text-balance">{profile.headline}</h1>
             <p data-split className="mt-8 max-w-[48ch] text-lg leading-relaxed text-ink-soft md:text-xl">{profile.lead}</p>
             <div className="mt-10 flex flex-wrap items-center gap-3">

@@ -13,9 +13,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(`https://www.${profile.domain}`),
-  title: { default: "Redzy — Rijad Kuloglija", template: "%s — Redzy" },
+  title: { default: `${profile.brand} — ${profile.name}`, template: `%s — ${profile.brand}` },
   description: `${profile.title}. ${profile.headline}`,
-  openGraph: { type: "website", siteName: "Redzy", locale: "en_US", images: [{ url: "/og/home.png", width: 1200, height: 630 }] },
+  openGraph: { type: "website", siteName: profile.brand, locale: "en_US", images: [{ url: "/og/home.png", width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image", images: ["/og/home.png"] },
   icons: { icon: [{ url: "/icon.svg", type: "image/svg+xml" }, { url: "/brand/icon-32.png", sizes: "32x32", type: "image/png" }], apple: "/brand/icon-180.png" },
 };

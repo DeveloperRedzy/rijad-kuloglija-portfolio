@@ -67,6 +67,8 @@ export function SplitReveal() {
             afterLanding(() => { t.play(); });
             return;
           }
+          // The footer can sit below 90% of the viewport even at max scroll, so its eyebrows would never reveal.
+          if (el.closest("footer")) return;
           gsap.from(el, { y: 2, opacity: 0, duration: 0.5, scrollTrigger: { trigger: el, start: "top 90%", once: true } });
         });
         ScrollTrigger.refresh();

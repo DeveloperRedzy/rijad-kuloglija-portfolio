@@ -1,3 +1,5 @@
+import { profile } from "@/content/profile";
+
 export const MONOGRAM = {
   stem: { x: 16, y: 10, width: 14, height: 80 },
   bowl: "M30,10 H52 A22,22 0 0 1 52,54 H30 Z M30,24 H52 A8,8 0 0 1 52,40 H30 Z",
@@ -11,9 +13,11 @@ type Props = {
   className?: string;
   title?: string;
   glow?: boolean;
+  /** Hidden from assistive tech: use when the mark sits next to its own label or is purely ornamental. */
+  decorative?: boolean;
 };
 
-export function Monogram({ size = 32, lit = true, className, title = "Redzy", glow = true }: Props) {
+export function Monogram({ size = 32, lit = true, className, title = `${profile.brand} monogram`, glow = true, decorative = false }: Props) {
   const r = size <= 20 ? 6.5 : 5;
   const dotColor = lit ? "var(--color-signal)" : "var(--color-ink-muted)";
   return (
@@ -21,8 +25,7 @@ export function Monogram({ size = 32, lit = true, className, title = "Redzy", gl
       width={size}
       height={size}
       viewBox="0 0 100 100"
-      role="img"
-      aria-label={title}
+      {...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": title })}
       className={className}
       style={lit && glow ? { filter: "drop-shadow(0 0 6px rgba(255,74,38,.55))" } : undefined}
     >

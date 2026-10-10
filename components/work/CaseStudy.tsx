@@ -1,5 +1,6 @@
 import type { Project } from "@/content/schema";
 import { profile } from "@/content/profile";
+import { projects } from "@/content";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Pill } from "@/components/ui/Pill";
 import { Aura } from "@/components/brand/Aura";
@@ -27,7 +28,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
         <BackToWork />
         <header className="mt-10 grid gap-10 md:mt-14 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <Eyebrow><span className="text-signal">{pad2(project.index)} / 05</span> &nbsp;·&nbsp; {project.categories.join(" · ")}</Eyebrow>
+            <Eyebrow><span className="text-signal">{pad2(project.index)} / {pad2(projects.length)}</span> &nbsp;·&nbsp; {project.categories.join(" · ")}</Eyebrow>
             <h1 data-split className="display-xl mt-5 max-w-[12ch]">{project.name}</h1>
             <p data-split className="mt-5 max-w-[30ch] text-xl leading-snug text-ink-soft">{project.oneLiner}</p>
           </div>

@@ -7,8 +7,8 @@ export function ConsoleSignature() {
     if (process.env.NODE_ENV !== "production") return;
     const art = [
       "██████╗ ",
-      "██╔══██╗   Redzy · Rijad Kuloglija",
-      "██████╔╝   Lead Software Developer",
+      `██╔══██╗   ${profile.brand} · ${profile.name}`,
+      `██████╔╝   ${profile.jobTitle}`,
       "██╔══██╗ ",
       "██║  ██║   Send a signal → " + profile.email,
       "╚═╝  ╚═╝ ",

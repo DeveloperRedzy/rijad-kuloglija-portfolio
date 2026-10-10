@@ -9,11 +9,11 @@ const built = process.env.NEXT_PUBLIC_BUILD_DATE ?? "dev";
 export function Cv() {
   const roles = profile.roles.filter((r) => r.showOnCv);
   return (
-    <div style={{ ["--color-signal" as string]: "#c9341a" }} className="cv mx-auto max-w-[800px] bg-paper px-8 py-10 text-paper-ink md:px-12 md:py-14 print:max-w-none print:px-0 print:py-0">
+    <div style={{ ["--color-signal" as string]: "var(--color-signal-print)" }} className="cv mx-auto max-w-[800px] bg-paper px-8 py-10 text-paper-ink md:px-12 md:py-14 print:max-w-none print:px-0 print:py-0">
       <section className="cv-page">
         <header className="flex items-end justify-between gap-6 border-b border-paper-ink pb-4">
           <div>
-            <p className="eyebrow inline-flex items-center gap-2 text-paper-ink/70"><Monogram size={12} glow={false} className="text-paper-ink" /> {profile.title}</p>
+            <p className="eyebrow inline-flex items-center gap-2 text-paper-ink/70"><Monogram size={12} glow={false} className="text-paper-ink" decorative /> {profile.title}</p>
             <h1 className="mt-2 font-display text-[34px] font-extrabold leading-none tracking-[-0.03em]">{profile.name}</h1>
           </div>
           <address className="eyebrow not-italic text-right normal-case tracking-[0.04em] leading-[1.7] text-paper-ink/80">

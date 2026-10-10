@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTier } from "@/lib/tiers";
 import { glCapability } from "@/lib/gl";
 import { Monogram } from "@/components/brand/Monogram";
+import { profile } from "@/content/profile";
 
 import type { Props as SceneProps } from "./HeroScene";
 
@@ -107,12 +108,12 @@ export function HeroPoster() {
       {/* SSR, first client frame, and Tier A until the scene draws: the SVG monogram (no layout shift); it crossfades to the scene. */}
       {(tier === null || (wantsScene && capable !== false)) && !poster && (
         <div aria-hidden={ready || undefined} className={`absolute inset-0 ${ready ? "opacity-0 transition-opacity duration-500" : "opacity-100"}`}>
-          <Monogram size={620} className="h-full w-full text-[#1C1A18] [filter:drop-shadow(0_0_24px_rgba(255,74,38,.35))]" title="Redzy monogram" glow={false} />
+          <Monogram size={620} className="h-full w-full text-[#1C1A18] [filter:drop-shadow(0_0_24px_rgba(255,74,38,.35))]" glow={false} decorative />
         </div>
       )}
 
       {sceneTier && mount && (
-        <div role="img" aria-label="Redzy monogram, lit from the counter" aria-hidden={!ready || undefined} className={ready ? "absolute inset-0 opacity-100 transition-opacity duration-500" : "absolute inset-0 opacity-0"}>
+        <div role="img" aria-label={`${profile.brand} monogram, lit from the counter`} aria-hidden={!ready || undefined} className={ready ? "absolute inset-0 opacity-100 transition-opacity duration-500" : "absolute inset-0 opacity-0"}>
           <HeroScene onReady={handleReady} onFail={handleFail} preserveDrawingBuffer={poster} viewport={!poster} lite={softwareForced && !poster} />
         </div>
       )}
@@ -124,7 +125,7 @@ export function HeroPoster() {
             src="/media/hero/poster-900.webp"
             srcSet="/media/hero/poster-900.webp 900w, /media/hero/poster-1600.webp 1600w"
             sizes="(min-width: 1024px) min(38vw, 620px), min(72vw, 520px)"
-            alt="Redzy monogram"
+            alt={`${profile.brand} monogram`}
             width={900}
             height={900}
             decoding="async"

@@ -38,7 +38,7 @@ export function ContactAssemble() {
   }, [tier]);
   return (
     <span ref={ref} data-contact-mark className="hidden md:inline-block">
-      <Monogram size={64} className="text-ink" title="Redzy monogram" />
+      <Monogram size={64} className="text-ink" decorative />
     </span>
   );
 }

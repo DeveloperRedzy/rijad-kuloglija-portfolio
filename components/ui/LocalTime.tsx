@@ -10,7 +10,7 @@ export function formatSarajevoTime(date: Date): string {
   return `${get("hour")}:${get("minute")} ${zone}`;
 }
 
-export function LocalTime() {
+export function LocalTime({ city }: { city: string }) {
   const [now, setNow] = useState<string | null>(null);
   useEffect(() => {
     const tick = () => setNow(formatSarajevoTime(new Date()));
@@ -18,5 +18,5 @@ export function LocalTime() {
     const id = setInterval(tick, 30_000);
     return () => clearInterval(id);
   }, []);
-  return <span suppressHydrationWarning>Sarajevo · {now ?? "--:-- CET"}</span>;
+  return <span suppressHydrationWarning>{city} · {now ?? "--:-- CET"}</span>;
 }

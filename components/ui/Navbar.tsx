@@ -21,8 +21,8 @@ export function Navbar({ backLink }: { backLink?: boolean }) {
     >
       <div className="container-site flex h-full items-center gap-6">
         <span className="relative inline-flex shrink-0">
-          <Link href="/" aria-label="Redzy home" transitionTypes={["nav-back"]} className="inline-flex">
-            <Lockup size={20} unlit />
+          <Link href="/" aria-label={`${profile.brand} home`} transitionTypes={["nav-back"]} className="inline-flex">
+            <Lockup size={20} unlit decorative />
           </Link>
           {/* Sibling of the link (no interactive-in-interactive), positioned over the monogram counter. */}
           <span className="pointer-events-none absolute left-0 top-1/2 h-5 w-5 -translate-y-1/2">

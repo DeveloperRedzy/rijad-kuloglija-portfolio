@@ -23,7 +23,7 @@ export function ExperienceList({ roles }: { roles: Role[] }) {
       </ol>
       {roles.length > 5 && (
         <button type="button" onClick={() => setAll((a) => !a)} aria-expanded={all} className="mt-6 inline-flex items-center gap-2 font-medium text-ink hover:text-signal-soft">
-          {all ? "Show fewer" : `Show all ${roles.length} roles`} <Icon name={all ? "arrow-up-right" : "arrow-right"} size={16} />
+          {all ? "Show fewer" : `Show all ${roles.length} roles`} <Icon name="arrow-right" size={16} className={all ? "-rotate-90" : undefined} />
         </button>
       )}
     </>

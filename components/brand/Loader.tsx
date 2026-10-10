@@ -5,6 +5,7 @@ import { loadGsap } from "@/lib/gsap-load";
 import { useTier } from "@/lib/tiers";
 import { announceLanded, readiness } from "@/lib/ready";
 import { MONOGRAM } from "./Monogram";
+import { profile } from "@/content/profile";
 
 const KEY = "redzy:loaded";
 
@@ -121,7 +122,7 @@ export function Loader() {
         </g>
         <circle data-l-dot cx="46" cy="32" r="5" fill="#FF4A26" style={{ filter: "drop-shadow(0 0 6px #FF4A26)", transformOrigin: "46px 32px" }} />
       </svg>
-      <p data-l-word style={{ visibility: "hidden" }} className="font-display text-2xl font-extrabold tracking-[-0.045em] text-ink">Redzy</p>
+      <p data-l-word style={{ visibility: "hidden" }} className="font-display text-2xl font-extrabold tracking-[-0.045em] text-ink">{profile.brand}</p>
     </div>
   );
 }

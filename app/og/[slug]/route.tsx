@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { OgMonogram } from "../../og-shared";
-import { getProject, projectSlugs } from "@/content";
+import { getProject, projectSlugs, projects } from "@/content";
 import { profile } from "@/content/profile";
+import { pad2 } from "@/lib/format";
 
 export const dynamic = "force-static";
 
@@ -42,11 +43,11 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: 72, backgroundImage: `url(${bg})`, backgroundSize: "cover", color: "#F2EFEA", fontFamily: "Cabinet" }}>
         <OgMonogram size={72} />
         <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 22, letterSpacing: 3, color: "#8A857E", textTransform: "uppercase" }}>
-          <span style={{ color: "#FF4A26" }}>{String(p.index).padStart(2, "0")} / 05</span><span>{p.categories.join(" · ")}</span>
+          <span style={{ color: "#FF4A26" }}>{`${pad2(p.index)} / ${pad2(projects.length)}`}</span><span>{p.categories.join(" · ")}</span>
         </div>
         <div style={{ fontSize: 84, fontWeight: 800, letterSpacing: -3, lineHeight: 0.95, marginTop: 18 }}>{p.name}</div>
         <div style={{ fontSize: 28, color: "#B8B2AA", marginTop: 18, maxWidth: 980 }}>{p.oneLiner}</div>
-        <div style={{ position: "absolute", top: 96, right: 72, fontSize: 24, letterSpacing: 3, color: "#8A857E" }}>{`REDZY · ${p.role.toUpperCase()}`}</div>
+        <div style={{ position: "absolute", top: 96, right: 72, fontSize: 24, letterSpacing: 3, color: "#8A857E" }}>{`${profile.brand} · ${p.role}`.toUpperCase()}</div>
       </div>
     ),
     { ...size, fonts: await fonts() },
