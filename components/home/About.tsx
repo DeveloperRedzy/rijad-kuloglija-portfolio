@@ -7,7 +7,7 @@ const LANG_ORDER = ["EN", "DE", "BS"];
 export function About() {
   const portrait = { src: "/media/about/portrait-1200.webp", alt: `${profile.name}, portrait by a window`, kind: "desktop" as const, width: 1200, height: 1500 };
   return (
-    <section id="about" className="relative border-t border-hairline py-24 md:py-40">
+    <section id="about" data-sweep-section className="relative border-t border-hairline py-24 md:py-40">
       <div className="container-site grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="relative overflow-hidden rounded-[var(--radius-frame)] border border-hairline">

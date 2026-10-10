@@ -4,6 +4,8 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/brand/Icon";
 import { Aura } from "@/components/brand/Aura";
 import { ProductFrame } from "@/components/work/ProductFrame";
+import { ProgressRail } from "@/components/motion/ProgressRail";
+import { ChapterChoreo } from "@/components/motion/ChapterChoreo";
 
 export function WorkChapters() {
   return (
@@ -13,6 +15,7 @@ export function WorkChapters() {
         <Eyebrow>01 — Selected work</Eyebrow>
         <h2 data-split className="display-lg mt-4 max-w-[16ch]">Real products, in production.</h2>
       </div>
+      <ProgressRail />
       <ol className="relative">
         {projects.map((p, i) => {
           const hero = Array.isArray(p.media.hero) ? p.media.hero[0] : p.media.hero;
@@ -45,6 +48,7 @@ export function WorkChapters() {
           );
         })}
       </ol>
+      <ChapterChoreo />
     </section>
   );
 }

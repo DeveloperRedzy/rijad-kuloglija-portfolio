@@ -7,7 +7,7 @@ import { AvailabilityBadge } from "@/components/hero/AvailabilityBadge";
 
 export function Contact() {
   return (
-    <section id="contact" className="relative border-t border-hairline py-28 md:py-44">
+    <section id="contact" data-sweep-section className="relative border-t border-hairline py-28 md:py-44">
       <div className="container-site">
         <Eyebrow>05 — Contact</Eyebrow>
         <div className="mt-6 flex items-center gap-6">

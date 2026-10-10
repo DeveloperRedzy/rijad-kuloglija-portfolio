@@ -4,7 +4,7 @@ import { ExperienceList } from "./ExperienceList";
 
 export function Experience() {
   return (
-    <section id="experience" className="border-t border-hairline py-24 md:py-40">
+    <section id="experience" data-sweep-section className="border-t border-hairline py-24 md:py-40">
       <div className="container-site">
         <div className="flex items-end justify-between gap-6">
           <div>

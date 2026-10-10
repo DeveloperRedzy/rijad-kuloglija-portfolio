@@ -4,7 +4,7 @@ import { Icon } from "@/components/brand/Icon";
 
 export function Lab() {
   return (
-    <section id="lab" className="border-t border-hairline py-24 md:py-32">
+    <section id="lab" data-sweep-section className="border-t border-hairline py-24 md:py-32">
       <div className="container-site">
         <Eyebrow>04 — Lab &amp; more work</Eyebrow>
         <ol className="mt-8 border-t border-hairline">
