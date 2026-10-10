@@ -22,7 +22,6 @@
     "lhci": "node scripts/lhci.mjs"
   },
   "dependencies": {
-    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.1",
     "@react-three/postprocessing": "^3.1.3",

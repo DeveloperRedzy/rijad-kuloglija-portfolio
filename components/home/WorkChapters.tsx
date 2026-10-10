@@ -6,15 +6,17 @@ import { Aura } from "@/components/brand/Aura";
 import { ProductFrame } from "@/components/work/ProductFrame";
 import { ProgressRail } from "@/components/motion/ProgressRail";
 import { ChapterChoreo } from "@/components/motion/lazy";
+import { pad2 } from "@/lib/format";
 
 export function WorkChapters() {
   return (
     <section id="work" data-chapters className="relative">
       <span id="projects" className="sr-only" aria-hidden />
       {/* Tier A: revealed when the hero dive lands on it, not while it passes under the pinned hero (SplitReveal). */}
-      <div data-reveal-after-dive className="container-site pb-6 pt-24 md:pt-32">
+      <div data-reveal-after-dive className="container-site pb-6 pt-24 md:pt-32 lg:pt-16">
         <Eyebrow>01 — Selected work</Eyebrow>
-        <h2 data-split className="display-lg mt-4 max-w-[16ch]">Real products, in production.</h2>
+        {/* one line on lg: the landing (.82) shows the header and chapter 01's whole frame in one viewport */}
+        <h2 data-split className="display-lg mt-4 max-w-[16ch] lg:max-w-none">Real products, in production.</h2>
       </div>
       <ProgressRail />
       <ol className="relative">
@@ -30,11 +32,11 @@ export function WorkChapters() {
               <Aura seed={p.slug} className="absolute inset-0 opacity-[0.08]" />
               <div data-chapter-grid className="container-site relative grid items-center gap-10 py-12 lg:min-h-[calc(100dvh-4rem-1px)] lg:grid-cols-12 lg:py-10">
                 <div className="lg:col-span-5">
-                  <p className="eyebrow text-signal">{String(p.index).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</p>
+                  <p className="eyebrow text-signal">{pad2(p.index)} / {pad2(projects.length)}</p>
                   <p className="eyebrow mt-3">{p.categories.join(" · ")}</p>
                   <h3 className="display-lg mt-5">{p.name}</h3>
                   <p className="mt-5 max-w-[40ch] text-lg text-ink-soft">{p.oneLiner}</p>
-                  <p className="eyebrow mt-6 normal-case tracking-normal text-ink-muted">{p.role} · {p.stack.slice(0, 4).join(" · ")}</p>
+                  <p className="eyebrow mt-6 normal-case tracking-normal text-ink-muted">{[p.role, ...p.stack.slice(0, 4)].join(" · ")}</p>
                   <Link href={`/work/${p.slug}/`} transitionTypes={["nav-forward"]} className="mt-8 inline-flex items-center gap-2 font-medium text-ink hover:text-signal-soft">
                     Read case study <Icon name="arrow-up-right" size={16} />
                   </Link>

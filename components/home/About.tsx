@@ -2,6 +2,7 @@ import { profile } from "@/content/profile";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Aura } from "@/components/brand/Aura";
 
+/** Language codes in display order (strongest working language first). */
 const LANG_ORDER = ["EN", "DE", "BS"];
 
 export function About() {
@@ -21,7 +22,7 @@ export function About() {
         </div>
         <div className="lg:col-span-7 lg:col-start-6">
           <Eyebrow>02 — About</Eyebrow>
-          <h2 data-split className="display-lg mt-4 max-w-[16ch]">Frontend architecture, backed by real backend work.</h2>
+          <h2 data-split className="display-lg mt-4 max-w-[16ch]">{profile.aboutHeading}</h2>
           <p data-split className="mt-8 max-w-[62ch] text-lg leading-relaxed text-ink-soft">{profile.about}</p>
           <div className="mt-12 grid gap-10 sm:grid-cols-2">
             <div>
@@ -44,7 +45,7 @@ export function About() {
               </div>
             </div>
           </div>
-          <p className="eyebrow mt-12">{profile.location} · Building since {profile.since} · {profile.education[0].degree}, {profile.education[0].short} · {LANG_ORDER.map((c) => profile.languages.find((l) => l.code === c)?.code).filter(Boolean).join(" / ")}</p>
+          <p className="eyebrow mt-12">{profile.location} · Building since {profile.since} · {profile.education[0].degree}, {profile.education[0].short} · {LANG_ORDER.filter((c) => profile.languages.some((l) => l.code === c)).join(" / ")}</p>
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@
 import { startTransition, useRef, useState, ViewTransition, type KeyboardEvent } from "react";
 import type { Media } from "@/content/schema";
 import { ProductFrame } from "./ProductFrame";
+import { pad2 } from "@/lib/format";
 
 export function HeroTabs({ heroes, slug, url, shader }: { heroes: Media[]; slug: string; url?: string; shader?: boolean }) {
   const [i, setI] = useState(0);
@@ -33,16 +34,17 @@ export function HeroTabs({ heroes, slug, url, shader }: { heroes: Media[]; slug:
             id={`hero-tab-${idx}`}
             role="tab"
             aria-selected={i === idx}
-            aria-controls={`hero-panel-${idx}`}
+            aria-controls="hero-panel"
             tabIndex={i === idx ? 0 : -1}
             onClick={() => startTransition(() => setI(idx))}
             className={`eyebrow rounded-full border px-3 py-1.5 transition-colors ${i === idx ? "border-signal text-ink" : "border-hairline hover:text-ink"}`}
           >
-            {h.caption ?? `0${idx + 1}`}
+            {h.caption ?? pad2(idx + 1)}
           </button>
         ))}
       </div>
-      <div role="tabpanel" id={`hero-panel-${i}`} aria-labelledby={`hero-tab-${i}`}>
+      {/* one panel, re-filled per tab: every tab controls it, it is labelled by the selected tab */}
+      <div role="tabpanel" id="hero-panel" aria-labelledby={`hero-tab-${i}`}>
         {/* Only the first hero shares the frame-<slug> name with the home chapter. */}
         <ViewTransition key={i} name="neo-hero" share="auto" enter="auto" default="none">
           <ProductFrame media={heroes[i]} slug={slug} url={url} priority morph={i === 0} shader={shader} />

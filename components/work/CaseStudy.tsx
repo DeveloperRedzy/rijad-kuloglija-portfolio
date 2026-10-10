@@ -37,6 +37,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
             <div className="border-t border-hairline pt-3"><dt className="eyebrow">Period</dt><dd className="mt-1.5 text-ink">{project.period}</dd></div>
             <div className="border-t border-hairline pt-3"><dt className="eyebrow">Stack</dt><dd className="mt-1.5 text-sm leading-relaxed text-ink">{project.stack.join(" · ")}</dd></div>
             <div className="border-t border-hairline pt-3"><dt className="eyebrow">Live</dt><dd className="mt-1.5">{project.live ? <a href={project.live.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-signal-soft hover:text-ink">{project.live.label} <Icon name="arrow-up-right" size={14} /></a> : <span className="text-ink-muted">Private</span>}</dd></div>
+            {project.focus && <div className="col-span-2 border-t border-hairline pt-3"><dt className="eyebrow">Focus</dt><dd className="mt-1.5 text-sm leading-relaxed text-ink">{project.focus.join(" · ")}</dd></div>}
           </dl>
         </header>
 

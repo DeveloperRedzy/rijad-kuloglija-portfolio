@@ -31,7 +31,7 @@ test.describe("hero scene", () => {
     const software = await page.evaluate(() => {
       const gl = document.createElement("canvas").getContext("webgl2");
       const ext = gl?.getExtension("WEBGL_debug_renderer_info");
-      return !!gl && !!ext && /swiftshader|llvmpipe|softpipe|software/i.test(String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)));
+      return !!gl && !!ext && /swiftshader|llvmpipe|softpipe|software|basic render/i.test(String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)));
     });
     test.skip(!software, "hardware GL: the scene path is covered above");
     await expect(page.locator("[data-hero-poster] img")).toHaveCount(1);

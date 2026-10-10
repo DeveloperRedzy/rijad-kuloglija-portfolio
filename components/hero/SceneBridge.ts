@@ -1,10 +1,9 @@
 /**
- * Mutable bridge between DOM-side motion (pointer, the Task 6 scroll dive) and the R3F scene.
+ * Mutable bridge between DOM-side motion (pointer, the scroll dive) and the R3F scene.
  * Read every frame by the scene; never triggers React renders (except the pause flag, via its listener).
  * Must stay free of `three` imports.
  */
 export const sceneBridge = {
-  progress: 0, // 0..1 dive progress (smoothed timeline progress)
   aim: 0, // 0..1 approach: camera slides in front of the dot, the principal point moves to the viewport centre, tilt settles
   pointer: { x: 0, y: 0 }, // -1..1
   flare: 0, // 0..1 pointer-near-dot boost
@@ -14,6 +13,8 @@ export const sceneBridge = {
   lightZ: 0.4, // key light z (in front of the counter at rest); the dive sinks it into the counter, so the sphere glows by its own red
   cameraZ: 6,
   paused: false, // true while the scene is invisible (dive past .72): the render loop stops
+  /** Requests one frame (the scene renders on demand); set by the mounted scene, undefined otherwise. */
+  invalidate: undefined as (() => void) | undefined,
 };
 
 export type SceneBridge = typeof sceneBridge;

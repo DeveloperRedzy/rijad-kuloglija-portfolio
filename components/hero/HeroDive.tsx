@@ -39,10 +39,10 @@ export function HeroDive() {
     if (!hero || !work || !chapter) return;
 
     if (tier === "B") {
-      // One red-to-transparent fade when the hero leaves; no pin, no camera.
+      // One red-to-transparent fade (a radial glow, peaking at .35) when the hero leaves; no pin, no camera.
       const ctx = gsap.context(() => {
         const fade = gsap.timeline({ paused: true })
-          .to(redfade, { opacity: 0.7, duration: 0.12, ease: "power1.out" })
+          .to(redfade, { opacity: 0.35, duration: 0.12, ease: "power1.out" })
           .to(redfade, { opacity: 0, duration: 0.28, ease: "power1.in" });
         ScrollTrigger.create({
           trigger: hero, start: "bottom 60%", once: true,
@@ -67,7 +67,7 @@ export function HeroDive() {
     const rows = chapter.querySelectorAll<HTMLElement>("[data-chapter-grid] > *");
     const band = chapter.querySelector<HTMLElement>("[data-sweep]");
     const distance = () => DIVE_VH * window.innerHeight;
-    // Chapter 01 lands right under the navbar at .82: the work section starts .82·distance below the hero's top
+    // The work header lands right under the navbar at .82: the work section starts .82·distance below the hero's top
     // (ceil: the #work anchor then lands at or just past .82, never a pixel short of it).
     const pullUp = () => { work.style.marginTop = `${Math.ceil(LANDED * distance() - hero.offsetHeight)}px`; };
     // the receding light is anchored above the navbar dot, so it visibly shrinks into it
@@ -88,14 +88,12 @@ export function HeroDive() {
     let ctxReady: gsap.Context | null = null;
     /** Mirrors the smoothed timeline progress into the scene and the DOM state. */
     const sync = (p: number) => {
-      sceneBridge.progress = p;
       setScenePaused(p > SCENE_GONE);
+      sceneBridge.invalidate?.();
       if (p >= 0.62) land();
       const landed = p >= LAND_AT;
       // the empty hero must not swallow clicks on chapter 01 once landed
       hero.style.pointerEvents = landed ? "none" : "";
-      // under the opaque pinned hero the work section is invisible: keep it out of the tab order / a11y tree until landed
-      work.inert = !landed;
       if (landed === (hero.dataset.dive === "landed")) return;
       if (landed) {
         hero.dataset.dive = "landed";
@@ -112,7 +110,8 @@ export function HeroDive() {
     let dive: gsap.core.Timeline | null = null;
     const onRefresh = () => { if (dive) sync(dive.progress()); };
 
-    // Belt and braces for the inert work section: if focus still gets in before landing, go to the landing.
+    // The work section stays in the tab order under the opaque pinned hero: focus entering it before the landing
+    // scrolls the dive to its landing (and lands), so keyboard users reach the case studies directly.
     const onFocusIn = (e: FocusEvent) => {
       if (hero.dataset.dive === "landed" || !(e.target instanceof Node) || !work.contains(e.target)) return;
       window.scrollTo(0, Math.ceil(landingY()));
@@ -194,7 +193,6 @@ export function HeroDive() {
     return () => {
       ScrollTrigger.removeEventListener("refreshInit", onRefreshInit);
       document.removeEventListener("focusin", onFocusIn);
-      work.inert = false;
       recede?.style.removeProperty("--dot-x");
       recede?.style.removeProperty("transform-origin");
       ScrollTrigger.removeEventListener("refresh", onRefresh);
@@ -203,7 +201,7 @@ export function HeroDive() {
       hero.style.pointerEvents = "";
       delete hero.dataset.dive;
       setScenePaused(false);
-      Object.assign(sceneBridge, { progress: 0, aim: 0, cameraZ: 6, intensity: 1, bloom: 1.2, core: 1, lightZ: 0.4 });
+      Object.assign(sceneBridge, { aim: 0, cameraZ: 6, intensity: 1, bloom: 1.2, core: 1, lightZ: 0.4 });
     };
   }, [tier, pathname]);
   // Runs after the effect above: the lazy chunk is mounted and its triggers exist (tests wait on this marker).

@@ -1,19 +1,12 @@
 import Link from "next/link";
 import { Lockup } from "@/components/brand/Lockup";
-import { Icon } from "@/components/brand/Icon";
 import { NavDot } from "./NavDot";
 import { Pill } from "./Pill";
 import { MobileMenu } from "./MobileMenu";
 import { profile } from "@/content/profile";
+import { NAV } from "@/content/nav";
 
-export const NAV = [
-  { label: "Work", href: "/#work" },
-  { label: "About", href: "/#about" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Contact", href: "/#contact" },
-];
-
-export function Navbar({ backLink }: { backLink?: boolean }) {
+export function Navbar() {
   return (
     <header
       style={{ viewTransitionName: "site-header" }}
@@ -31,11 +24,6 @@ export function Navbar({ backLink }: { backLink?: boolean }) {
             </span>
           </span>
         </span>
-        {backLink && (
-          <Link href="/#work" transitionTypes={["nav-back"]} className="eyebrow hidden items-center gap-1.5 hover:text-ink md:inline-flex">
-            <Icon name="arrow-left" size={14} /> All work
-          </Link>
-        )}
         <nav aria-label="Primary" className="ml-auto hidden items-center gap-6 md:flex">
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} className="eyebrow transition-colors hover:text-ink">{n.label}</Link>

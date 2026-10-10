@@ -47,6 +47,9 @@ export const mono = localFont({
   variable: "--font-mono-face",
   display: "swap",
   preload: false,
+  // no Arial-based metric fallback: the stack's monospace fallbacks (ui-monospace, Menlo, monospace) share Plex Mono's
+  // 0.6 em advance, so mono lines (eyebrows, the availability badge) wrap the same before and after the swap (CLS)
+  adjustFontFallback: false,
 });
 
 /** Referenced so the non-preloaded faces' @font-face rules are emitted (their class names are never applied). */

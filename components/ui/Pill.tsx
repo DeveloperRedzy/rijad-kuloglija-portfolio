@@ -18,7 +18,7 @@ export function Pill({ href, children, variant = "primary", dot, external, trans
     : "border border-hairline-strong text-ink hover:border-ink-muted";
   const content = (
     <>
-      {dot && <span aria-hidden className="h-2 w-2 rounded-full bg-signal shadow-[0_0_10px_3px_rgba(255,74,38,.7)]" />}
+      {dot && <span aria-hidden data-magnetic-dot className="h-2 w-2 rounded-full bg-signal shadow-[0_0_10px_3px_rgba(255,74,38,.7)]" />}
       {children}
     </>
   );

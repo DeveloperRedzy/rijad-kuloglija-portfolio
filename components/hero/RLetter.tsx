@@ -71,7 +71,8 @@ export function RLetter() {
   const core = useRef<THREE.MeshStandardMaterial>(null);
   const geometry = useMemo(() => {
     const data = new SVGLoader().parse(SVG);
-    const shapes = data.paths.flatMap((p) => SVGLoader.createShapes(p));
+    // toShapes() honours the parsed fill-rule (userData.style.fillRule = evenodd), so the counter stays a hole
+    const shapes = data.paths.flatMap((p) => p.toShapes());
     const geo = new THREE.ExtrudeGeometry(shapes, { depth: 12, bevelEnabled: true, bevelThickness: 2, bevelSize: 1.2, bevelSegments: 6, curveSegments: 24 });
     // Centre on the viewBox centre (not the bbox) so the dot maps exactly to DOT_WORLD.
     geo.translate(-50, -50, -6); // depth 12 → z symmetric

@@ -15,8 +15,13 @@ export function HeroOverlay() {
         className="pointer-events-none fixed inset-x-0 -top-16 bottom-0 z-[44] opacity-0"
         style={{ background: "radial-gradient(60% 50% at var(--dot-x, 50%) 0%, rgba(255,74,38,.55), rgba(255,74,38,.08) 60%, rgba(255,74,38,0) 100%)" }}
       />
-      {/* Tier B: one red-to-transparent fade when the hero leaves */}
-      <div data-redfade aria-hidden className="pointer-events-none fixed inset-x-0 -top-16 bottom-0 z-[44] bg-signal opacity-0" />
+      {/* Tier B: one red-to-transparent fade when the hero leaves (a radial glow, never a flat red fill) */}
+      <div
+        data-redfade
+        aria-hidden
+        className="pointer-events-none fixed inset-x-0 -top-16 bottom-0 z-[44] opacity-0"
+        style={{ background: "radial-gradient(60% 60% at 50% 50%, var(--color-signal), rgba(255,74,38,0) 100%)" }}
+      />
     </>
   );
 }

@@ -10,6 +10,8 @@ Next.js 16 App Router, static export (`out/`), React 19, TypeScript strict, Tail
 
 ## Rules
 - All copy lives in `content/` (`profile.ts`, `work/*.ts`) and is validated by `content/schema.ts`. Never hardcode roles, projects or profile text in components; brand, city, job title and project totals come from `profile.brand`, `profile.city`, `profile.jobTitle` and `projects.length`.
+- Project `stack` = technologies only; non-technology themes go in `focus` (rendered as the case "Focus" row). Lab links may be internal (`/work/<slug>/`, rendered with `next/link`). Nav items live in `content/nav.ts`. The About heading is `profile.aboutHeading`.
+- The navbar dot (`NavDot`) is decorative: `aria-hidden`, `tabIndex={-1}`, pointer click only. The hero scene renders on demand (`frameloop="demand"`, ~30 fps idle ticker, `sceneBridge.invalidate` during the dive).
 - Design tokens live in `app/globals.css` `@theme`; use the Tailwind utilities (`bg-canvas`, `text-ink`, `text-signal`, `display-xl`, `eyebrow`). Never pure #000/#FFF. Red is light, never a large fill or body text.
 - Spec: `docs/superpowers/specs/2026-10-09-portfolio-redesign-design.md`. Plans: `docs/superpowers/plans/`.
 - `assets/source/` is gitignored (originals). `public/media/` is committed (processed).

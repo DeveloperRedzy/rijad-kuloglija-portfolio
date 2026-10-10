@@ -9,7 +9,6 @@ export function ChapterChoreo() {
     if (!tier || tier === "C") return;
     const root = document.querySelector<HTMLElement>("[data-chapters]");
     const rail = document.querySelector<HTMLElement>("[data-rail]");
-    const label = rail?.querySelector<HTMLElement>("[data-rail-label]");
     if (!root) return;
     const chapters = gsap.utils.toArray<HTMLElement>("[data-chapter]");
     const ctx = gsap.context(() => {
@@ -29,11 +28,7 @@ export function ChapterChoreo() {
       ScrollTrigger.create({
         trigger: root, start: "top 60%", end: "bottom bottom",
         onToggle: (st) => { gsap.to(rail, { opacity: st.isActive ? 1 : 0, duration: 0.3 }); },
-        onUpdate: (st) => {
-          rail?.style.setProperty("--progress", st.progress.toFixed(3));
-          const idx = Math.min(chapters.length, Math.floor(st.progress * chapters.length) + 1);
-          if (label) label.textContent = `${String(idx).padStart(2, "0")} / ${String(chapters.length).padStart(2, "0")}`;
-        },
+        onUpdate: (st) => { rail?.style.setProperty("--progress", st.progress.toFixed(3)); },
       });
       });
     }, root);

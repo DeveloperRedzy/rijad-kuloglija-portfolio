@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { profile } from "@/content/profile";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/brand/Icon";
@@ -16,7 +17,10 @@ export function Lab() {
                 <p className="mt-1 max-w-[62ch] text-ink-soft">{item.line}</p>
               </div>
               <div className="flex gap-4 md:col-span-3 md:justify-end">
-                {item.links?.map((l) => (
+                {item.links?.map((l) => l.url.startsWith("/") ? (
+                  // internal (e.g. a case study on this site): same tab, client-side navigation
+                  <Link key={l.url} href={l.url} transitionTypes={["nav-forward"]} className="eyebrow inline-flex items-center gap-1 hover:text-ink">{l.label} <Icon name="arrow-up-right" size={12} /></Link>
+                ) : (
                   <a key={l.url} href={l.url} target="_blank" rel="noreferrer" className="eyebrow inline-flex items-center gap-1 hover:text-ink">{l.label} <Icon name="external" size={12} /></a>
                 ))}
               </div>

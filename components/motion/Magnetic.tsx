@@ -12,7 +12,7 @@ export function Magnetic() {
     const ctx = gsap.context(() => {});
     const cleanups: Array<() => void> = [];
     document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
-      const dot = el.querySelector<HTMLElement>("span.rounded-full");
+      const dot = el.querySelector<HTMLElement>("[data-magnetic-dot]");
       const x = gsap.quickTo(el, "x", { duration: 0.4, ease: "power3.out" });
       const y = gsap.quickTo(el, "y", { duration: 0.4, ease: "power3.out" });
       let pulled = false;

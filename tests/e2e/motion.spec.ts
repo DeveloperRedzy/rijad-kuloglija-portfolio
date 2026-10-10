@@ -37,7 +37,6 @@ test("progress rail reflects chapter progress on desktop", async ({ page }, info
     .poll(() => rail.evaluate((el) => parseFloat(getComputedStyle(el).getPropertyValue("--progress"))), { timeout: 15_000 })
     .toBeGreaterThan(0.7);
   await expect.poll(() => rail.evaluate((el) => getComputedStyle(el).opacity), { timeout: 15_000 }).toBe("1");
-  await expect(page.locator("[data-rail-label]")).toHaveText(/0[1-5] \/ 05/);
 });
 
 test("desktop dive lands in chapter 01 and reverses; mobile has no pin", async ({ page }, info) => {
@@ -114,15 +113,22 @@ for (const height of [821, 768]) {
   });
 }
 
-test("Tab from the hero never lands on the hidden work section before the dive lands", async ({ page }, info) => {
+test("Tab from the hero reaches chapter 01 and lands the dive", async ({ page }, info) => {
   test.skip(info.project.name !== "desktop", "Tier A only");
+  test.setTimeout(60_000);
   await page.addInitScript(() => { localStorage.setItem("redzy:tier", "A"); sessionStorage.setItem("redzy:loaded", "1"); });
   await page.goto("/");
   await expect(page.locator(".pin-spacer")).toHaveCount(1, { timeout: 5000 });
-  await expect(page.locator("#work")).toHaveAttribute("inert", "");
+  await motionMounted(page);
+  await expect(page.locator("#work")).not.toHaveAttribute("inert", /.*/);
   await page.locator("[data-hero-copy] a").last().focus();
   await page.keyboard.press("Tab");
-  const inWork = await page.evaluate(() => !!document.activeElement?.closest("#work"));
-  // the inert section is skipped: focus goes to the next focusable after it
-  expect(inWork).toBe(false);
+  // the case studies are in the tab order: focus goes to chapter 01's first link...
+  const isFirstLink = await page.evaluate(() => {
+    const first = document.querySelector("[data-chapter]")?.querySelector("a");
+    return !!first && document.activeElement === first;
+  });
+  expect(isFirstLink).toBe(true);
+  // ...and focusing it scrolls the dive to its landing
+  await expect.poll(() => page.locator("[data-hero]").getAttribute("data-dive"), { timeout: 15_000 }).toBe("landed");
 });

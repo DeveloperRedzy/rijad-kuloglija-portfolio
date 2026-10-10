@@ -22,9 +22,17 @@ export function Cursor() {
       if (m === current && !force) return;
       current = m;
       ctx.add(() => {
-      gsap.to(r, { width: m === "link" ? 48 : m === "frame" ? 112 : m === "signal" ? 10 : 28, height: m === "frame" ? 32 : m === "link" ? 48 : m === "signal" ? 10 : 28, borderRadius: 999, duration: 0.24, overwrite: "auto" });
+      // frame: a pill sized to its label (width auto, 0 14px padding), so the text never clips
+      const size = m === "link" ? 48 : m === "signal" ? 10 : 28;
+      gsap.to(r, m === "frame"
+        ? { width: "auto", height: 32, paddingLeft: 14, paddingRight: 14, borderRadius: 999, duration: 0.24, overwrite: "auto" }
+        : { width: size, height: size, paddingLeft: 0, paddingRight: 0, borderRadius: 999, duration: 0.24, overwrite: "auto" });
       gsap.to(d, { opacity: m === "link" || m === "frame" ? 0 : 1, scale: m === "signal" ? 1.6 : 1, duration: 0.2, overwrite: "auto" });
-      if (label.current) label.current.style.opacity = m === "frame" ? "1" : "0";
+      if (label.current) {
+        label.current.style.opacity = m === "frame" ? "1" : "0";
+        // out of the layout when hidden, so the auto width of the frame pill is the label's width
+        label.current.style.display = m === "frame" ? "" : "none";
+      }
       });
     };
     const move = (e: PointerEvent) => {
@@ -42,7 +50,9 @@ export function Cursor() {
       const t = e.target as HTMLElement;
       if (!t.closest) return;
       if (t.closest("[data-hero-poster], [data-hero-scene]")) return mode("signal");
-      if (t.closest("[data-frame]")) return mode("frame");
+      // "Open case" only over frames that are (inside) a link; other frames keep the default cursor
+      if (t.closest("a [data-frame], a[data-frame]")) return mode("frame");
+      if (t.closest("[data-frame]")) return mode("default");
       if (t.closest("a, button, [role=button], [role=tab]")) return mode("link");
       mode("default");
     };
@@ -64,7 +74,7 @@ export function Cursor() {
     <>
       <div ref={dot} aria-hidden className="pointer-events-none fixed left-0 top-0 z-[70] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal shadow-[0_0_8px_2px_rgba(255,74,38,.7)]" data-cursor-dot />
       <div ref={ring} aria-hidden className="pointer-events-none fixed left-0 top-0 z-[70] flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-signal/70 shadow-[0_0_16px_4px_rgba(255,74,38,.18)]" data-cursor-ring>
-        <span ref={label} className="eyebrow whitespace-nowrap text-ink opacity-0 transition-opacity">Open case ↗</span>
+        <span ref={label} className="eyebrow whitespace-nowrap text-ink opacity-0 transition-opacity" style={{ display: "none" }}>Open case ↗</span>
       </div>
     </>
   );

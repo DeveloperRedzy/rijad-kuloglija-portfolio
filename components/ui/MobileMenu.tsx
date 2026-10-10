@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Icon } from "@/components/brand/Icon";
-import { NAV } from "./Navbar";
+import { NAV } from "@/content/nav";
 import { profile } from "@/content/profile";
 
 export function MobileMenu() {

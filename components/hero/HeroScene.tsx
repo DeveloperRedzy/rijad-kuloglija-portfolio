@@ -39,8 +39,6 @@ export type Props = {
   onReady: () => void;
   /** Only used by the import-failure fallback in HeroPoster. */
   onFail?: () => void;
-  /** false renders without the EffectComposer (fallback when the GPU cannot run the bloom passes). */
-  postprocessing?: boolean;
   /** Needed for toDataURL() in the poster renderer. */
   preserveDrawingBuffer?: boolean;
   /** false: canvas exactly fills the box (poster renders). Default: a viewport-sized canvas framed to the box (the dive). */
@@ -55,7 +53,7 @@ type ClientPointer = { x: number; y: number; active: boolean };
  * Per-frame driver: camera from the bridge, bloom intensity from the bridge, pointer flare.
  * Owns the EffectComposer so the Bloom ref is local to the component that mutates it.
  */
-function Rig({ postprocessing, client, viewport, lite }: { postprocessing: boolean; client: RefObject<ClientPointer>; viewport: boolean; lite: boolean }) {
+function Rig({ client, viewport, lite }: { client: RefObject<ClientPointer>; viewport: boolean; lite: boolean }) {
   const bloom = useRef<BloomEffect>(null);
   const dot = useRef(new THREE.Vector3());
   const gl = useThree((s) => s.gl);
@@ -111,7 +109,6 @@ function Rig({ postprocessing, client, viewport, lite }: { postprocessing: boole
     }
     sceneBridge.flare = THREE.MathUtils.damp(sceneBridge.flare, target, 8, dt);
   });
-  if (!postprocessing) return null;
   return (
     <EffectComposer multisampling={lite ? 0 : 4}>
       <Bloom ref={bloom} mipmapBlur intensity={sceneBridge.bloom} luminanceThreshold={0.8} luminanceSmoothing={0.2} levels={6} />
@@ -138,6 +135,31 @@ function Warmup({ onWarm }: { onWarm: () => void }) {
   return null;
 }
 
+/** Frames between ticks at rest (~30 fps): the breathing light and pointer damping do not need more. */
+const IDLE_TICK_MS = 33;
+
+/**
+ * The canvas renders on demand. At rest a light ticker requests ~30 frames/s (the light breathes); pointer moves
+ * request a frame each; during the dive the scroll timeline requests frames through `sceneBridge.invalidate`.
+ * Nothing is requested while the scene is paused (hidden past .72), except the first frames that resolve readiness.
+ */
+function Ticker({ drawn }: { drawn: boolean }) {
+  const invalidate = useThree((s) => s.invalidate);
+  useEffect(() => {
+    const request = () => { if (!sceneBridge.paused || !drawn) invalidate(); };
+    sceneBridge.invalidate = request;
+    const id = window.setInterval(request, IDLE_TICK_MS);
+    window.addEventListener("pointermove", request, { passive: true });
+    request();
+    return () => {
+      window.clearInterval(id);
+      window.removeEventListener("pointermove", request);
+      if (sceneBridge.invalidate === request) sceneBridge.invalidate = undefined;
+    };
+  }, [invalidate, drawn]);
+  return null;
+}
+
 /** Resolves once the first frame has actually been drawn (useFrame runs before the render of its tick). */
 function Ready({ onReady }: { onReady: () => void }) {
   const frames = useRef(0);
@@ -150,10 +172,8 @@ function Ready({ onReady }: { onReady: () => void }) {
   return null;
 }
 
-export default function HeroScene({ onReady, postprocessing = true, preserveDrawingBuffer = false, viewport = true, lite = false }: Props) {
-  const wrapper = useRef<HTMLDivElement>(null);
+export default function HeroScene({ onReady, preserveDrawingBuffer = false, viewport = true, lite = false }: Props) {
   const client = useRef<ClientPointer>({ x: 0, y: 0, active: false });
-  const [visible, setVisible] = useState(true);
   // the dive hides the scene past .72 and stops the loop (no GPU work while invisible)
   const [paused, setPaused] = useState(() => sceneBridge.paused);
   useEffect(() => onScenePause(() => setPaused(sceneBridge.paused)), []);
@@ -183,29 +203,20 @@ export default function HeroScene({ onReady, postprocessing = true, preserveDraw
     };
   }, []);
 
-  // Pause the render loop while the scene is well outside the viewport (box mode; the viewport canvas is fixed
-  // and relies on the bridge pause instead).
-  useEffect(() => {
-    const el = wrapper.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { rootMargin: "50% 0px" });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   return (
     // Viewport-sized (fixed) so the dive can fill the screen and the bloom halo is never clipped; the camera is framed
     // to the poster box (see frameToBox), so at rest the letter sits exactly where the box is. -top-16: the pinned hero
     // (transformed by ScrollTrigger) is the containing block and starts under the navbar; the canvas reaches the top
     // edge behind the navbar glass either way. Never intercepts pointer events.
-    <div ref={wrapper} data-hero-scene className={`pointer-events-none ${viewport ? "fixed inset-x-0 -top-16 bottom-0" : "absolute inset-0"}`}>
+    <div data-hero-scene className={`pointer-events-none ${viewport ? "fixed inset-x-0 -top-16 bottom-0" : "absolute inset-0"}`}>
       <Canvas
         dpr={lite ? 0.5 : [1, 1.5]}
         // near 0.01: the dive ends 0.03 units from the counter's surface
         camera={{ position: [0, 0, 6], fov: BASE_FOV, near: 0.01 }}
         // the EffectComposer multisamples; native MSAA on the default framebuffer would be wasted
         gl={{ antialias: false, alpha: true, powerPreference: "high-performance", preserveDrawingBuffer }}
-        frameloop={warm && visible && (!paused || !drawn) ? "always" : "never"}
+        // on demand (see Ticker); "never" while compiling and while the dive keeps the scene hidden
+        frameloop={warm && (!paused || !drawn) ? "demand" : "never"}
         style={{ pointerEvents: "none" }}
         aria-hidden
       >
@@ -224,7 +235,8 @@ export default function HeroScene({ onReady, postprocessing = true, preserveDraw
         <directionalLight position={[-4, 5, 6]} intensity={0.8} color="#B8C4FF" />
         <directionalLight position={[2, 3, -4]} intensity={2.5} color="#8FA2E0" />
         <RLetter />
-        <Rig postprocessing={postprocessing} client={client} viewport={viewport} lite={lite} />
+        <Rig client={client} viewport={viewport} lite={lite} />
+        <Ticker drawn={drawn} />
         <Warmup onWarm={handleWarm} />
         <Ready onReady={handleReady} />
       </Canvas>
