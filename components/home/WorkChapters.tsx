@@ -11,7 +11,8 @@ export function WorkChapters() {
   return (
     <section id="work" data-chapters className="relative">
       <span id="projects" className="sr-only" aria-hidden />
-      <div className="container-site pb-6 pt-24 md:pt-32">
+      {/* Tier A: revealed when the hero dive lands on it, not while it passes under the pinned hero (SplitReveal). */}
+      <div data-reveal-after-dive className="container-site pb-6 pt-24 md:pt-32">
         <Eyebrow>01 — Selected work</Eyebrow>
         <h2 data-split className="display-lg mt-4 max-w-[16ch]">Real products, in production.</h2>
       </div>

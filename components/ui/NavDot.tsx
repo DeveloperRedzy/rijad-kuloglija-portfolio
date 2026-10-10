@@ -33,7 +33,10 @@ export function NavDot() {
       band.setAttribute("data-ping-band", "");
       document.body.append(band);
       gsap.fromTo(band, { top: "-40vh" }, { top: "110vh", duration: 0.6, ease: "power2.inOut", onComplete: () => band.remove() });
-      gsap.fromTo(ref.current, { scale: 1.8 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.4)" });
+      // Mid-dive (Tier A home) the dive's scrubbed timeline owns the dot's scale: the ping only sends the band.
+      const hero = document.querySelector<HTMLElement>("[data-hero]");
+      const diving = tier === "A" && !!hero && hero.dataset.dive !== "landed";
+      if (!diving) gsap.fromTo(ref.current, { scale: 1.8 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.4)" });
     });
   };
 

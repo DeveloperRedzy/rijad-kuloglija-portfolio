@@ -56,6 +56,9 @@ test("desktop dive lands in chapter 01 and reverses; mobile has no pin", async (
     await expect.poll(() => hero.getAttribute("data-dive"), { timeout: 10_000 }).toBe("landed");
     await expect(chapter).toBeInViewport({ ratio: 0.5 });
     await expect(page.locator("[data-nav-dot]")).toHaveCSS("opacity", "1");
+    // the navbar dot is back to its own size (6× → 1×)
+    await expect.poll(() => page.locator("[data-nav-dot]").evaluate((el) => getComputedStyle(el).transform), { timeout: 10_000 }).toMatch(/^(none|matrix\(1, 0, 0, 1, 0, 0\))$/);
+    await expect(page.locator("#work")).not.toHaveAttribute("inert", /.*/);
     await expect.poll(() => chapter.locator("[data-chapter-grid] > *").first().evaluate((el) => getComputedStyle(el).opacity), { timeout: 10_000 }).toBe("1");
     // the hidden scene stops rendering
     await expect(page.locator("[data-hero-poster]")).toHaveCSS("visibility", "hidden");
@@ -63,15 +66,51 @@ test("desktop dive lands in chapter 01 and reverses; mobile has no pin", async (
     // software-rendered scene resumes), the dive unwinds and the hero copy returns
     await page.mouse.wheel(0, -4000);
     await expect.poll(() => hero.getAttribute("data-dive"), { timeout: 10_000 }).toBeNull();
-    await expect.poll(() => page.locator("h1").evaluate((el) => getComputedStyle(el).opacity), { timeout: 10_000 }).toBe("1");
+    // keep nudging up until Lenis has settled at the very top (the copy is fully back by scroll 0)
+    await expect.poll(async () => {
+      await page.mouse.wheel(0, -1000);
+      return page.locator("h1").evaluate((el) => getComputedStyle(el).opacity);
+    }, { timeout: 15_000 }).toBe("1");
     await expect(page.locator("[data-hero-poster]")).toHaveCSS("visibility", "visible");
   } else {
     expect(await page.locator(".pin-spacer").count()).toBe(0);
-    await page.mouse.wheel(0, 1200);
-    await chapter.scrollIntoViewIfNeeded();
-    await expect(chapter).toBeInViewport({ ratio: 0.3, timeout: 5000 });
+    // the real wheel path: no pin holds the page back
+    await expect.poll(async () => {
+      await page.mouse.wheel(0, 400);
+      return chapter.evaluate((el) => { const r = el.getBoundingClientRect(); return r.top < innerHeight * 0.7 && r.bottom > 0; });
+    }, { timeout: 10_000 }).toBe(true);
+    await expect(chapter).toBeInViewport({ ratio: 0.3 });
     expect(await page.locator(".pin-spacer").count()).toBe(0);
     // Tier B: one red fade on hero exit, then landed
     if (tier === "B") await expect.poll(() => hero.getAttribute("data-dive"), { timeout: 5000 }).toBe("landed");
   }
+});
+
+for (const height of [821, 768]) {
+  test(`the #work anchor lands the dive at ${height} px tall`, async ({ page }, info) => {
+    test.skip(info.project.name !== "desktop", "Tier A only");
+    test.setTimeout(60_000);
+    await page.setViewportSize({ width: 1440, height });
+    // poster fallback (no forced scene): the landing logic is the same and the run stays fast
+    await page.addInitScript(() => { localStorage.setItem("redzy:tier", "A"); sessionStorage.setItem("redzy:loaded", "1"); });
+    await page.goto("/#work");
+    await expect(page.locator(".pin-spacer")).toHaveCount(1, { timeout: 5000 });
+    await expect.poll(() => page.locator("[data-hero]").getAttribute("data-dive"), { timeout: 10_000 }).toBe("landed");
+    const row = page.locator("[data-chapter]").first().locator("[data-chapter-grid] > *").first();
+    await expect.poll(() => row.evaluate((el) => getComputedStyle(el).opacity), { timeout: 10_000 }).toBe("1");
+    await expect.poll(() => page.locator("[data-hero]").evaluate((el) => getComputedStyle(el).pointerEvents)).toBe("none");
+  });
+}
+
+test("Tab from the hero never lands on the hidden work section before the dive lands", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop", "Tier A only");
+  await page.addInitScript(() => { localStorage.setItem("redzy:tier", "A"); sessionStorage.setItem("redzy:loaded", "1"); });
+  await page.goto("/");
+  await expect(page.locator(".pin-spacer")).toHaveCount(1, { timeout: 5000 });
+  await expect(page.locator("#work")).toHaveAttribute("inert", "");
+  await page.locator("[data-hero-copy] a").last().focus();
+  await page.keyboard.press("Tab");
+  const inWork = await page.evaluate(() => !!document.activeElement?.closest("#work"));
+  // the inert section is skipped: focus goes to the next focusable after it
+  expect(inWork).toBe(false);
 });

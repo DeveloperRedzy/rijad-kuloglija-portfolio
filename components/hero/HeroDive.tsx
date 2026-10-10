@@ -11,6 +11,11 @@ import { sceneBridge, setScenePaused } from "./SceneBridge";
 const DIVE_VH = 2.5;
 /** Progress at which the dive has landed (navbar dot lit, chapter 01 under the light). */
 const LANDED = 0.82;
+/**
+ * Landing threshold actually tested: a hair under LANDED, so a scroll that stops on the landing position (the #work
+ * anchor, rounded to whole pixels, then smoothed by the scrub) still counts as landed.
+ */
+const LAND_AT = LANDED - 0.002;
 /** Past this the scene is fully faded: hidden and its render loop paused. */
 const SCENE_GONE = 0.72;
 
@@ -37,8 +42,8 @@ export function HeroDive() {
       // One red-to-transparent fade when the hero leaves; no pin, no camera.
       const ctx = gsap.context(() => {
         const fade = gsap.timeline({ paused: true })
-          .to(redfade, { opacity: 0.7, duration: 0.2, ease: "power1.out" })
-          .to(redfade, { opacity: 0, duration: 0.4, ease: "power1.in" });
+          .to(redfade, { opacity: 0.7, duration: 0.12, ease: "power1.out" })
+          .to(redfade, { opacity: 0, duration: 0.28, ease: "power1.in" });
         ScrollTrigger.create({
           trigger: hero, start: "bottom 60%", once: true,
           onEnter: (self) => {
@@ -62,8 +67,20 @@ export function HeroDive() {
     const rows = chapter.querySelectorAll<HTMLElement>("[data-chapter-grid] > *");
     const band = chapter.querySelector<HTMLElement>("[data-sweep]");
     const distance = () => DIVE_VH * window.innerHeight;
-    // Chapter 01 lands right under the navbar at .82: the work section starts .82·distance below the hero's top.
-    const pullUp = () => { work.style.marginTop = `${Math.round(LANDED * distance() - hero.offsetHeight)}px`; };
+    // Chapter 01 lands right under the navbar at .82: the work section starts .82·distance below the hero's top
+    // (ceil: the #work anchor then lands at or just past .82, never a pixel short of it).
+    const pullUp = () => { work.style.marginTop = `${Math.ceil(LANDED * distance() - hero.offsetHeight)}px`; };
+    // the receding light is anchored above the navbar dot, so it visibly shrinks into it
+    const anchorRecede = () => {
+      if (!recede || !navDot) return;
+      const r = navDot.getBoundingClientRect();
+      const x = `${(((r.left + r.width / 2) / window.innerWidth) * 100).toFixed(2)}%`;
+      recede.style.setProperty("--dot-x", x);
+      recede.style.transformOrigin = `${x} 0%`;
+    };
+    const onRefreshInit = () => { pullUp(); anchorRecede(); };
+    /** Scroll position of the landing (work section under the navbar). */
+    const landingY = () => LANDED * distance();
     const navH = () => hero.getBoundingClientRect().top + window.scrollY;
     // Chapter 01's rows: a timed (not scrubbed) reveal played when the dive lands, so a scroll that stops exactly at
     // the landing (the #work anchor) still shows them; reversed when the dive unwinds.
@@ -74,12 +91,15 @@ export function HeroDive() {
       sceneBridge.progress = p;
       setScenePaused(p > SCENE_GONE);
       if (p >= 0.62) land();
-      const landed = p >= LANDED;
+      const landed = p >= LAND_AT;
       // the empty hero must not swallow clicks on chapter 01 once landed
       hero.style.pointerEvents = landed ? "none" : "";
+      // under the opaque pinned hero the work section is invisible: keep it out of the tab order / a11y tree until landed
+      work.inert = !landed;
       if (landed === (hero.dataset.dive === "landed")) return;
       if (landed) {
         hero.dataset.dive = "landed";
+        window.dispatchEvent(new CustomEvent("redzy:dive-landed"));
         reveal?.play();
         // .82 – 1: one light sweep down the chapter 01 frame
         if (band) { if (ctxReady) ctxReady.add(() => { sweep(band); }); else sweep(band); }
@@ -92,15 +112,16 @@ export function HeroDive() {
     let dive: gsap.core.Timeline | null = null;
     const onRefresh = () => { if (dive) sync(dive.progress()); };
 
+    // Belt and braces for the inert work section: if focus still gets in before landing, go to the landing.
+    const onFocusIn = (e: FocusEvent) => {
+      if (hero.dataset.dive === "landed" || !(e.target instanceof Node) || !work.contains(e.target)) return;
+      window.scrollTo(0, Math.ceil(landingY()));
+    };
+
     const ctx = gsap.context(() => {
-      pullUp();
-      ScrollTrigger.addEventListener("refreshInit", pullUp);
-      // the receding light is anchored above the navbar dot, so it visibly shrinks into it
-      if (recede && navDot) {
-        const r = navDot.getBoundingClientRect();
-        const x = `${(((r.left + r.width / 2) / window.innerWidth) * 100).toFixed(2)}%`;
-        gsap.set(recede, { "--dot-x": x, transformOrigin: `${x} 0%` });
-      }
+      onRefreshInit();
+      ScrollTrigger.addEventListener("refreshInit", onRefreshInit);
+      document.addEventListener("focusin", onFocusIn);
       // Above the chapters (z 1–5) while pinned so it hides the work section passing beneath it.
       gsap.set(hero, { zIndex: 10 });
       reveal = gsap.timeline({ paused: true })
@@ -128,17 +149,23 @@ export function HeroDive() {
 
       // 0 – .20 approach: copy lifts away, camera moves in front of the dot, the tilt settles
       // (explicit from values: SplitReveal fades the eyebrow in on load, which must not be recorded as the start)
+      // The copy is gone by .10, so the letter never slides over legible text.
       if (copy) {
-        tl.fromTo(copy.children, { y: 0, autoAlpha: 1 }, { y: -40, autoAlpha: 0, stagger: 0.02, duration: 0.12, ease: "power1.in", immediateRender: false }, 0);
+        tl.fromTo(copy.children, { y: 0, autoAlpha: 1 }, { y: -40, autoAlpha: 0, stagger: 0.01, duration: 0.06, ease: "power1.in", immediateRender: false }, 0);
       }
-      tl.to(sceneBridge, { cameraZ: 2.8, aim: 1, duration: 0.2, ease: "power1.inOut" }, 0)
+      tl.to(sceneBridge, { cameraZ: 2.8, duration: 0.2, ease: "power1.inOut" }, 0)
+        .to(sceneBridge, { aim: 1, duration: 0.14, ease: "power1.inOut" }, 0.06)
         .to(glow, { opacity: 0, duration: 0.15 }, 0)
         // .20 – .55 dive: into the counter until it fills the view (z .19: the sphere subtends ±57°, past the corners of
-        // a 2560 × 1080 viewport). The counter's emissive drops so the fill reads red
-        // and the bloom peak stays modest: the white core overlay, not the bloom, delivers the flash.
-        .to(sceneBridge, { cameraZ: 0.19, intensity: 3, bloom: 1.6, core: 0.3, duration: 0.35, ease: "power2.in" }, 0.2)
-        // the key light sinks into the counter: it lights the inner walls, and the sphere (lit from inside) shows only its red
-        .to(sceneBridge, { lightZ: 0, duration: 0.3, ease: "power1.inOut" }, 0.2)
+        // a 2560 × 1080 viewport). The light grows: key light ×3 and bloom up by .50, the counter at full emissive.
+        .to(sceneBridge, { cameraZ: 0.19, duration: 0.35, ease: "power2.in" }, 0.2)
+        .to(sceneBridge, { intensity: 3, duration: 0.3, ease: "power1.in" }, 0.2)
+        .to(sceneBridge, { bloom: 2.3, duration: 0.25, ease: "power1.in" }, 0.2)
+        .to(sceneBridge, { core: 1.2, duration: 0.25, ease: "power1.in" }, 0.2)
+        // .45 – .53, as the sphere fills the frame: the emissive eases down and the key light sinks into the counter
+        // (lighting it from inside), so the filled screen reads signal red, not blown-out white; the #FFF1EC overlay
+        // at .55 is the white beat.
+        .to(sceneBridge, { core: 0.4, lightZ: 0, bloom: 1.8, duration: 0.08, ease: "power1.inOut" }, 0.45)
         // .55 – .62 white-hot core
         .to(flash, { opacity: 1, duration: 0.035, ease: "power1.in" }, 0.55)
         .to(flash, { opacity: 0, duration: 0.035, ease: "power1.out" }, 0.585)
@@ -165,7 +192,11 @@ export function HeroDive() {
     ctxReady = ctx;
 
     return () => {
-      ScrollTrigger.removeEventListener("refreshInit", pullUp);
+      ScrollTrigger.removeEventListener("refreshInit", onRefreshInit);
+      document.removeEventListener("focusin", onFocusIn);
+      work.inert = false;
+      recede?.style.removeProperty("--dot-x");
+      recede?.style.removeProperty("transform-origin");
       ScrollTrigger.removeEventListener("refresh", onRefresh);
       ctx.revert();
       work.style.marginTop = "";

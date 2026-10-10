@@ -69,15 +69,22 @@ function Rig({ postprocessing, client, viewport, lite }: { postprocessing: boole
       rect.current = el.getBoundingClientRect();
       boxRect.current = box?.getBoundingClientRect() ?? null;
     };
+    // scroll fires many times per frame under Lenis: at most one layout read per animation frame
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = 0; read(); });
+    };
     read();
     const ro = new ResizeObserver(read);
     ro.observe(el);
     if (box) ro.observe(box);
-    window.addEventListener("scroll", read, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", read);
     return () => {
       ro.disconnect();
-      window.removeEventListener("scroll", read);
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", read);
     };
   }, [gl]);

@@ -3,6 +3,9 @@ import { test, expect } from "@playwright/test";
 test.describe("hero scene", () => {
   test("Tier A mounts the R3F canvas and resolves __heroSceneReady", async ({ page }, info) => {
     test.skip(info.project.name !== "desktop", "desktop only");
+    // SwiftShader links the shaders synchronously (no KHR_parallel_shader_compile); with another worker rendering a
+    // forced scene (the dive spec) the main thread can stall for seconds
+    test.setTimeout(60_000);
     await page.addInitScript(() => {
       localStorage.setItem("redzy:tier", "A");
       // headless Chromium renders with SwiftShader; force the scene past the software-renderer guard
@@ -12,7 +15,7 @@ test.describe("hero scene", () => {
     await page.goto("/");
     const webgl2 = await page.evaluate(() => !!document.createElement("canvas").getContext("webgl2"));
     test.skip(!webgl2, "WebGL2 unavailable in this headless browser");
-    await expect(page.locator("[data-hero-scene] canvas")).toHaveCount(1, { timeout: 10_000 });
+    await expect(page.locator("[data-hero-scene] canvas")).toHaveCount(1, { timeout: 30_000 });
     await page.waitForFunction(() => !!window.__heroSceneReady);
     await page.evaluate(() => window.__heroSceneReady);
     const box = await page.locator("[data-hero-scene] canvas").boundingBox();
