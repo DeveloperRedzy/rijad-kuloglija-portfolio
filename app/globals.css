@@ -159,3 +159,6 @@ html[hidden-tab] [data-nav-dot] span { animation-play-state: paused; }
 @media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
   [data-frame] { transition: transform 120ms var(--ease-out-quint); }
 }
+
+/* Contact monogram: hidden from the first A/B frame until the assemble timeline starts (never on tier C). */
+html:is([data-tier="A"], [data-tier="B"]) [data-contact-mark]:not([data-assembled]) :is(rect, path, polygon, circle) { opacity: 0; }
