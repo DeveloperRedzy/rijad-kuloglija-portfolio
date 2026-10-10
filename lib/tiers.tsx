@@ -15,7 +15,9 @@ const TierContext = createContext<Tier | null>(null);
 function hasWebGL(): boolean {
   try {
     const c = document.createElement("canvas");
-    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+    const gl = c.getContext("webgl2") || c.getContext("webgl");
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
+    return !!gl;
   } catch { return false; }
 }
 
@@ -24,13 +26,24 @@ export function TierProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let cancelled = false;
     (async () => {
+      // test/debug override; Playwright sets it via addInitScript
+      let forced: string | null = null;
+      try { forced = localStorage.getItem("redzy:tier"); } catch {}
+      if (forced === "A" || forced === "B" || forced === "C") {
+        if (cancelled) return;
+        document.documentElement.dataset.tier = forced;
+        setTier(forced);
+        return;
+      }
       const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
       const pointerFine = matchMedia("(pointer: fine)").matches;
       const webgl = hasWebGL();
       let gpuTier: TierInput["gpuTier"] = 1;
       if (!reducedMotion && webgl && pointerFine && innerWidth >= 1024) {
-        const { getGPUTier } = await import("detect-gpu");
-        gpuTier = (await getGPUTier()).tier as TierInput["gpuTier"];
+        try {
+          const { getGPUTier } = await import("detect-gpu");
+          gpuTier = (await getGPUTier()).tier as TierInput["gpuTier"];
+        } catch { gpuTier = 1; }
       }
       const t = resolveTier({ gpuTier, pointerFine, width: innerWidth, reducedMotion, webgl });
       if (cancelled) return;

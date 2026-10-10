@@ -17,12 +17,18 @@ export function SmoothScroll() {
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement).closest("a[href^='/#'], a[href^='#']") as HTMLAnchorElement | null;
       if (!a || location.pathname !== "/") return;
-      const id = a.getAttribute("href")!.split("#")[1];
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.target && a.target !== "_self") return;
+      const href = a.getAttribute("href")!;
+      if (href === "#main" || href === "/#main") return; // skip link keeps native behavior
+      const id = href.split("#")[1];
       const el = document.getElementById(id);
       if (!el) return;
       e.preventDefault();
       lenis.scrollTo(el, { offset: -64 });
-      history.pushState(null, "", `#${id}`);
+      if (location.hash !== `#${id}`) history.pushState(null, "", `#${id}`);
+      if (!el.hasAttribute("tabindex") && !el.matches("a[href],button,input,select,textarea,[contenteditable]")) el.tabIndex = -1;
+      el.focus({ preventScroll: true });
     };
     document.addEventListener("click", onClick);
     return () => { document.removeEventListener("click", onClick); gsap.ticker.remove(raf); lenis.destroy(); };
