@@ -2,7 +2,7 @@ import type { Project } from "../schema";
 
 export const nepaInvest: Project = {
   slug: "nepa-invest",
-  index: 5,
+  index: 4,
   name: "Nepa Invest",
   categories: ["Real estate", "Web platform"],
   oneLiner: "The web presence of a real-estate developer: project galleries, video tours and lead capture.",
@@ -15,7 +15,7 @@ export const nepaInvest: Project = {
     overview:
       "Nepa Invest is a real-estate investment and development company that acquires, develops and sells residential and commercial property. Its site presents three active developments (Villa Park Obarak, Projekat Pobjeda and Bulevar Goražde) and pairs investment positioning with architectural imagery.",
     problem:
-      "Outside SaaS the job changes: the site sells trust in physical assets. Image-heavy galleries have to stay fast on mobile connections, video tours have to play without stalling, and the layout has to feel as polished and solid as the buildings it presents.",
+      "The site has to present each development convincingly and stay fast on phones, despite large render galleries and video tours.",
     contribution:
       "I engineered Nepa Invest's web presence: per-project presentations with substantial render galleries, video tours for selected projects, an investment-approach narrative, and consultation and lead-generation flows for buyers and partners.",
     engineering:
@@ -26,6 +26,11 @@ export const nepaInvest: Project = {
     "Project galleries and video-tour presentation for three developments",
     "Lead-generation and consultation flows",
   ],
+  decisions: [
+    { choice: "Modern image formats with lazy loading", why: "Galleries of up to eleven renders per project stay fast on phones, because renders download as they come into view." },
+    { choice: "Video tours behind poster frames", why: "Visitors see a still of the tour at once, while the video loads." },
+  ],
+  sinceLaunch: "The site is live at nepainvest.com and presents the company's three active developments.",
   media: {
     hero: { src: "/media/work/nepa-invest/hero-desktop-1600.webp", alt: "nepainvest.com home page with the Villa Park Obarak render", kind: "desktop", width: 1600, height: 1000 },
     gallery: [

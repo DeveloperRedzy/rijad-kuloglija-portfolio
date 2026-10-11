@@ -5,3 +5,6 @@ export const NAV = [
   { label: "Experience", href: "/#experience" },
   { label: "Contact", href: "/#contact" },
 ];
+
+/** Primary call to action (hero, navbar, mobile menu): a mailto with this subject. */
+export const CTA = { label: "Discuss a project", subject: "Project enquiry" } as const;

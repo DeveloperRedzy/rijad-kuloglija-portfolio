@@ -1,12 +1,9 @@
 import { profile } from "./profile";
-import { liblynx } from "./work/liblynx";
-import { dinSolution } from "./work/din-solution";
-import { neoLabs } from "./work/neo-labs";
-import { arkona } from "./work/arkona";
-import { nepaInvest } from "./work/nepa-invest";
+import { allProjects } from "./work";
 import type { Project } from "./schema";
 
-export const projects: Project[] = [liblynx, dinSolution, neoLabs, arkona, nepaInvest].sort((a, b) => a.index - b.index);
+/** Featured projects in chapter order: the only list that is routed, linked or shown. */
+export const projects: Project[] = allProjects.filter((p) => p.featured).sort((a, b) => a.index - b.index);
 export const projectSlugs = projects.map((p) => p.slug);
 
 export function getProject(slug: string): Project | undefined {
@@ -19,4 +16,4 @@ export function nextProject(slug: string): Project {
 }
 
 export { profile };
-export type { Project, Profile, Role, Media, LabItem, Link } from "./schema";
+export type { Project, Profile, Role, Media, LabItem, Link, Decision } from "./schema";

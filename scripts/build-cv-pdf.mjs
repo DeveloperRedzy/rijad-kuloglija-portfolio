@@ -4,10 +4,22 @@
 // Any other failure (bad /cv/ status, pdf error) fails the build with exit 1.
 import { chromium } from "@playwright/test";
 import { createServer } from "node:http";
-import { readFile, copyFile } from "node:fs/promises";
+import { readFile, writeFile, copyFile } from "node:fs/promises";
 import { extname, join } from "node:path";
 
 const root = "out";
+
+// Chromium sets no author, so Title and Author are written explicitly: the page <title>
+// ("CV — <name>") and the Person name from the page's JSON-LD, both derived from content/profile.
+// pdf-lib is imported lazily: it is only needed once Chromium has produced a PDF.
+async function withMetadata(bytes, { title, author }) {
+  const { PDFDocument } = await import("pdf-lib");
+  const doc = await PDFDocument.load(bytes);
+  doc.setTitle(title);
+  doc.setAuthor(author);
+  return doc.save();
+}
+
 const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".woff2": "font/woff2", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp", ".avif": "image/avif" };
 
 let browser;
@@ -36,7 +48,12 @@ try {
   const res = await page.goto(`http://127.0.0.1:${port}/cv/`, { waitUntil: "networkidle" });
   if (!res || res.status() !== 200) throw new Error(`/cv/ returned ${res ? res.status() : "no response"}`);
   await page.evaluate(() => document.fonts.ready);
-  await page.pdf({ path: `${root}/Rijad-Kuloglija-CV.pdf`, format: "A4", printBackground: true, preferCSSPageSize: true });
+  const pdf = await page.pdf({ format: "A4", printBackground: true, preferCSSPageSize: true });
+  const meta = {
+    title: await page.title(),
+    author: await page.evaluate(() => JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent).name),
+  };
+  await writeFile(`${root}/Rijad-Kuloglija-CV.pdf`, await withMetadata(pdf, meta));
   await copyFile(`${root}/Rijad-Kuloglija-CV.pdf`, "public/Rijad-Kuloglija-CV.pdf");
   console.log("CV PDF written to out/ and public/");
 } catch (e) {

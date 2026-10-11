@@ -3,11 +3,14 @@ import { profile } from "@/content/profile";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/brand/Icon";
 
+/** min-h-11 with an equal negative margin: a 44 px hit area without changing the row's layout. */
+const LINK = "eyebrow -my-3.5 inline-flex min-h-11 items-center gap-1 hover:text-ink";
+
 export function Lab() {
   return (
     <section id="lab" data-sweep-section className="border-t border-hairline py-24 md:py-32">
       <div className="container-site">
-        <Eyebrow as="h2">04 — Lab &amp; more work</Eyebrow>
+        <Eyebrow as="h2">04 — More work</Eyebrow>
         <ol className="mt-8 border-t border-hairline">
           {profile.lab.map((item) => (
             <li key={item.name} data-row data-preview={item.previewSlug} className="grid gap-2 border-b border-hairline py-4 md:grid-cols-12 md:items-baseline md:gap-6">
@@ -19,9 +22,9 @@ export function Lab() {
               <div className="flex gap-4 md:col-span-3 md:justify-end">
                 {item.links?.map((l) => l.url.startsWith("/") ? (
                   // internal (e.g. a case study on this site): same tab, client-side navigation
-                  <Link key={l.url} href={l.url} transitionTypes={["nav-forward"]} className="eyebrow inline-flex items-center gap-1 hover:text-ink">{l.label} <Icon name="arrow-up-right" size={12} /></Link>
+                  <Link key={l.url} href={l.url} transitionTypes={["nav-forward"]} className={LINK}>{l.label} <Icon name="arrow-up-right" size={12} /></Link>
                 ) : (
-                  <a key={l.url} href={l.url} target="_blank" rel="noreferrer" className="eyebrow inline-flex items-center gap-1 hover:text-ink">{l.label} <Icon name="external" size={12} /></a>
+                  <a key={l.url} href={l.url} target="_blank" rel="noreferrer" className={LINK}>{l.label} <Icon name="external" size={12} /></a>
                 ))}
               </div>
             </li>

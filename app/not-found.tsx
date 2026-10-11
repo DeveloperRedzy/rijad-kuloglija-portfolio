@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { NotFoundFlicker } from "@/components/ui/NotFoundFlicker";
 import { Pill } from "@/components/ui/Pill";
+
+export const metadata: Metadata = { title: "Page not found", robots: { index: false } };
 
 export default function NotFound() {
   return (
@@ -7,8 +10,8 @@ export default function NotFound() {
       <NotFoundFlicker />
       <p className="eyebrow mt-10">404</p>
       <h1 className="display-lg mt-3">Lost signal.</h1>
-      <p className="mt-4 max-w-[36ch] text-ink-soft">This page isn&apos;t lit. The work, the story and the contact are all back home.</p>
-      <Pill href="/" dot className="mt-10" transitionTypes={["nav-back"]}>Back to the signal</Pill>
+      <p className="mt-4 max-w-[36ch] text-ink-soft">This page doesn&apos;t exist. Everything else is on the home page.</p>
+      <Pill href="/" dot className="mt-10" transitionTypes={["nav-back"]}>Back to home</Pill>
     </section>
   );
 }

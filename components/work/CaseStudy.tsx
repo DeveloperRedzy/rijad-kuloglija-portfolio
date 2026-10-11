@@ -11,6 +11,7 @@ import { Gallery } from "./Gallery";
 import { NextProject } from "./NextProject";
 import { BackToWork } from "./BackToWork";
 import { ReadingProgress } from "./ReadingProgress";
+import { CaseNotes } from "./CaseNotes";
 import { pad2 } from "@/lib/format";
 
 const SECTIONS: Array<[keyof Project["body"], string]> = [
@@ -52,6 +53,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
               <p data-split className="max-w-[62ch] border-t border-hairline pb-7 pt-3 text-base leading-relaxed text-ink-soft md:pt-7 md:text-lg">{project.body[key]}</p>
             </div>
           ))}
+          <CaseNotes project={project} />
           <h2 className="eyebrow border-t border-hairline pt-7 md:pb-7">Delivered</h2>
           <ul className="border-t border-hairline pb-7 pt-3 md:pt-7">
             {project.delivered.map((d) => <li key={d} className="flex gap-4 border-b border-surface-2 py-2.5 text-ink-soft"><span aria-hidden className="text-signal">—</span>{d}</li>)}
