@@ -26,28 +26,31 @@ function cells(items: Media[]): Cell[] {
   return out;
 }
 
-export function Gallery({ items, slug, shader }: { items: Media[]; slug: string; shader?: boolean }) {
-  if (items.length === 0) return null;
+type Props = {
+  items: Media[];
+  slug: string;
+  shader?: boolean;
+  /** Below md only: the case hero's desktop capture, listed first (the phone capture took its place in the hero). */
+  mobileLead?: Media;
+  /** Below md only: the index of the item shown in the hero instead, left out of the list there. */
+  mobileHidden?: number;
+};
+
+export function Gallery({ items, slug, shader, mobileLead, mobileHidden }: Props) {
+  if (items.length === 0 && !mobileLead) return null;
   const layout = cells(items);
   return (
     <ul className="grid gap-5 md:grid-cols-6">
-      {items.map((m, i) => {
-        const frame = <ProductFrame media={m} slug={`${slug}-g${i}`} morph={false} shader={shader} />;
-        if (layout[i].lone) {
-          return (
-            <li key={m.src} className={`${layout[i].span} md:grid md:grid-cols-6 md:items-end md:gap-5`}>
-              <div className="md:col-span-2 md:col-start-3">{frame}</div>
-              {m.caption && <p className="eyebrow mt-3 md:col-span-2 md:mt-0 md:pb-2">{m.caption}</p>}
-            </li>
-          );
-        }
-        return (
-          <li key={m.src} className={layout[i].span}>
-            {frame}
-            {m.caption && <p className="eyebrow mt-3">{m.caption}</p>}
-          </li>
-        );
-      })}
+      {mobileLead && (
+        <li className="md:hidden">
+          <ProductFrame media={mobileLead} slug={`${slug}-gm`} morph={false} caption={mobileLead.caption} />
+        </li>
+      )}
+      {items.map((m, i) => (
+        <li key={m.src} className={`${layout[i].span} ${i === mobileHidden ? "hidden md:block" : ""}`}>
+          <ProductFrame media={m} slug={`${slug}-g${i}`} morph={false} shader={shader} caption={m.caption} captionBeside={layout[i].lone} />
+        </li>
+      ))}
     </ul>
   );
 }

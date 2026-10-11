@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Project } from "@/content/schema";
 import { profile } from "@/content/profile";
 import { projects } from "@/content";
@@ -21,29 +22,52 @@ const SECTIONS: Array<[keyof Project["body"], string]> = [
 export function CaseStudy({ project, next }: { project: Project; next: Project }) {
   const heroes = Array.isArray(project.media.hero) ? project.media.hero : [project.media.hero];
   const subject = encodeURIComponent(`About ${project.name}`);
+  // Below md a single desktop hero is unreadable at ~312 px: the project's first phone capture leads instead and the
+  // desktop capture moves into the gallery (audit #19). Tabbed heroes (several products) keep their tabs everywhere.
+  const mobileIndex = heroes.length === 1 ? project.media.gallery.findIndex((m) => m.kind === "mobile") : -1;
+  const mobileHero = mobileIndex >= 0 ? { media: project.media.gallery[mobileIndex], index: mobileIndex } : null;
   return (
     <article className="relative">
       <ReadingProgress />
       <Aura seed={project.slug} className="pointer-events-none absolute inset-x-0 top-0 h-[520px] opacity-[0.18] [mask-image:linear-gradient(180deg,#000,transparent)]" />
       <div className="container-site relative pt-10 md:pt-14">
         <BackToWork />
-        <header className="mt-10 grid gap-10 md:mt-14 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <Eyebrow><span className="text-signal">{pad2(project.index)} / {pad2(projects.length)}</span> &nbsp;·&nbsp; {project.categories.join(" · ")}</Eyebrow>
-            <h1 data-split className="display-xl mt-5 max-w-[12ch]">{project.name}</h1>
+        <header className="mt-10 grid gap-10 md:mt-14 lg:grid-cols-12 lg:items-start">
+          <div className="min-w-0 lg:col-span-8">
+            {/* Segments never break inside, and a wrapped line never starts with a separator. */}
+            <Eyebrow>
+              <span className="whitespace-nowrap"><span className="text-signal">{pad2(project.index)} / {pad2(projects.length)}</span> ·</span>
+              {project.categories.map((c, i) => <Fragment key={c}>{" "}<span className="whitespace-nowrap">{c}{i < project.categories.length - 1 && " ·"}</span></Fragment>)}
+            </Eyebrow>
+            <h1 data-split className="display-xl mt-5">{project.name}</h1>
             <p data-split className="mt-5 max-w-[30ch] text-xl leading-snug text-ink-soft">{project.oneLiner}</p>
           </div>
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-5 lg:col-span-5">
-            <div className="border-t border-hairline pt-3"><dt className="eyebrow">Role</dt><dd className="mt-1.5 text-ink">{project.role}{project.roleNote && <span className="block text-sm text-ink-muted">{project.roleNote}</span>}</dd></div>
-            <div className="border-t border-hairline pt-3"><dt className="eyebrow">Period</dt><dd className="mt-1.5 text-ink">{project.period}</dd></div>
-            <div className="border-t border-hairline pt-3"><dt className="eyebrow">Stack</dt><dd className="mt-1.5 text-sm leading-relaxed text-ink">{project.stack.join(" · ")}</dd></div>
-            <div className="border-t border-hairline pt-3"><dt className="eyebrow">Live</dt><dd className="mt-1.5">{project.live ? <a href={project.live.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-signal-soft hover:text-ink">{project.live.label} <Icon name="arrow-up-right" size={14} /></a> : <span className="text-ink-muted">Private</span>}</dd></div>
-            {project.focus && <div className="col-span-2 border-t border-hairline pt-3"><dt className="eyebrow">Focus</dt><dd className="mt-1.5 text-sm leading-relaxed text-ink">{project.focus.join(" · ")}</dd></div>}
+          {/* The title takes 8/12; the meta runs as one column beside it, top-aligned with the eyebrow (two columns
+              under the title below lg). min-w-0 cells and a wrapping URL keep a long domain inside 320 px. */}
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-5 lg:col-span-4 lg:grid-cols-1">
+            <div className="min-w-0 border-t border-hairline pt-3"><dt className="eyebrow">Role</dt><dd className="mt-1.5 text-ink">{project.role}{project.roleNote && <span className="block text-sm text-ink-muted">{project.roleNote}</span>}</dd></div>
+            <div className="min-w-0 border-t border-hairline pt-3"><dt className="eyebrow">Period</dt><dd className="mt-1.5 text-ink">{project.period}</dd></div>
+            <div className="min-w-0 border-t border-hairline pt-3"><dt className="eyebrow">Stack</dt><dd className="mt-1.5 text-sm leading-relaxed text-ink">{project.stack.join(" · ")}</dd></div>
+            <div className="min-w-0 border-t border-hairline pt-3"><dt className="eyebrow">Live</dt><dd className="mt-1.5">{project.live ? (
+              // inline: the vertical padding grows the hit area to ≥ 44 px without moving the text; a long domain wraps
+              // and the arrow follows its last line
+              <a href={project.live.url} target="_blank" rel="noreferrer" className="py-3 text-signal-soft [overflow-wrap:anywhere] hover:text-ink">
+                {project.live.label}&nbsp;<Icon name="arrow-up-right" size={14} className="inline align-[-1px]" />
+              </a>
+            ) : <span className="text-ink-muted">Private</span>}</dd></div>
+            {project.focus && <div className="col-span-2 min-w-0 lg:col-span-1 border-t border-hairline pt-3"><dt className="eyebrow">Focus</dt><dd className="mt-1.5 text-sm leading-relaxed text-ink">{project.focus.join(" · ")}</dd></div>}
           </dl>
         </header>
 
         <div className="mt-12 md:mt-16">
-          {heroes.length > 1 ? <HeroTabs heroes={heroes} slug={project.slug} url={project.live?.label} shader /> : <ProductFrame media={heroes[0]} slug={project.slug} url={project.live?.label} priority shader />}
+          {mobileHero && (
+            <div className="md:hidden">
+              <ProductFrame media={mobileHero.media} slug={`${project.slug}-m`} morph={false} caption={mobileHero.media.caption} />
+            </div>
+          )}
+          <div className={mobileHero ? "hidden md:block" : undefined}>
+            {heroes.length > 1 ? <HeroTabs heroes={heroes} slug={project.slug} url={project.live?.label} shader /> : <ProductFrame media={heroes[0]} slug={project.slug} url={project.live?.label} priority shader caption={heroes[0].caption} />}
+          </div>
         </div>
 
         <div className="mt-16 grid md:mt-24 md:grid-cols-[200px_1fr]">
@@ -60,7 +84,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
           </ul>
         </div>
 
-        <div className="mt-12"><Gallery items={project.media.gallery} slug={project.slug} shader /></div>
+        <div className="mt-12"><Gallery items={project.media.gallery} slug={project.slug} shader mobileLead={mobileHero ? heroes[0] : undefined} mobileHidden={mobileHero?.index} /></div>
 
         <div className="mt-14 flex flex-wrap gap-3">
           {project.live && <Pill href={project.live.url} external dot>Visit {project.live.label}</Pill>}

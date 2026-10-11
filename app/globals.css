@@ -59,6 +59,13 @@
   letter-spacing: -0.035em;
 }
 
+/* Home hero headline: display-xl capped at 104 px (audit 2026-10-11 #18) so a 40-character headline sets in three lines
+   in the 8/12 copy column from 1024 to 1920 px; the CTAs stay above the fold at 1280×800 and 1440×900. */
+@utility display-hero {
+  @apply display-xl;
+  font-size: clamp(56px, 8vw, 104px);
+}
+
 @utility display-lg {
   font-family: var(--font-display);
   font-weight: 800;
@@ -164,3 +171,33 @@ html[hidden-tab] [data-nav-dot] span { animation-play-state: paused; }
 
 /* Contact monogram: hidden from the first A/B frame until the assemble timeline starts (never on tier C). */
 html:is([data-tier="A"], [data-tier="B"]) [data-contact-mark]:not([data-assembled]) :is(rect, path, polygon, circle) { opacity: 0; }
+
+/* Linked frames (home chapters): a CSS hover on every tier, not only under the Tier A cursor (audit #23).
+   The ring brightens from signal/10 to signal/30 on the bezel; the lift is motion only. */
+@media (hover: hover) {
+  :is(a:hover, a:focus-visible) [data-frame] [data-bezel],
+  a[data-frame]:is(:hover, :focus-visible) [data-bezel] {
+    --tw-ring-color: color-mix(in oklab, var(--color-signal) 30%, transparent);
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  a [data-frame], a[data-frame] { transition: transform 200ms ease; }
+  a [data-frame] [data-bezel], a[data-frame] [data-bezel] { transition: box-shadow 200ms ease; }
+  a:hover [data-frame], a[data-frame]:hover { transform: scale(1.01); }
+}
+
+/* Keyboard focus inside a chapter lifts it above the later sticky chapters that would cover it (WCAG 2.4.11, audit #12).
+   !important: WorkChapters sets the stacking order inline (z-index i + 1). 40 keeps it under the fixed navbar (z-50),
+   which a chapter scrolling off the top must not cover. The receding fade (ChapterChoreo, inline) is lifted too. */
+[data-chapter]:focus-within { z-index: 40 !important; }
+[data-chapter]:focus-within [data-chapter-grid] { opacity: 1 !important; }
+
+/* The mobile menu toggle (MobileMenu) is 38 px; extend its hit area to 44 px without moving it (audit #22). */
+button[aria-controls="mobile-menu"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin: -3px;
+}
