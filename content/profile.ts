@@ -34,10 +34,11 @@ export const profile: Profile = {
     "Performance and UI engineering",
   ],
   stack: [
-    { group: "Frontend", items: ["React / Next.js", "Vue 3", "TypeScript", "Material UI", "Tailwind CSS", "TanStack Query", "Storybook"] },
-    { group: "Backend", items: ["PHP (Laravel)", "Python (Flask)", "Node.js / Express", "GraphQL", "REST APIs"] },
-    { group: "Data", items: ["MySQL", "PostgreSQL", "MongoDB", "SQLite"] },
-    { group: "Infrastructure", items: ["Docker", "CI/CD", "Vercel", "Git"] },
+    { group: "Frontend", items: ["React / Next.js", "Vue 3", "TypeScript", "React Native", "Tailwind CSS", "Material UI", "TanStack Query", "Storybook"] },
+    { group: "Backend", items: ["Laravel (PHP)", "Node.js / Express", "Python (Flask)", "REST", "GraphQL"] },
+    { group: "Data", items: ["PostgreSQL", "MySQL", "MongoDB", "Supabase", "Firebase"] },
+    { group: "Delivery", items: ["Docker", "CI/CD", "Vercel", "Vitest", "Playwright", "Cypress"] },
+    { group: "Product", items: ["SaaS platforms", "AI products and agents", "Authentication", "Analytics and dashboards", "Third-party integrations", "Admin systems", "Business workflows"] },
   ],
   education: [
     { school: "International Burch University, Sarajevo", short: "International Burch University", degree: "B.Sc. Computer Science", years: "2017 — 2023" },

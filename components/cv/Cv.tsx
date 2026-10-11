@@ -56,9 +56,16 @@ export function Cv() {
         <div className="mt-3 grid grid-cols-[1.5fr_1fr] gap-6 max-sm:grid-cols-1 max-sm:gap-0">
           <div className="min-w-0">
             <h2 className={`cv-h ${HEADING}`}>Stack</h2>
-            <ul className="flex flex-wrap gap-1">
-              {profile.stack.flatMap((g) => g.items).map((i) => <li key={i} className="rounded border border-paper-ink/20 px-1.5 py-0.5 font-mono text-[11px] tracking-[0.04em] print:text-[9.5px]">{i}</li>)}
-            </ul>
+            <dl className="space-y-1.5">
+              {profile.stack.map((g) => (
+                <div key={g.group} className="grid grid-cols-[72px_1fr] gap-2 print:grid-cols-[64px_1fr]">
+                  <dt className="pt-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-paper-ink/70 print:text-[9px]">{g.group}</dt>
+                  <dd className="m-0 flex flex-wrap gap-1">
+                    {g.items.map((i) => <span key={i} className="rounded border border-paper-ink/20 px-1.5 py-0.5 font-mono text-[11px] tracking-[0.04em] print:text-[9.5px]">{i}</span>)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
           <div className="min-w-0">
             <h2 className={`cv-h ${HEADING}`}>Education · Languages</h2>

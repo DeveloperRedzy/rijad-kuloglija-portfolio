@@ -9,7 +9,7 @@ export const liblynx: Project = {
   role: "Lead Software Developer",
   roleNote: "Through Clearview · sole engineer and designer · Lead since Oct 2025",
   period: "Jul 2025 — present",
-  stack: ["React 19", "TypeScript", "Vite", "Material UI", "TanStack Query", "Zod", "dnd-kit", "Storybook"],
+  stack: ["React 19", "TypeScript", "Vite", "Material UI", "TanStack Query", "Zod", "dnd-kit", "Storybook", "Playwright"],
   live: { label: "liblynx.com", url: "https://www.liblynx.com/" },
   body: {
     overview:

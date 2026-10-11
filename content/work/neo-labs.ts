@@ -9,7 +9,7 @@ export const neoLabs: Project = {
   role: "Head of Communications & Software Innovation",
   roleNote: "One of four people at the company · engineered both customer-facing platforms",
   period: "Sep 2025 — present",
-  stack: ["Next.js", "Tailwind CSS", "Vercel"],
+  stack: ["Next.js", "Tailwind CSS", "Supabase", "Vercel"],
   focus: ["AI voice calls", "Scheduling & reports", "Escalation workflows"],
   live: { label: "neo-labs.ai", url: "https://www.neo-labs.ai/" },
   body: {
