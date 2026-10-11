@@ -6,27 +6,26 @@ import { useTier } from "@/lib/tiers";
 import { announceLanded, readiness } from "@/lib/ready";
 import { MONOGRAM } from "./Monogram";
 import { profile } from "@/content/profile";
+import { LOADER_KEY } from "./loader-script";
 
-const KEY = "redzy:loaded";
-
-function seen(): boolean {
-  try { return !!sessionStorage.getItem(KEY); } catch { return false; }
-}
+type Phase = "shell" | "run" | "done";
 
 export function Loader() {
   const tier = useTier();
   const root = useRef<HTMLDivElement>(null);
-  const [show, setShow] = useState(false);
+  // "shell" matches the server HTML; once the tier is known the client animates the marked first visit or drops it
+  const [phase, setPhase] = useState<Phase>("shell");
 
   useEffect(() => {
     if (!tier) return;
-    if (tier === "C" || seen() || location.pathname !== "/") { announceLanded(); return; }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- depends on client-only tier/session state
-    setShow(true);
+    const active = tier !== "C" && document.documentElement.dataset.loader === "on";
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- depends on client-only tier/document state
+    setPhase(active ? "run" : "done");
+    if (!active) announceLanded();
   }, [tier]);
 
   useEffect(() => {
-    if (!show || !root.current || !tier) return;
+    if (phase !== "run" || !root.current || !tier) return;
     const el = root.current;
     const dot = el.querySelector<HTMLElement>("[data-l-dot]");
     const parts = el.querySelectorAll("[data-l-part]");
@@ -44,7 +43,7 @@ export function Loader() {
     let ctx: gsap.Context | undefined;
     let intro: gsap.core.Timeline | undefined;
     let progress: gsap.core.Tween | undefined;
-    const land = () => { setShow(false); announceLanded(); };
+    const land = () => { setPhase("done"); announceLanded(); };
 
     lib.then((gsap) => {
       if (cancelled || done) return;
@@ -62,7 +61,7 @@ export function Loader() {
     const finish = () => {
       if (done || cancelled) return;
       done = true;
-      try { sessionStorage.setItem(KEY, "1"); } catch {}
+      try { sessionStorage.setItem(LOADER_KEY, "1"); } catch {}
       lib.then((gsap) => {
         if (cancelled) return;
         intro?.kill();
@@ -103,11 +102,12 @@ export function Loader() {
       window.removeEventListener("keydown", skip);
       ctx?.revert();
     };
-  }, [show, tier]);
+  }, [phase, tier]);
 
-  if (!show) return null;
+  if (phase === "done") return null;
+  // displayed only while <html data-loader="on"> (set by LOADER_SCRIPT before first paint)
   return (
-    <div ref={root} role="status" aria-label="Loading" className="fixed inset-0 z-[80] flex flex-col items-center justify-center bg-canvas" style={{ ["--fill" as string]: 0 }}>
+    <div ref={root} role="status" aria-label="Loading" className="fixed inset-0 z-[80] hidden flex-col items-center justify-center bg-canvas [html[data-loader=on]_&]:flex" style={{ ["--fill" as string]: 0 }}>
       <svg data-l-art width="160" height="160" viewBox="0 0 100 100" aria-hidden="true" style={{ visibility: "hidden" }}>
         <defs><radialGradient id="lg" cx="46" cy="32" r="60" gradientUnits="userSpaceOnUse"><stop offset="0" stopColor="#FF4A26" stopOpacity=".5" /><stop offset="1" stopColor="#FF4A26" stopOpacity="0" /></radialGradient></defs>
         <g fill="var(--color-ink)">

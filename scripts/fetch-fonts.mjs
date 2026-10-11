@@ -1,7 +1,7 @@
-// Downloads the woff2 files we self-host. Run once: node scripts/fetch-fonts.mjs
+// Downloads the woff2 files we self-host (sources for next/font/local in app/fonts.ts). Run once: node scripts/fetch-fonts.mjs
 import { mkdir, writeFile } from "node:fs/promises";
 
-const OUT = "public/fonts";
+const OUT = "assets/fonts";
 const UA = "Mozilla/5.0 (Macintosh) AppleWebKit/537.36 Chrome/120 Safari/537.36";
 
 const sources = [
@@ -9,6 +9,10 @@ const sources = [
   { css: "https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap", family: "switzer" },
   { css: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap", family: "ibm-plex-mono" },
 ];
+
+// Google serves one face per unicode-range; keep latin and latin-ext (Bosnian place names: č ć đ š ž), keyed by the
+// first range of each block. Fontshare serves whole fonts without a unicode-range.
+const SUBSETS = { "U+0000-00FF": "", "U+0100-02BA": "-latin-ext" };
 
 await mkdir(OUT, { recursive: true });
 
@@ -22,12 +26,12 @@ for (const { css, family } of sources) {
     const weight = face.match(/font-weight:\s*(\d+)/)?.[1];
     const style = face.match(/font-style:\s*(\w+)/)?.[1] ?? "normal";
     const url = face.match(/url\(([^)]+\.woff2[^)]*)\)/)?.[1]?.replace(/['"]/g, "");
-    // Google serves one face per unicode-range; keep the latin block only.
-    const range = face.match(/unicode-range:\s*([^;]+)/)?.[1] ?? "";
-    if (!url || !weight || (range && !range.includes("U+0000-00FF"))) continue;
+    const range = face.match(/unicode-range:\s*([^;]+)/)?.[1]?.trim();
+    const subset = range ? SUBSETS[range.split(",")[0].trim()] : "";
+    if (!url || !weight || subset === undefined) continue;
     const abs = url.startsWith("//") ? `https:${url}` : url;
     const buf = Buffer.from(await (await fetch(abs, { headers: { "user-agent": UA } })).arrayBuffer());
-    const file = `${OUT}/${family}-${weight}${style === "italic" ? "-italic" : ""}.woff2`;
+    const file = `${OUT}/${family}${subset}-${weight}${style === "italic" ? "-italic" : ""}.woff2`;
     await writeFile(file, buf);
     console.log(`${file} ${buf.length} bytes`);
   }

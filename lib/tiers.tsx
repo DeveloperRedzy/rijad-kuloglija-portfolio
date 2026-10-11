@@ -35,8 +35,10 @@ export function TierProvider({ children }: { children: React.ReactNode }) {
       if (!reducedMotion && webgl && pointerFine && innerWidth >= 1024) {
         try {
           const { getGPUTier } = await import("detect-gpu");
-          // reuse the probing context: every new context is another long main-thread task
-          gpuTier = (await getGPUTier({ glContext: probe.gl ?? undefined })).tier as TierInput["gpuTier"];
+          // reuse the probing context: every new context is another long main-thread task. The benchmark JSON is
+          // self-hosted (copied from node_modules/detect-gpu/dist/benchmarks of the locked version, 5.0.70) instead of
+          // the library's unpkg default, so no request leaves the origin; re-copy it whenever detect-gpu is upgraded.
+          gpuTier = (await getGPUTier({ glContext: probe.gl ?? undefined, benchmarksURL: "/detect-gpu" })).tier as TierInput["gpuTier"];
         } catch { gpuTier = 1; }
       }
       releaseProbe();
