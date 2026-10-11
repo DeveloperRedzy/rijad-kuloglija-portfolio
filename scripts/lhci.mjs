@@ -12,6 +12,8 @@ for (const [name, args] of runs) {
   const r = spawnSync("npx", ["--no-install", "lhci", ...args], { stdio: "inherit" });
   if (r.status !== 0) failed.push(name);
 }
+// Owner decision pending (audit F, "Mobile LCP"): lighthouserc.mobile.json keeps LCP at warn.
+console.log("\nnote: mobile largest-contentful-paint > 2500 ms is reported as a warning, not a failure, until field data decides it");
 if (failed.length) {
   console.error(`\nlhci failed: ${failed.join(", ")}`);
   process.exit(1);

@@ -8,6 +8,7 @@ import { FaviconSwap } from "@/components/ui/FaviconSwap";
 import { ConsoleSignature } from "@/components/ui/ConsoleSignature";
 import { MotionRoot } from "@/components/motion/MotionRoot";
 import { JsonLd } from "@/components/ui/JsonLd";
+import { LOADER_SCRIPT } from "@/components/brand/loader-script";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -24,7 +25,11 @@ export const viewport: Viewport = { themeColor: "#0A0908", colorScheme: "dark" }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    // suppressHydrationWarning: LOADER_SCRIPT may add data-loader to <html> before React hydrates it
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: LOADER_SCRIPT }} />
+      </head>
       <body className="bg-canvas text-ink">
         <MotionRoot>
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-canvas">Skip to content</a>

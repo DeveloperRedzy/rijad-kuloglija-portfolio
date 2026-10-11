@@ -42,8 +42,9 @@ export function ShaderFrameGate({ src }: { src: string }) {
     if (!on || !img || !host) return;
     const shown = () => img.currentSrc || img.src;
     const ready = () => setTarget({ src: shown() || src, host });
-    // the <img> may still be swapping to this media (HeroTabs): only take it once it shows this file (AVIF or WebP)
-    if (img.complete && img.naturalWidth > 0 && shown().includes(src.replace(/\.webp$/, ""))) {
+    // the <img> may still be swapping to this media (HeroTabs): only take it once it shows this image (any srcset
+    // width, AVIF or WebP: `…/hero-labs-1600.webp` → `…/hero-labs-`)
+    if (img.complete && img.naturalWidth > 0 && shown().includes(src.replace(/-\d+\.webp$/, "-"))) {
       ready();
       return;
     }
