@@ -11,7 +11,7 @@ export const profile: Profile = {
     "Lead Software Developer at LibLynx and CTO at DIN Solution. Since 2021 I've built products for teams in Germany, Switzerland, the UK, Luxembourg and the US: identity and analytics, internal banking tools, AI voice platforms.",
   aboutHeading: "Hands-on engineering, with the lead role around it.",
   about:
-    "I've built software professionally since 2021, from Sarajevo, for teams in Germany, Switzerland, the UK, Luxembourg and the US. I lead development of the report-builder application at LibLynx, an identity and analytics platform whose customers include PLOS, The Economist Group and Digital Science. I'm CTO at DIN Solution, an international FinTech consulting firm, where I set technology direction and run software delivery. At Neo Labs, a four-person AI company, I engineered the customer-facing platforms of two AI voice products. My core is frontend architecture in React, Vue 3, TypeScript and Next.js, with backend work in Laravel, Flask and Node. Before that: internal tools for ProCredit Bank, two years with Bloola on projects for German enterprise clients, and an OpenAI integration for a Swiss legal-tech product.",
+    "I've built software professionally since 2021, from Sarajevo, for teams in Germany, Switzerland, the UK, Luxembourg and the US. I design and build the report-builder application at LibLynx, an identity and analytics platform whose customers include PLOS, The Economist Group and Digital Science. I'm CTO at DIN Solution, an international FinTech consulting firm, where I set technology direction and run software delivery. At Neo Labs, a four-person AI company, I engineered the customer-facing platforms of two AI voice products. My core is frontend architecture in React, Vue 3, TypeScript and Next.js, with backend work in Laravel, Flask and Node. Before that: internal tools for ProCredit Bank, two years with Bloola on projects for German enterprise clients, and an OpenAI integration for a Swiss legal-tech product.",
   availability: null,
   contactNote:
     "Write about the product you need built or led: what it does, where it stands today, who is already on the team and your timeline. I work alone by default and bring in other engineers when the scope calls for it. I read and answer every message myself.",
@@ -31,7 +31,7 @@ export const profile: Profile = {
     "Design-to-deployment ownership",
     "Enterprise and internal banking tools",
     "Products built around AI services",
-    "Performance & UI engineering",
+    "Performance and UI engineering",
   ],
   stack: [
     { group: "Frontend", items: ["React / Next.js", "Vue 3", "TypeScript", "Material UI", "Tailwind CSS", "TanStack Query", "Storybook"] },

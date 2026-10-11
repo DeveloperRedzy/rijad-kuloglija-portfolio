@@ -7,7 +7,7 @@ export const arkona: Project = {
   categories: ["Company website", "Commerce dashboard"],
   oneLiner: "Sole frontend engineer on a software company's bilingual website, plus a multi-vendor tire-ordering dashboard.",
   role: "Senior Frontend Developer",
-  roleNote: "part-time",
+  roleNote: "Part-time",
   period: "Oct 2024 — Mar 2025",
   stack: ["React"],
   focus: ["Responsive UI", "Performance", "i18n (EN/SR)", "Dashboard workflows"],

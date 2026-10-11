@@ -17,7 +17,7 @@ export const liblynx: Project = {
     problem:
       "Access management in scholarly publishing is a compatibility problem at scale: many authentication methods and platform technologies, audited reporting standards, and customers ranging from single libraries to purchasing consortia. The report builder addresses one part of it. Usage data is only useful if customers can compose the reports they need, across event types, date ranges and COUNTER metrics, without asking support or waiting on engineering.",
     contribution:
-      "I'm the sole engineer and designer of the report-builder application, placed at LibLynx through Clearview: I design its interface and write its code, and I've led its development since October 2025. Customers compose usage reports from drag-and-drop “filter bricks”: each brick becomes a table column with its own filters, sorting and pagination run server-side, and exports run asynchronously. Around it I built saved reports with inline rename, organization-wide sharing and persistent drag-to-reorder; backend-driven template reports that build in one click; two-period comparison reports with change indicators; and an unsaved-changes guard that protects work in progress across navigation.",
+      "I'm the sole engineer and designer of the report-builder application, placed at LibLynx through Clearview: I design its interface and write its code. Customers compose usage reports from drag-and-drop “filter bricks”: each brick becomes a table column with its own filters, sorting and pagination run server-side, and exports run asynchronously. Around it I built saved reports with inline rename, organization-wide sharing and persistent drag-to-reorder; backend-driven template reports that build in one click; two-period comparison reports with change indicators; and an unsaved-changes guard that protects work in progress across navigation.",
     engineering:
       "The stack is React 19, TypeScript, Vite and Material UI, with TanStack Query for server state and dnd-kit for accessible drag-and-drop. API responses are validated with Zod, so a malformed response fails loudly instead of producing a wrong report. About thirty components are developed and documented in Storybook. The app ships in a same-origin iframe inside LibLynx's admin platform, with a postMessage bridge for content height and session expiry, a constraint that shapes dialog positioning, focus handling and scrolling. Exports follow a request, poll and download flow, and template configuration lives in the backend, so new report templates ship without a frontend release.",
   },
@@ -29,12 +29,12 @@ export const liblynx: Project = {
   ],
   decisions: [
     { choice: "Sorting, filtering and pagination run on the server", why: "Usage tables grow with every event type and date range; the browser only holds the page a customer is reading." },
-    { choice: "Zod validation on every API response", why: "A malformed response fails loudly instead of producing a wrong report." },
+    { choice: "Zod validation on every API response", why: "A malformed response stops at the API boundary and never reaches a report." },
     { choice: "Report templates configured in the backend", why: "New templates reach customers without a frontend release." },
     { choice: "Exports as request, poll and download", why: "Large exports are prepared in the background while the customer keeps working in the builder." },
   ],
   sinceLaunch:
-    "Live inside LibLynx's analytics product since 2025. I'm still the only engineer on it and keep extending it as the platform evolves; new report templates reach customers through backend configuration.",
+    "Live inside LibLynx's analytics product since 2025. I'm still its only engineer and keep extending it as the platform grows.",
   figure: "report-flow",
   media: {
     hero: {

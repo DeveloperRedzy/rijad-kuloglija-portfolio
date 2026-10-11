@@ -33,7 +33,7 @@ export const neoLabs: Project = {
     { choice: "Next.js and Tailwind CSS on Vercel for both platforms", why: "A four-person company runs both products on one toolchain and one deployment path." },
   ],
   sinceLaunch:
-    "Neo Care and Neo Therapy are both live on these platforms. I'm still at the company and continue to develop both, together with how the company presents them.",
+    "Neo Care and Neo Therapy are both live on these platforms. I still develop both and handle how the company presents them.",
   media: {
     hero: [
       { src: "/media/work/neo-labs/hero-labs-1600.webp", alt: "neo-labs.ai home page", kind: "desktop", width: 1600, height: 1000, caption: "Neo Labs" },
