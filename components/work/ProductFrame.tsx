@@ -29,7 +29,7 @@ export function ProductFrame({ media, slug, url, sizes, priority, className = ""
   const picture = (
     <Picture
       media={media}
-      sizes={sizes ?? (isMobile ? "320px" : "(min-width: 1024px) 60vw, 100vw")}
+      sizes={sizes}
       priority={priority}
       className={`block w-full ${isMobile ? "rounded-[calc(var(--radius-frame)*1.75)]" : "rounded-md"}`}
     />

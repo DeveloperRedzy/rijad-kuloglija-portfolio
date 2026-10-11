@@ -1,5 +1,6 @@
 import type { Media } from "@/content/schema";
 import { ProductFrame } from "./ProductFrame";
+import { SIZES } from "@/lib/media";
 
 type Cell = { span: string; lone?: boolean };
 
@@ -48,7 +49,7 @@ export function Gallery({ items, slug, shader, mobileLead, mobileHidden }: Props
       )}
       {items.map((m, i) => (
         <li key={m.src} className={`${layout[i].span} ${i === mobileHidden ? "hidden md:block" : ""}`}>
-          <ProductFrame media={m} slug={`${slug}-g${i}`} morph={false} shader={shader} caption={m.caption} captionBeside={layout[i].lone} />
+          <ProductFrame media={m} slug={`${slug}-g${i}`} morph={false} shader={shader} caption={m.caption} captionBeside={layout[i].lone} sizes={m.kind === "mobile" ? undefined : SIZES.gallery} />
         </li>
       ))}
     </ul>
