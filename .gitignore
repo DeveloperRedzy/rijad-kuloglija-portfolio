@@ -36,3 +36,6 @@ assets/source/
 
 # Playwright MCP session output
 .playwright-mcp/
+
+# Local agent worktrees
+.claude/worktrees/

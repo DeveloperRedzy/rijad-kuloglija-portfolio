@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local tooling: agent worktrees and Playwright MCP output are never source.
+    ".claude/**",
+    ".playwright-mcp/**",
   ]),
 ]);
 
