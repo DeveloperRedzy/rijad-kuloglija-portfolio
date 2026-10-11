@@ -96,7 +96,8 @@ export function HeroPoster() {
 
   const box = poster
     ? "fixed left-1/2 top-1/2 z-[200] aspect-square w-[100vmin] -translate-x-1/2 -translate-y-1/2"
-    : "relative mx-auto aspect-square w-[min(72vw,520px)] lg:w-[min(38vw,620px)]";
+    // lg: capped to its 4/12 column (it used to be sized by the viewport alone and spilled past the container's edge)
+    : "relative mx-auto aspect-square w-[min(72vw,520px)] lg:w-full lg:max-w-[min(38vw,620px)]";
 
   return (
     <div data-hero-poster className={box}>
@@ -124,7 +125,7 @@ export function HeroPoster() {
           <img
             src="/media/hero/poster-900.webp"
             srcSet="/media/hero/poster-900.webp 900w, /media/hero/poster-1600.webp 1600w"
-            sizes="(min-width: 1024px) min(38vw, 620px), min(72vw, 520px)"
+            sizes="(min-width: 1024px) 360px, min(72vw, 520px)"
             alt={`${profile.brand} monogram`}
             width={900}
             height={900}

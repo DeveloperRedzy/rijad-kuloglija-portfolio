@@ -16,8 +16,10 @@ test.describe("no horizontal overflow on narrow phones", () => {
         await page.setViewportSize({ width, height: 740 });
         await page.goto(path);
         await page.waitForLoadState("networkidle");
-        const { scrollWidth, innerWidth } = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth }));
-        expect(scrollWidth, `${path} scrollWidth at ${width} px`).toBeLessThanOrEqual(innerWidth);
+        // clientWidth, not innerWidth: with isMobile the layout viewport grows to fit the content, so innerWidth would
+        // equal scrollWidth and hide the overflow.
+        const { scrollWidth, clientWidth } = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
+        expect(scrollWidth, `${path} scrollWidth at ${width} px`).toBeLessThanOrEqual(clientWidth);
       });
     }
   }

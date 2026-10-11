@@ -16,7 +16,7 @@ export function Hero() {
       <div data-hero-bg aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -top-16 -z-10 bg-canvas" />
       <div className="overflow-hidden">
         {/* 8/4 with a 24 px column gap: the copy column is ~700 px at the 1200 px container, so the capped headline sets
-            in three lines from 1024 up; the poster box is sized by the viewport (HeroPoster), not by its column.
+            in three lines from 1024 up; the poster box fills its column (HeroPoster), capped at min(38vw, 620px).
             lg: more padding below than above sets the centred pair a little above the middle, so the CTAs clear the
             fold with room to spare at 1280×800 and 1440×900. */}
         <div className="container-site grid min-h-[calc(100dvh-4rem)] items-center gap-12 py-16 lg:grid-cols-12 lg:gap-x-6 lg:pb-32 lg:pt-10">

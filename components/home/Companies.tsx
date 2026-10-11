@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { profile } from "@/content/profile";
+import { COMPANIES } from "@/content/labels";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/brand/Icon";
 
@@ -11,11 +12,11 @@ export function Companies() {
   return (
     <section aria-label="Companies" className="relative border-t border-hairline bg-canvas py-14 md:py-20">
       <div className="container-site flex items-center justify-between gap-4">
-        <Eyebrow>Companies I&apos;ve worked for and with</Eyebrow>
+        <Eyebrow>{COMPANIES.eyebrow}</Eyebrow>
         {/* hidden where the marquee does not animate; negative margin keeps the 44 px hit area out of the layout */}
         <button
           type="button"
-          aria-label="Pause the company names"
+          aria-label={COMPANIES.pause}
           aria-pressed={paused}
           onClick={() => setPaused((p) => !p)}
           className="-my-3.5 -mr-3 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-muted transition-colors hover:text-ink motion-reduce:hidden"

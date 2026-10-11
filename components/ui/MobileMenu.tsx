@@ -53,7 +53,8 @@ export function MobileMenu() {
 
   return (
     <div className="ml-auto md:hidden">
-      <button ref={button} type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen((o) => !o)} className="p-2 text-ink">
+      {/* 38 px icon box grown to a 44 px hit area; the negative margin keeps it from moving (audit #22) */}
+      <button ref={button} type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen((o) => !o)} className="-m-[3px] inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-ink">
         <Icon name={open ? "close" : "menu"} size={22} />
       </button>
       {open && createPortal(

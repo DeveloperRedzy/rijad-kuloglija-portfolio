@@ -14,10 +14,7 @@ import { BackToWork } from "./BackToWork";
 import { ReadingProgress } from "./ReadingProgress";
 import { CaseNotes } from "./CaseNotes";
 import { pad2 } from "@/lib/format";
-
-const SECTIONS: Array<[keyof Project["body"], string]> = [
-  ["overview", "Overview"], ["problem", "Problem"], ["contribution", "Contribution"], ["engineering", "Engineering"],
-];
+import { CASE } from "@/content/labels";
 
 export function CaseStudy({ project, next }: { project: Project; next: Project }) {
   const heroes = Array.isArray(project.media.hero) ? project.media.hero : [project.media.hero];
@@ -60,25 +57,21 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
         </header>
 
         <div className="mt-12 md:mt-16">
-          {mobileHero && (
-            <div className="md:hidden">
-              <ProductFrame media={mobileHero.media} slug={`${project.slug}-m`} morph={false} caption={mobileHero.media.caption} />
-            </div>
-          )}
-          <div className={mobileHero ? "hidden md:block" : undefined}>
-            {heroes.length > 1 ? <HeroTabs heroes={heroes} slug={project.slug} url={project.live?.label} shader /> : <ProductFrame media={heroes[0]} slug={project.slug} url={project.live?.label} priority shader caption={heroes[0].caption} />}
-          </div>
+          {/* One frame: below md it shows the phone capture (art-directed <picture>), so the visible image is the
+              priority one at every width. */}
+          {heroes.length > 1 ? <HeroTabs heroes={heroes} slug={project.slug} url={project.live?.label} shader /> : <ProductFrame media={heroes[0]} mobile={mobileHero?.media} slug={project.slug} url={project.live?.label} priority shader caption={heroes[0].caption} />}
         </div>
 
-        <div className="mt-16 grid md:mt-24 md:grid-cols-[200px_1fr]">
-          {SECTIONS.map(([key, label]) => (
+        {/* minmax(0,1fr): the body track never grows to fit its widest child (the 640 px report-flow figure on phones). */}
+        <div className="mt-16 grid grid-cols-[minmax(0,1fr)] md:mt-24 md:grid-cols-[200px_minmax(0,1fr)]">
+          {CASE.sections.map(([key, label]) => (
             <div key={key} className="contents">
               <h2 className="eyebrow border-t border-hairline pt-7 md:pb-7">{label}</h2>
               <p data-split className="max-w-[62ch] border-t border-hairline pb-7 pt-3 text-base leading-relaxed text-ink-soft md:pt-7 md:text-lg">{project.body[key]}</p>
             </div>
           ))}
           <CaseNotes project={project} />
-          <h2 className="eyebrow border-t border-hairline pt-7 md:pb-7">Delivered</h2>
+          <h2 className="eyebrow border-t border-hairline pt-7 md:pb-7">{CASE.delivered}</h2>
           <ul className="border-t border-hairline pb-7 pt-3 md:pt-7">
             {project.delivered.map((d) => <li key={d} className="flex gap-4 border-b border-surface-2 py-2.5 text-ink-soft"><span aria-hidden className="text-signal">—</span>{d}</li>)}
           </ul>

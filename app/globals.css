@@ -192,12 +192,3 @@ html:is([data-tier="A"], [data-tier="B"]) [data-contact-mark]:not([data-assemble
 [data-chapter]:focus-within { z-index: 40 !important; }
 [data-chapter]:focus-within [data-chapter-grid] { opacity: 1 !important; }
 
-/* The mobile menu toggle (MobileMenu) is 38 px; extend its hit area to 44 px without moving it (audit #22). */
-button[aria-controls="mobile-menu"] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  margin: -3px;
-}
