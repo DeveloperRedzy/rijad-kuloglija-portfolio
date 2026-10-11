@@ -4,7 +4,7 @@ import { NavDot } from "./NavDot";
 import { Pill } from "./Pill";
 import { MobileMenu } from "./MobileMenu";
 import { profile } from "@/content/profile";
-import { NAV } from "@/content/nav";
+import { CTA, NAV } from "@/content/nav";
 
 export function Navbar() {
   return (
@@ -28,7 +28,7 @@ export function Navbar() {
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} className="eyebrow transition-colors hover:text-ink">{n.label}</Link>
           ))}
-          <Pill href={`mailto:${profile.email}`} external dot className="py-2">Send a signal</Pill>
+          <Pill href={`mailto:${profile.email}?subject=${encodeURIComponent(CTA.subject)}`} external dot className="py-2">{CTA.label}</Pill>
         </nav>
         <MobileMenu />
       </div>

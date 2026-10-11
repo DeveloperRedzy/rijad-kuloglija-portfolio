@@ -21,6 +21,8 @@ export function Cursor() {
     const mode = (m: "default" | "link" | "frame" | "signal", force = false) => {
       if (m === current && !force) return;
       current = m;
+      // the frame pill gets a canvas backdrop (styled via data-mode) so its label reads over any capture
+      r.dataset.mode = m;
       ctx.add(() => {
       // frame: a pill sized to its label (width auto, 0 14px padding), so the text never clips
       const size = m === "link" ? 48 : m === "signal" ? 10 : 28;
@@ -73,7 +75,7 @@ export function Cursor() {
   return (
     <>
       <div ref={dot} aria-hidden className="pointer-events-none fixed left-0 top-0 z-[70] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal shadow-[0_0_8px_2px_rgba(255,74,38,.7)]" data-cursor-dot />
-      <div ref={ring} aria-hidden className="pointer-events-none fixed left-0 top-0 z-[70] flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-signal/70 shadow-[0_0_16px_4px_rgba(255,74,38,.18)]" data-cursor-ring>
+      <div ref={ring} aria-hidden className="pointer-events-none fixed left-0 top-0 z-[70] flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-signal/70 shadow-[0_0_16px_4px_rgba(255,74,38,.18)] data-[mode=frame]:bg-canvas/80 data-[mode=frame]:backdrop-blur-sm" data-cursor-ring>
         <span ref={label} className="eyebrow whitespace-nowrap text-ink opacity-0 transition-opacity" style={{ display: "none" }}>Open case ↗</span>
       </div>
     </>

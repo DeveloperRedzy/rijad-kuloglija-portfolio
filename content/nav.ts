@@ -5,3 +5,5 @@ export const NAV = [
   { label: "Experience", href: "/#experience" },
   { label: "Contact", href: "/#contact" },
 ];
+
+export const CTA = { label: "Discuss a project", subject: "Project enquiry" } as const;
