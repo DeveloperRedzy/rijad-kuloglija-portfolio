@@ -35,7 +35,8 @@ export function Hero() {
             </div>
             <AvailabilityBadge className="mt-8" />
           </div>
-          <div className="lg:col-span-4"><HeroPoster /></div>
+          {/* The monogram may run into the right gutter (never past the viewport) so it keeps its weight next to the headline. */}
+          <div className="lg:col-span-4 lg:-mr-12 xl:-mr-16"><HeroPoster /></div>
         </div>
       </div>
       <HeroOverlay />

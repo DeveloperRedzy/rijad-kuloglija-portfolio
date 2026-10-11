@@ -96,8 +96,8 @@ export function HeroPoster() {
 
   const box = poster
     ? "fixed left-1/2 top-1/2 z-[200] aspect-square w-[100vmin] -translate-x-1/2 -translate-y-1/2"
-    // lg: capped to its 4/12 column (it used to be sized by the viewport alone and spilled past the container's edge)
-    : "relative mx-auto aspect-square w-[min(72vw,520px)] lg:w-full lg:max-w-[min(38vw,620px)]";
+    // lg: fills its column (the column itself extends into the right gutter, see Hero); never sized by the viewport alone
+    : "relative mx-auto aspect-square w-[min(72vw,520px)] lg:w-full lg:max-w-[620px]";
 
   return (
     <div data-hero-poster className={box}>
