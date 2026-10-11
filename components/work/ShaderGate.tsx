@@ -41,14 +41,13 @@ export function ShaderFrameGate({ src }: { src: string }) {
     const host = el?.closest<HTMLElement>("[data-frame]");
     if (!on || !img || !host) return;
     const shown = () => img.currentSrc || img.src;
-    const ready = () => setTarget({ src: shown() || src, host });
-    // the <img> may still be swapping to this media (HeroTabs): only take it once it shows this image (any srcset
-    // width, AVIF or WebP: `…/hero-labs-1600.webp` → `…/hero-labs-`)
-    if (img.complete && img.naturalWidth > 0 && shown().includes(src.replace(/-\d+\.webp$/, "-"))) {
-      ready();
-      return;
-    }
-    img.addEventListener("load", ready, { once: true });
+    // The <img> may be showing another file: a HeroTabs swap in progress, or the art-directed phone capture below md.
+    // Only take it once it shows this image (any srcset width, AVIF or WebP: `…/hero-labs-1600.webp` → `…/hero-labs-`),
+    // and keep listening so a later swap back to the desktop file (window widened past md) still arms the shader.
+    const stem = src.replace(/-\d+\.webp$/, "-");
+    const ready = () => { if (shown().includes(stem)) setTarget({ src: shown(), host }); };
+    if (img.complete && img.naturalWidth > 0) ready();
+    img.addEventListener("load", ready);
     return () => img.removeEventListener("load", ready);
   }, [on, src]);
   return (

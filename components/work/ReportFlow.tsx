@@ -20,7 +20,7 @@ export function ReportFlow() {
   return (
     // Keeps the labels legible on phones: the figure scrolls sideways instead of shrinking below ~640 px. The scroll
     // container is a focusable, named region so keyboard users can scroll it (axe scrollable-region-focusable).
-    <figure tabIndex={0} role="region" aria-labelledby="report-flow-title" className="m-0 overflow-x-auto">
+    <figure tabIndex={0} role="region" aria-label={F.label} className="m-0 overflow-x-auto">
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ minWidth: 640 }} role="img" aria-labelledby="report-flow-title" aria-describedby="report-flow-desc" className="block h-auto" fill="none" strokeWidth={1}>
         <title id="report-flow-title">{F.title}</title>
         <defs>

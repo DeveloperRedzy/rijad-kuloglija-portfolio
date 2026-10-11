@@ -125,7 +125,7 @@ export function HeroPoster() {
           <img
             src="/media/hero/poster-900.webp"
             srcSet="/media/hero/poster-900.webp 900w, /media/hero/poster-1600.webp 1600w"
-            sizes="(min-width: 1024px) 360px, min(72vw, 520px)"
+            sizes="(min-width: 1280px) 405px, (min-width: 1024px) 365px, min(72vw, 520px)"
             alt={`${profile.brand} monogram`}
             width={900}
             height={900}

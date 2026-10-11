@@ -39,7 +39,7 @@ export const liblynx: Project = {
   media: {
     hero: {
       src: "/media/work/liblynx/hero-desktop-1600.webp",
-      alt: "liblynx.com home page: the LibLynx logo, a photo of a classroom presentation, and links for publishers and for libraries",
+      alt: "liblynx.com home page: the LibLynx logo, hero imagery and the customer logos (desktop or phone capture)",
       kind: "desktop", width: 1600, height: 1000,
       caption: "liblynx.com (product marketing site; the report builder sits behind customer login)",
     },
