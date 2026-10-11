@@ -17,12 +17,9 @@ Owner-run. Nothing here is automated; tick each box on the branch before merging
 - [ ] Owner questions answered (each names the file and field to change; edit, then `npm run check` and `npm run build`):
   - [ ] **Neo Labs start month**: `content/profile.ts` → `roles[company "Neo Labs"].start`. Currently assumed `"2025-09"`.
   - [ ] **Amodo row** (Flutter, 2022-09 → 2022-10): keep it off the CV, or show it? `content/profile.ts` → `roles[company "Amodo"].showOnCv` (currently `false`).
-  - [ ] **Availability text**: `content/profile.ts` → `availability` (currently "Open to product engagements from Q1 2027"; `null` hides the badge).
   - [ ] **Neo Labs title on the CV**: is "Head of Communications & Software Innovation" the wording you want? `content/profile.ts` → `roles[company "Neo Labs"].title` (also `content/work/neo-labs.ts` → `role`).
-  - [ ] **"DIN Solution" vs "DIN FinTech Solutions"**: the site uses "DIN Solution" everywhere, including the case overview. If the legal name should appear, edit `content/work/din-solution.ts` → `body.overview` (first sentence).
   - [ ] **Nepa Invest role and months**: `content/work/nepa-invest.ts` → `role` (currently "Web Engineer") and `period` (currently "2025"; add months if known, e.g. "Mar 2025 — Jun 2025").
   - [ ] **Sui NFT dApp live URL**: `content/profile.ts` → `lab[name "Sui NFT dApp"].links` points at `https://dapp-test-hazel.vercel.app/`, which reads as a test deployment. Provide a proper URL, or remove the "Live" link (the GitHub link was dropped because it pointed at the profile root).
-  - [ ] **LibLynx app screenshots**: swap in report-builder screenshots (`content/work/liblynx.ts` TODO at the top, spec §7.2; originals in `assets/source/app-screenshots/liblynx/`, then `npm run assets`), or accept the marketing-site capture for launch.
   - [ ] **ProCredit / Arkona overlap**: ProCredit Bank (on-site, `2024-03` → `2025-10`) overlaps Arkona Technology (part-time, `2024-10` → `2025-03`). Confirm both date ranges in `content/profile.ts` → `roles[company "ProCredit Bank"]` and `roles[company "Arkona Technology"]` (`start` / `end`; Arkona also `content/work/arkona.ts` → `period`).
 - [ ] Vercel preview of `redesign/signal` reviewed on phone and laptop, in Tier B and Tier A
   (force a tier in DevTools: `localStorage.setItem("redzy:tier", "A")`, reload; `localStorage.removeItem("redzy:tier")` to reset)

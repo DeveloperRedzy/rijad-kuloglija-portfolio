@@ -2,12 +2,12 @@ import type { Project } from "../schema";
 
 export const dinSolution: Project = {
   slug: "din-solution",
-  index: 2,
+  index: 5,
   name: "DIN Solution",
   categories: ["FinTech", "Consulting", "Technology leadership"],
   oneLiner: "Owning the technology function of an international FinTech consulting firm.",
   role: "CTO & Head of Software Development",
-  period: "2026 — present",
+  period: "Jan 2026 — present",
   // stack: verified from the live site (Next.js `_next/static` assets, `server: Vercel`)
   stack: ["Next.js", "Vercel"],
   focus: ["Technology leadership", "IT solutions", "FinTech consulting"],
@@ -34,5 +34,6 @@ export const dinSolution: Project = {
     ],
   },
   cvLine: "Technology direction and the software development function of an international FinTech consulting firm (London, Luxembourg, US), including delivery behind its IT-solutions service line and the firm's web platform.",
-  featured: true,
+  // No case study until the DIN redesign ships (owner decision, 2026-10-11); the role stays in Experience and the CV.
+  featured: false,
 };

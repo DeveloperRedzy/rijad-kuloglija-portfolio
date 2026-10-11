@@ -40,7 +40,8 @@ export const RoleSchema = z.object({
 
 export const ProjectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
-  index: z.number().int().min(1).max(5),
+  /** Position among featured projects; uniqueness and contiguity are checked in content/validate.ts. */
+  index: z.number().int().min(1),
   name: z.string().min(1),
   categories: z.array(z.string().min(1)).min(1).max(4),
   oneLiner: z.string().min(10).max(140),
@@ -64,8 +65,25 @@ export const ProjectSchema = z.object({
     hero: z.union([MediaSchema, z.array(MediaSchema).min(2).max(3)]),
     gallery: z.array(MediaSchema).max(4),
   }),
+  /** Choices made on the project and the reason for each (the case's Decisions row). */
+  decisions: z.array(z.object({ choice: z.string().min(10), why: z.string().min(10) })).max(4).optional(),
+  /** What happened after the work shipped (the case's Since launch row). */
+  sinceLaunch: z.string().min(20).max(400).optional(),
+  /** A hand-drawn figure rendered in the case body. */
+  figure: z.enum(["report-flow"]).optional(),
   cvLine: z.string().min(20).max(260),
-  featured: z.literal(true),
+  /** Only featured projects are listed, routed and linked anywhere on the site. */
+  featured: z.boolean(),
+});
+
+/** Every project, featured or not: slugs are unique and featured indices run 1..n without gaps or repeats. */
+export const ProjectListSchema = z.array(ProjectSchema).superRefine((list, ctx) => {
+  const slugs = list.map((p) => p.slug);
+  if (new Set(slugs).size !== slugs.length) ctx.addIssue({ code: "custom", message: `duplicate project slugs: ${slugs.join(", ")}` });
+  const indices = list.filter((p) => p.featured).map((p) => p.index).sort((a, b) => a - b);
+  if (indices.some((n, i) => n !== i + 1)) {
+    ctx.addIssue({ code: "custom", message: `featured project indices must be 1..${indices.length}, got ${indices.join(", ")}` });
+  }
 });
 
 export const LabItemSchema = z.object({
@@ -74,6 +92,8 @@ export const LabItemSchema = z.object({
   year: z.string().min(4),
   links: z.array(LabLinkSchema).optional(),
   previewSlug: z.string().optional(),
+  /** False when the CV already covers the item through a role. */
+  showOnCv: z.boolean(),
 });
 
 export const ProfileSchema = z.object({
@@ -81,11 +101,15 @@ export const ProfileSchema = z.object({
   brand: z.string().min(1),
   title: z.string(),
   jobTitle: z.string().min(1),
+  /** The second current title, used next to jobTitle in the site title. */
+  secondTitle: z.string().min(1),
   headline: z.string().max(60),
   lead: z.string().max(260),
   aboutHeading: z.string().min(1).max(60),
   about: z.string().min(200).max(900),
   availability: z.string().max(80).nullable(),
+  /** What to write about, shown above the email in Contact. */
+  contactNote: z.string().min(40).max(300),
   location: z.string(),
   city: z.string().min(1),
   countryCode: z.string().length(2),
@@ -98,6 +122,8 @@ export const ProfileSchema = z.object({
   education: z.array(z.object({ school: z.string(), short: z.string(), degree: z.string(), years: z.string() })).min(1),
   languages: z.array(z.object({ name: z.string(), code: z.string().length(2), level: z.string() })).min(1),
   companies: z.array(z.string()).min(6),
+  /** Current employers for structured data (Person.worksFor). */
+  worksFor: z.array(z.object({ name: z.string().min(1), url: HttpUrl.optional() })).min(1),
   roles: z.array(RoleSchema).min(5),
   lab: z.array(LabItemSchema).min(3),
 });
@@ -106,5 +132,6 @@ export type Link = z.infer<typeof LinkSchema>;
 export type Media = z.infer<typeof MediaSchema>;
 export type Role = z.infer<typeof RoleSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
+export type Decision = NonNullable<Project["decisions"]>[number];
 export type LabItem = z.infer<typeof LabItemSchema>;
 export type Profile = z.infer<typeof ProfileSchema>;

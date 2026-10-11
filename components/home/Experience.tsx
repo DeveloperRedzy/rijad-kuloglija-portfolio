@@ -1,5 +1,6 @@
 import { profile } from "@/content/profile";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { PRESENT } from "@/lib/format";
 import { ExperienceList } from "./ExperienceList";
 
 export function Experience() {
@@ -8,10 +9,10 @@ export function Experience() {
       <div className="container-site">
         <div className="flex items-end justify-between gap-6">
           <div>
-            <Eyebrow>03 — Experience</Eyebrow>
-            <h2 data-split className="display-lg mt-4">{profile.since} → now</h2>
+            <Eyebrow as="h2">03 — Experience</Eyebrow>
+            <p data-split className="display-lg mt-4">{profile.since} → {PRESENT}</p>
           </div>
-          <p className="eyebrow hidden md:block">{profile.roles.length} roles · {profile.roles.filter((r) => r.current).length} current</p>
+          <p className="eyebrow hidden md:block">{profile.roles.length} roles</p>
         </div>
         <ExperienceList roles={profile.roles} />
       </div>

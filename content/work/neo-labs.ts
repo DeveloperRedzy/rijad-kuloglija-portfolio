@@ -2,13 +2,13 @@ import type { Project } from "../schema";
 
 export const neoLabs: Project = {
   slug: "neo-labs",
-  index: 3,
+  index: 2,
   name: "Neo Labs",
   categories: ["AI voice", "Care technology", "Mental wellness"],
   oneLiner: "Engineering the customer-facing platforms of two AI voice products for care and mental wellness.",
   role: "Head of Communications & Software Innovation",
-  roleNote: "one of four members · engineered both customer-facing platforms",
-  period: "2025 — present",
+  roleNote: "One of four people at the company · engineered both customer-facing platforms",
+  period: "Sep 2025 — present",
   stack: ["Next.js", "Tailwind CSS", "Vercel"],
   focus: ["AI voice calls", "Scheduling & reports", "Escalation workflows"],
   live: { label: "neo-labs.ai", url: "https://www.neo-labs.ai/" },
@@ -18,15 +18,22 @@ export const neoLabs: Project = {
     problem:
       "Voice AI in care and mental wellness is a trust problem before it is a technology problem. In Neo Care the buyer and the user are different people: an adult child configures and pays on the web, and the parent just answers the phone. The products serve vulnerable users in the EU, which means GDPR by default, honest positioning about what an AI service is and isn't, and escalation paths that cannot silently fail.",
     contribution:
-      "I'm responsible for how the products are engineered and how they speak to the people who depend on them. I engineered the customer-facing web platforms of both: sign-up, call scheduling, per-person check-in configuration, multiple emergency contacts and report delivery for Neo Care; onboarding, therapeutic-goal configuration, scheduling and progress tracking for Neo Therapy.",
+      "I'm responsible for the engineering of both web platforms and for how the company communicates its products. For Neo Care that means sign-up, call scheduling, per-person check-in configuration, multiple emergency contacts and report delivery; for Neo Therapy, onboarding, therapeutic-goal configuration, scheduling and progress tracking.",
     engineering:
-      "Both platforms are Next.js and Tailwind CSS applications on Vercel: one product model shipped twice, each brand with its own visual identity, configuration flows and reporting surfaces. The engineering weight sits in the workflows around the calls rather than the calls themselves: schedules, customization, escalation, reporting, and Neo Therapy's crisis-prevention layer, the most sensitive workflow in the product.",
+      "Both platforms are Next.js and Tailwind CSS applications on Vercel: one product model shipped twice, each brand with its own visual identity, configuration flows and reporting surfaces. My work sits in the workflows around the calls: schedules, customization, escalation, reporting, and the web side of Neo Therapy's crisis-prevention layer, the most sensitive workflow in the product.",
   },
   delivered: [
     "Two live subscription products shipped on a shared product model",
     "Customer-facing platforms for onboarding, scheduling and reporting",
-    "Company-wide ownership of product communication alongside the engineering",
+    "Product communication for the company, alongside the engineering",
   ],
+  decisions: [
+    { choice: "One product model, shipped as two brands", why: "Neo Care and Neo Therapy share scheduling, check-ins and reporting, so each brand differs only where its users differ: identity, configuration flows and reports." },
+    { choice: "Escalation treated as a core workflow", why: "The products serve vulnerable users, and an escalation path must never fail silently." },
+    { choice: "Next.js and Tailwind CSS on Vercel for both platforms", why: "A four-person company runs both products on one toolchain and one deployment path." },
+  ],
+  sinceLaunch:
+    "Neo Care and Neo Therapy are both live on these platforms. I'm still at the company and continue to develop both, together with how the company presents them.",
   media: {
     hero: [
       { src: "/media/work/neo-labs/hero-labs-1600.webp", alt: "neo-labs.ai home page", kind: "desktop", width: 1600, height: 1000, caption: "Neo Labs" },
@@ -38,6 +45,6 @@ export const neoLabs: Project = {
       { src: "/media/work/neo-labs/gallery-2-800.webp", alt: "Neo Therapy on a phone", kind: "mobile", width: 800, height: 1734, caption: "Neo Therapy · mobile" },
     ],
   },
-  cvLine: "One of four members of an EU AI-voice company; engineered the customer-facing Next.js platforms of Neo Care (daily AI calls for seniors) and Neo Therapy (structured support between therapy sessions).",
+  cvLine: "One of four people at an EU AI-voice company; engineered the customer-facing Next.js platforms of Neo Care (daily AI calls for seniors) and Neo Therapy (structured support between therapy sessions).",
   featured: true,
 };

@@ -16,7 +16,7 @@ export function WorkChapters() {
       <div data-reveal-after-dive className="container-site pb-6 pt-24 md:pt-32 lg:pt-16">
         <Eyebrow>01 — Selected work</Eyebrow>
         {/* one line on lg: the landing (.82) shows the header and chapter 01's whole frame in one viewport */}
-        <h2 data-split className="display-lg mt-4 max-w-[16ch] lg:max-w-none">Real products, in production.</h2>
+        <h2 data-split className="display-lg mt-4 max-w-[16ch] lg:max-w-none">Work in production.</h2>
       </div>
       <ProgressRail />
       <ol className="relative">

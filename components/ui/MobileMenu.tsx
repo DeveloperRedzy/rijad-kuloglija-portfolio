@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Icon } from "@/components/brand/Icon";
-import { NAV } from "@/content/nav";
+import { CTA, NAV } from "@/content/nav";
 import { profile } from "@/content/profile";
 
 export function MobileMenu() {
@@ -64,7 +64,10 @@ export function MobileMenu() {
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} onClick={() => { const h = n.href.split("#")[1]; target.current = n.href.startsWith("/#") && h ? h : null; close(); }} className="display-md border-t border-hairline py-5">{n.label}</Link>
           ))}
-          <a href={`mailto:${profile.email}`} onClick={close} className="mt-auto mb-10 border-t border-hairline pt-6 font-display text-2xl font-bold tracking-tight text-signal-soft">{profile.email}</a>
+          <a href={`mailto:${profile.email}?subject=${encodeURIComponent(CTA.subject)}`} onClick={close} className="mt-auto mb-10 border-t border-hairline pt-6">
+            <span className="block font-display text-2xl font-bold tracking-tight text-signal-soft">{CTA.label}</span>
+            <span className="eyebrow mt-2 block normal-case tracking-[0.04em]">{profile.email}</span>
+          </a>
         </div>,
         document.body,
       )}
