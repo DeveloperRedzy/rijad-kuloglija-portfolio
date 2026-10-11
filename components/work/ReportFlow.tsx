@@ -18,8 +18,9 @@ const CHIP = "fill-surface-2 stroke-hairline-strong";
 export function ReportFlow() {
   const [tx, tw] = COL.table;
   return (
-    <figure className="m-0">
-      <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-labelledby="report-flow-title" aria-describedby="report-flow-desc" className="block h-auto" fill="none" strokeWidth={1}>
+    <figure className="m-0 overflow-x-auto">
+      {/* Keeps the labels legible on phones: the figure scrolls sideways instead of shrinking below ~640 px. */}
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ minWidth: 640 }} role="img" aria-labelledby="report-flow-title" aria-describedby="report-flow-desc" className="block h-auto" fill="none" strokeWidth={1}>
         <title id="report-flow-title">{F.title}</title>
         <defs>
           <marker id="report-flow-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">

@@ -28,7 +28,7 @@ test("email button copies to clipboard", async ({ page, context, browserName }) 
   test.skip(browserName !== "chromium", "clipboard permissions are chromium-only");
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/#contact");
-  await page.getByRole("link", { name: /rkuloglija@gmail.com/ }).click();
+  await page.getByRole("button", { name: "Copy email address" }).click();
   await expect(page.getByRole("status")).toHaveText(/Copied to clipboard/);
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("rkuloglija@gmail.com");
 });

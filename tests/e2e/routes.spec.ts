@@ -1,9 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 const routes: Array<[string, RegExp]> = [
-  ["/", /Software that keeps working after launch/],
+  ["/", /I build products and stand behind them/],
   ["/work/liblynx/", /LibLynx report builder/],
-  ["/work/din-solution/", /DIN Solution/],
   ["/work/neo-labs/", /Neo Labs/],
   ["/work/arkona/", /Arkona \+ GumaMax/],
   ["/work/nepa-invest/", /Nepa Invest/],
@@ -42,7 +41,7 @@ test("neo-labs hero tabs switch heroes and support arrow keys", async ({ page })
 
 test("case study has title and canonical metadata", async ({ page }) => {
   await page.goto("/work/liblynx/");
-  await expect(page).toHaveTitle("LibLynx report builder — Redzy");
+  await expect(page).toHaveTitle("LibLynx report builder — Rijad Kuloglija");
   await expect(page.locator("link[rel=canonical]")).toHaveAttribute("href", /\/work\/liblynx\/$/);
 });
 

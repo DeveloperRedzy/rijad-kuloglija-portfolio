@@ -12,7 +12,7 @@ async function expectPng(page: Page, url: string | null) {
 
 test("home has metadata, OG image and Person JSON-LD", async ({ page }) => {
   await page.goto("/");
-  await expect(page).toHaveTitle("Redzy — Rijad Kuloglija");
+  await expect(page).toHaveTitle("Rijad Kuloglija — Lead Software Developer & CTO, Sarajevo");
   const og = page.locator('meta[property="og:image"]');
   await expect(og).toHaveAttribute("content", /\/og\/home\.png$/);
   await expectPng(page, await og.getAttribute("content"));
@@ -22,7 +22,7 @@ test("home has metadata, OG image and Person JSON-LD", async ({ page }) => {
 
 test("case study has its own title, canonical and OG image", async ({ page }) => {
   await page.goto("/work/liblynx/");
-  await expect(page).toHaveTitle("LibLynx report builder — Redzy");
+  await expect(page).toHaveTitle("LibLynx report builder — Rijad Kuloglija");
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /\/work\/liblynx\/$/);
   const og = await page.locator('meta[property="og:image"]').getAttribute("content");
   expect(og).toMatch(/\/og\/liblynx\.png$/);

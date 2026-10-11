@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // openGraph is shallow-merged with the layout's, so the shared fields are repeated here.
   return { title: p.name, description: p.oneLiner, alternates: { canonical: `/work/${p.slug}/` },
     openGraph: {
-      type: "website", siteName: profile.brand, locale: "en_US", title: `${p.name} — ${profile.brand}`, description: p.oneLiner,
+      type: "website", siteName: profile.brand, locale: "en_US", title: `${p.name} — ${profile.name}`, description: p.oneLiner,
       url: `/work/${p.slug}/`, images: [{ url: `/og/${p.slug}.png`, width: 1200, height: 630 }],
     },
     twitter: { images: [`/og/${p.slug}.png`] },
