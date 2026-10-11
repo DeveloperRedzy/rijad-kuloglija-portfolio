@@ -19,7 +19,7 @@ Next.js 16 App Router, static export (`out/`), React 19, TypeScript strict, Tail
 - Spec: `docs/superpowers/specs/2026-10-09-portfolio-redesign-design.md`. Plans: `docs/superpowers/plans/`.
 - `assets/source/` is gitignored (originals). `public/media/` is committed (processed).
 - Motion: respect `prefers-reduced-motion`; GSAP/R3F run behind `lib/tiers.tsx` (Tier C = reduced motion, no motion layer).
-- Commits: conventional prefix, end with `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`.
+- Commits: a short imperative subject in plain language, body only when the why needs it, no tool or AI attribution lines.
 
 ## Build and deploy notes
 - `vercel.json` sets the security headers (nosniff, referrer policy, permissions policy, `frame-ancestors 'none'`) for every path and a 1-day `Cache-Control` with stale-while-revalidate for `/media/*`.
