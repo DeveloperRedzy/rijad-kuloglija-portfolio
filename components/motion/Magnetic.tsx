@@ -13,14 +13,19 @@ export function Magnetic() {
     const cleanups: Array<() => void> = [];
     document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
       const dot = el.querySelector<HTMLElement>("[data-magnetic-dot]");
-      const x = gsap.quickTo(el, "x", { duration: 0.4, ease: "power3.out" });
-      const y = gsap.quickTo(el, "y", { duration: 0.4, ease: "power3.out" });
+      // The pull uses quickTo setters; the elastic return is a separate tween that overwrites them, so the setters are
+      // re-created on the next pull (a quickTo whose tween was overwritten warns "not eligible for reset").
+      const QUICK = { duration: 0.4, ease: "power3.out" } as const;
+      let x = gsap.quickTo(el, "x", QUICK);
+      let y = gsap.quickTo(el, "y", QUICK);
       let pulled = false;
       const leave = () => {
         if (!pulled) return;
         pulled = false;
         ctx.add(() => {
           gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.5)", overwrite: "auto" });
+          x = gsap.quickTo(el, "x", QUICK);
+          y = gsap.quickTo(el, "y", QUICK);
           if (dot) gsap.to(dot, { x: 0, y: 0, duration: 0.4, overwrite: "auto" });
         });
       };
