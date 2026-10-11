@@ -2,6 +2,9 @@
   "name": "redzy-portfolio",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "NEXT_PUBLIC_BUILD_DATE=$(date -u +%Y-%m-%d) next build",
