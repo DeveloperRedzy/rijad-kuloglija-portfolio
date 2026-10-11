@@ -93,3 +93,7 @@ Exact copy: audit §D (recommended = direction 1 headline + direction 4 lead) an
 2. `npm ci`, `npm run check`, `npm run build`, `npm run budget`, `npm run lhci`, full Playwright on 4173; regenerate and commit the PDF if changed; `npm run screens`.
 3. One whole-diff review (opus) against this plan and the audit; one fix wave; re-review.
 4. Hand off to the owner. No push, merge to main or deploy.
+
+## Plan 3 result (2026-10-11)
+
+Executed as three parallel worktrees (A content, B tech, C design) merged into `redesign/signal`, then one controller alignment pass, a whole-diff review, one fix wave and a scoped re-review (approved). Gates on the final HEAD: `npm run check` green (48 unit), build OK, budget 150.5 KB gz initial / 306.4 KB 3D lazy, Lighthouse desktop 1.00 and mobile performance 0.91–0.96 (LCP warn by ruling), Playwright 138 passed / 0 failed (2 workers). Deferred by owner decision: the Tier A dive (empty .62–.82, flash) until checked on a real GPU; DIN case study returns after the DIN redesign. Open owner items stay in `docs/launch-checklist.md`.
